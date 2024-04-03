@@ -325,7 +325,8 @@ class CommonFunctions {
         themeData: _themeData,
       );
     } else if (basicData.type == CustomContentType.Image.name ||
-        basicData.type == CustomContentType.Youtube.name) {
+        basicData.type == CustomContentType.Youtube.name ||
+        basicData.type == CustomContentType.StorjImage.name) {
       fieldCard = CustomMediaCard(
         basicData: basicData,
         themeData: _themeData,

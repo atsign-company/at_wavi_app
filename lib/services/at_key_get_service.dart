@@ -200,17 +200,16 @@ class AtKeyGetService {
   ///parses customField value from [json] based on type.
   getCustomContentValue({required var type, required var json}) async {
     if (type == CustomContentType.Image.name) {
-      if (json[CustomFieldConstants.value].contains("storjshare")) {
-        String fileName = "custom_${json[CustomFieldConstants.label]}.png";
-        var imageFile = await StorjService()
-            .getFile(fileName, json[CustomFieldConstants.value]);
-        return imageFile!.readAsBytesSync();
-      }
       try {
         return base64Decode(json[CustomFieldConstants.value]);
       } catch (e) {
         return Base2e15.decode(json[CustomFieldConstants.value]);
       }
+    } else if (type == CustomContentType.StorjImage.name) {
+      String fileName = "custom_${json[CustomFieldConstants.label]}.png";
+      await StorjService()
+          .getFile(fileName, json[CustomFieldConstants.value]);
+      return json["value"];
     } else if (type == CustomContentType.Youtube.name) {
       if (json[CustomFieldConstants.valueLabel] != null &&
           json[CustomFieldConstants.valueLabel] != '') {

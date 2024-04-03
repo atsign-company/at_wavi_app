@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:at_common_flutter/at_common_flutter.dart';
 import 'package:at_location_flutter/utils/constants/colors.dart';
@@ -8,6 +7,7 @@ import 'package:at_wavi_app/screens/edit_persona/html_editor_screen.dart';
 import 'package:at_wavi_app/services/common_functions.dart';
 import 'package:at_wavi_app/services/field_order_service.dart';
 import 'package:at_wavi_app/services/image_picker.dart';
+import 'package:at_wavi_app/services/storj_service.dart';
 import 'package:at_wavi_app/utils/at_enum.dart';
 import 'package:at_wavi_app/utils/colors.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
@@ -16,7 +16,6 @@ import 'package:at_wavi_app/view_models/user_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:provider/provider.dart';
-import 'package:html_editor_enhanced/utils/options.dart';
 import 'package:at_wavi_app/common_components/custom_input_field.dart'
     as customInputField;
 
@@ -49,6 +48,7 @@ class _AddCustomFieldState extends State<AddCustomField> {
     CustomContentType.Link,
     CustomContentType.Number,
     CustomContentType.Image,
+    CustomContentType.StorjImage,
     CustomContentType.Youtube,
     CustomContentType.Html
   ];
@@ -62,16 +62,23 @@ class _AddCustomFieldState extends State<AddCustomField> {
     _getThemeData();
 
     if (widget.isEdit && widget.basicData != null) {
-      var basicDataJson = widget.basicData!.toJson();
-      basicData = BasicData.fromJson(json.decode(basicDataJson));
+      basicData = BasicData.copyWith(widget.basicData!);
 
-      if (widget.basicData!.type != CustomContentType.Image.name) {
+      if (widget.basicData!.type != CustomContentType.Image.name &&
+          widget.basicData!.type != CustomContentType.StorjImage.name) {
         basicData.valueDescription = basicData.value;
         basicData.value = null;
       }
 
       if (widget.basicData!.type == CustomContentType.Image.name) {
         isImageSelected = true;
+      }
+
+      if (widget.basicData!.type == CustomContentType.StorjImage.name) {
+        isImageSelected = true;
+        String fileName = "custom_${basicData.accountName}.png";
+        var imageFile = StorjService().getImageFromFile(fileName);
+        basicData.value = imageFile?.readAsBytesSync();
       }
 
       _fieldType = customContentNameToType(widget.basicData!.type);
@@ -244,13 +251,17 @@ class _AddCustomFieldState extends State<AddCustomField> {
                             )
                           : TextFormField(
                               autovalidateMode:
-                                  _fieldType == CustomContentType.Image
+                                  (_fieldType == CustomContentType.Image ||
+                                          _fieldType ==
+                                              CustomContentType.StorjImage)
                                       ? null
                                       : basicData.valueDescription != ''
                                           ? AutovalidateMode.disabled
                                           : AutovalidateMode.onUserInteraction,
                               validator: (value) {
-                                if (_fieldType == CustomContentType.Image) {
+                                if (_fieldType == CustomContentType.Image ||
+                                    _fieldType ==
+                                        CustomContentType.StorjImage) {
                                   return null;
                                 }
                                 if (value == null || value == '') {
@@ -556,8 +567,8 @@ class _AddCustomFieldState extends State<AddCustomField> {
       isImageSelected = true;
       // when image is selected , we are converting custom content's type image.
       // and the text entered will go to value description
-      basicData.type = CustomContentType.Image.name;
-      _fieldType = CustomContentType.Image;
+      basicData.type = CustomContentType.StorjImage.name;
+      _fieldType = CustomContentType.StorjImage;
       setState(() {});
     }
   }
@@ -702,7 +713,7 @@ class _AddCustomFieldState extends State<AddCustomField> {
     }
 
     if (isImageSelected) {
-      basicData.type = CustomContentType.Image.name;
+      basicData.type = CustomContentType.StorjImage.name;
     } else {
       basicData.value = basicData.valueDescription;
       basicData.valueDescription = null;

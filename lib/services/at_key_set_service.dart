@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:at_commons/at_commons.dart';
 import 'package:at_wavi_app/model/user.dart';
 import 'package:at_wavi_app/services/backend_service.dart';
@@ -170,6 +171,10 @@ class AtKeySetService {
       if (data.value == null || data.value == '') {
         atKey.key = atKey.key.replaceAll(' ', '');
         AtKeyGetService().objectReference().remove(key.split('.')[0]);
+
+        // Delete the image from Storj
+        await StorjService().deleteFile(atKey.key);
+
         result = await BackendService().atClientInstance.delete(atKey);
         if (!result) return result;
         continue;
@@ -183,7 +188,8 @@ class AtKeySetService {
       }
 
       // upload the image to storj
-      if (data.type == "Image") {
+      if (data.type == CustomContentType.Image.name ||
+          data.type == CustomContentType.StorjImage.name) {
         var imageFile = StorjService().saveImageToFile(atKey.key, data.value);
         var res = await StorjService().uploadFile(imageFile, atKey.key);
         if (res == null) {
@@ -196,7 +202,6 @@ class AtKeySetService {
           print(e);
         }
 
-        data.value = imageFile.readAsBytesSync();
       }
 
       result = await BackendService().atClientInstance.put(atKey, jsonValue);

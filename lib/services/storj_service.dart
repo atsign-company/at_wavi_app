@@ -243,13 +243,8 @@ class StorjService {
     }
   }
 
-  Future<bool> deleteFile(
-    String key,
-    String personaId,
-    BuzzkeyType buzzkeyType, {
-    bool isDelete = false,
-  }) async {
-    String fileName = key.split(".").last;
+  Future<bool> deleteFile(String name) async {
+    String fileName = '$name.png';
     var postPresignedUrl = await getInitialUrl(fileName);
 
     if (postPresignedUrl == null) {

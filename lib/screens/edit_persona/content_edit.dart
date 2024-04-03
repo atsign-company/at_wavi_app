@@ -425,7 +425,8 @@ class _CotentEditState extends State<CotentEdit> {
           isPrivate: basicData.isPrivate,
         ),
       );
-    } else if (basicData.type == CustomContentType.Image.name) {
+    } else if (basicData.type == CustomContentType.Image.name ||
+        basicData.type == CustomContentType.StorjImage.name) {
       fieldCard = SizedBox(
         width: double.infinity,
         child: MediaContentEditCard(basicData: basicData),

@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:at_wavi_app/model/user.dart';
 import 'package:at_wavi_app/services/storj_service.dart';
+import 'package:at_wavi_app/utils/at_enum.dart';
 import 'package:at_wavi_app/utils/colors.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -18,18 +19,14 @@ class _MediaContentEditCardState extends State<MediaContentEditCard> {
 
   @override
   void initState() {
-    // if (widget.basicData.value.contains("storjshare")) {
-    //   String fileName = "custom_${widget.basicData.accountName}.png";
-    //   var imageFile = StorjService().getImageFromFile(fileName);
-    //   if (imageFile != null) {
-    //     customImage = imageFile.readAsBytesSync();
-    //   }
-    // } else {
-    //   var intList = widget.basicData.value!.cast<int>();
-    //   customImage = Uint8List.fromList(intList);
-    // }
-    var intList = widget.basicData.value!.cast<int>();
-    customImage = Uint8List.fromList(intList);
+    if (widget.basicData.type == CustomContentType.StorjImage) {
+      String fileName = "custom_${widget.basicData.accountName}.png";
+      var imageFile = StorjService().getImageFromFile(fileName);
+      customImage = imageFile?.readAsBytesSync();
+    } else {
+      var intList = widget.basicData.value!.cast<int>();
+      customImage = Uint8List.fromList(intList);
+    }
     super.initState();
   }
 

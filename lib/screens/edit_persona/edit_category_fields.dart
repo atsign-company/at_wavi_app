@@ -361,7 +361,8 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
       );
 
       // to show image content
-    } else if (basicData.type == CustomContentType.Image.name) {
+    } else if (basicData.type == CustomContentType.Image.name ||
+        basicData.type == CustomContentType.StorjImage.name) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -554,19 +555,20 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
 
   Widget imageField(BasicData basicData) {
     late Uint8List customImage;
-    // if (basicData.value.contains("storjshare")) {
-    //   String fileName = "custom_${basicData.accountName}.png";
-    //   var imageFile = StorjService().getImageFromFile(fileName);
-    //   if (imageFile != null) {
-    //     customImage = imageFile.readAsBytesSync();
-    //   }
-    // } else {
-    //   var intList = basicData.value!.cast<int>();
-    //   customImage = Uint8List.fromList(intList);
-    // }
-
-    var intList = basicData.value!.cast<int>();
-    customImage = Uint8List.fromList(intList);
+    if (basicData.type == CustomContentType.StorjImage.name) {
+      if (basicData.value.runtimeType == String) {
+        String fileName = "custom_${basicData.accountName}.png";
+        var imageFile = StorjService().getImageFromFile(fileName);
+        if (imageFile != null) {
+          customImage = imageFile.readAsBytesSync();
+        }
+      }else {
+        customImage = basicData.value;
+      }
+    } else {
+      var intList = basicData.value!.cast<int>();
+      customImage = Uint8List.fromList(intList);
+    }
 
     return SizedBox(
       width: double.infinity,
@@ -582,7 +584,7 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
             padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             height: 200,
             child: Image.memory(
-              customImage,
+              customImage ?? basicData.value,
               fit: BoxFit.fill,
             ),
           ),

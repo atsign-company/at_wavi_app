@@ -25,7 +25,8 @@ class _CustomMediaCardState extends State<CustomMediaCard> {
 
   @override
   void initState() {
-    if (widget.basicData.type == CustomContentType.Image.name) {
+    if (widget.basicData.type == CustomContentType.Image.name ||
+        widget.basicData.type == CustomContentType.StorjImage.name) {
       getImage();
     } else if (widget.basicData.type == CustomContentType.Youtube.name) {
       // getting youtube video ID
@@ -47,19 +48,20 @@ class _CustomMediaCardState extends State<CustomMediaCard> {
 
   Future<void> getImage() async {
     _isImage = true;
-    // if (widget.basicData.value.contains("storjshare")) {
-    //   String fileName = "custom_${widget.basicData.accountName}.png";
-    //   var res = await StorjService().getFile(fileName, widget.basicData.value);
-    //   if(res != null) {
-    //     customImage = res.readAsBytesSync();
-    //   }
-    //   return;
-    // }
+    if (widget.basicData.type == CustomContentType.StorjImage.name) {
+      String fileName = "custom_${widget.basicData.accountName}.png";
+      customImage = StorjService().getImageFromFile(fileName)?.readAsBytesSync();
+      return;
+    }
     if (widget.basicData.value is String) {
       widget.basicData.value = json.decode(widget.basicData.value);
     }
-    var intList = widget.basicData.value!.cast<int>();
-    customImage = Uint8List.fromList(intList);
+    try {
+      var intList = widget.basicData.value!.cast<int>();
+      customImage = Uint8List.fromList(intList);
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override

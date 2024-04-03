@@ -317,6 +317,16 @@ class BasicData {
     }
   }
 
+  factory BasicData.copyWith(BasicData basicData) {
+    return BasicData(
+      accountName: basicData.accountName,
+      isPrivate: basicData.isPrivate,
+      type: basicData.type,
+      value: basicData.value,
+      valueDescription: basicData.valueDescription,
+    );
+  }
+
   factory BasicData.fromJson(Map<String, dynamic> json) {
     if (json['value'] != null &&
         json['accountName'] != null &&
@@ -326,11 +336,9 @@ class BasicData {
           json['accountName'] == FieldsEnum.IMAGE.name &&
               json['value'] != null &&
               json['value'] != '') {
-        // if (json['value'].contains("storjshare") == false) {
         json['value'] = jsonDecode(json['value']);
         json['value'] = json['value']!.cast<int>();
         json['value'] = Uint8List.fromList(json['value']);
-        // }
       }
       if (json['value'] == '') {
         json['value'] = null;
