@@ -35,6 +35,7 @@ class DesktopProfileAddCustomField extends StatefulWidget {
       CustomContentType.Link,
       CustomContentType.Number,
       CustomContentType.Image,
+      CustomContentType.StorjImage,
       CustomContentType.Youtube,
       CustomContentType.Html,
     ],
@@ -198,7 +199,7 @@ class _DesktopProfileAddCustomFieldState
             controller: model.valueContentTextController,
             hint: '',
           );
-        } else if (model.fieldType == CustomContentType.Image) {
+        } else if (model.fieldType == CustomContentType.Image || model.fieldType == CustomContentType.StorjImage) {
           return Directionality(
             textDirection: TextDirection.ltr,
             child: Row(

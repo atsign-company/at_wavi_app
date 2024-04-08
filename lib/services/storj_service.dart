@@ -192,7 +192,7 @@ class StorjService {
 
   // Saves the image to the directory
   File saveImageToFile(String name, Uint8List imageBytes) {
-    String fileName = '$name.png';
+    String fileName = name.contains(".png") ? name : '$name.png';
     var directory = getDirectoryPath();
     // Create the directory if it doesn't exist
     if (!directory.existsSync()) {

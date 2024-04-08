@@ -68,7 +68,7 @@ class DesktopAddBasicDetailModel extends ChangeNotifier {
     }
     _basicData.accountName = titleTextController.text.trim();
     _basicData.isPrivate = showHideController.isShow == false;
-    if (_fieldType != CustomContentType.Image) {
+    if (_fieldType != CustomContentType.Image && _fieldType != CustomContentType.StorjImage) {
       _basicData.value = valueContentTextController.text;
     } else {
       _basicData.value = selectedMedia;

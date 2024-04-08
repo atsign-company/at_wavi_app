@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:at_commons/at_commons.dart';
 import 'package:at_wavi_app/model/user.dart';
 import 'package:at_wavi_app/services/backend_service.dart';
@@ -190,6 +191,9 @@ class AtKeySetService {
       // upload the image to storj
       if (data.type == CustomContentType.Image.name ||
           data.type == CustomContentType.StorjImage.name) {
+        if (data.value is String) {
+          continue;
+        }
         var imageFile = StorjService().saveImageToFile(atKey.key, data.value);
         var res = await StorjService().uploadFile(imageFile, atKey.key);
         if (res == null) {
@@ -201,7 +205,6 @@ class AtKeySetService {
         } catch (e) {
           print(e);
         }
-
       }
 
       result = await BackendService().atClientInstance.put(atKey, jsonValue);
