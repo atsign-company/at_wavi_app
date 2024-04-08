@@ -7,6 +7,7 @@ import 'package:at_wavi_app/services/at_key_set_service.dart';
 import 'package:at_wavi_app/services/backend_service.dart';
 import 'package:at_wavi_app/services/field_order_service.dart';
 import 'package:at_wavi_app/services/nav_service.dart';
+import 'package:at_wavi_app/services/storj_service.dart';
 import 'package:at_wavi_app/utils/at_enum.dart';
 import 'package:at_wavi_app/utils/at_key_constants.dart';
 import 'package:at_wavi_app/utils/constants.dart';
@@ -108,7 +109,6 @@ class AtKeyGetService {
           await BackendService().atClientInstance.get(atKey).catchError((e) {
         print('error in getitng value : ${atKey.key}');
       });
-      
 
       if (atKey.key!.contains(MixedConstants.fieldOrderKey)) {
         FieldOrderService().addFieldOrder(successValue);
@@ -127,7 +127,8 @@ class AtKeyGetService {
       }
 
       if (successValue.value != null && successValue.value != '') {
-        isSetUserField = _setUserField(atKey.key, successValue.value, isCustom,
+        isSetUserField = await _setUserField(
+            atKey.key, successValue.value, isCustom,
             isPublic: successValue.metadata?.isPublic);
       }
       return isSetUserField;
@@ -137,7 +138,8 @@ class AtKeyGetService {
   }
 
   /// sets user field with [value].
-  bool _setUserField(var key, var value, bool isCustom, {bool? isPublic}) {
+  Future<bool> _setUserField(var key, var value, bool isCustom,
+      {bool? isPublic}) async {
     try {
       bool isPrivate = true;
       if (isPublic != null && isPublic) {
@@ -145,7 +147,7 @@ class AtKeyGetService {
       }
       _tempObject[key] = value;
       if (isCustom) {
-        _setCustomField(value, isPrivate);
+        await _setCustomField(value, isPrivate);
         return true;
       }
       set(key, value, isPrivate: isPrivate);
@@ -156,12 +158,12 @@ class AtKeyGetService {
   }
 
   ///sets user customFields.
-  void _setCustomField(String response, isPrivate) {
+  Future<void> _setCustomField(String response, isPrivate) async {
     var json = jsonDecode(response);
     if (json != 'null' && json != null) {
       String category = json[CustomFieldConstants.category];
       var type = getType(json[CustomFieldConstants.type]);
-      var value = getCustomContentValue(type: type, json: json);
+      var value = await getCustomContentValue(type: type, json: json);
       String label = json[CustomFieldConstants.label];
       String? valueDescription = json[CustomFieldConstants.valueDescription];
       BasicData basicData = BasicData(
@@ -196,13 +198,18 @@ class AtKeyGetService {
   }
 
   ///parses customField value from [json] based on type.
-  getCustomContentValue({required var type, required var json}) {
+  getCustomContentValue({required var type, required var json}) async {
     if (type == CustomContentType.Image.name) {
       try {
         return base64Decode(json[CustomFieldConstants.value]);
       } catch (e) {
         return Base2e15.decode(json[CustomFieldConstants.value]);
       }
+    } else if (type == CustomContentType.StorjImage.name) {
+      String fileName = "custom_${json[CustomFieldConstants.label]}.png";
+      await StorjService()
+          .getFile(fileName, json[CustomFieldConstants.value]);
+      return json["value"];
     } else if (type == CustomContentType.Youtube.name) {
       if (json[CustomFieldConstants.valueLabel] != null &&
           json[CustomFieldConstants.valueLabel] != '') {

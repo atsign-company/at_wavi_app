@@ -5,9 +5,11 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   at_file_saver
   desktop_window
+  fast_rsa
   file_selector_windows
   geolocator_windows
   permission_handler_windows
+  share_plus
   url_launcher_windows
 )
 

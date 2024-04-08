@@ -40,7 +40,8 @@ class DesktopBasicInfoWidget extends StatelessWidget {
     if (data.type == CustomContentType.Youtube.name ||
         data.type == CustomContentType.Link.name) {
       return _youtubeContent(context);
-    } else if (data.type == CustomContentType.Image.name) {
+    } else if (data.type == CustomContentType.Image.name ||
+        data.type == CustomContentType.StorjImage.name) {
       return _imageContent(context);
     } else if (data.type == CustomContentType.Html.name ||
         data.type == CustomContentType.Number.name ||
@@ -54,10 +55,10 @@ class DesktopBasicInfoWidget extends StatelessWidget {
   Widget _textContent(BuildContext context) {
     bool isUrl;
     String url;
-    if(Uri.parse(data.value).isAbsolute) {
+    if (Uri.parse(data.value).isAbsolute) {
       isUrl = true;
       url = data.value;
-    }else {
+    } else {
       url = getUrl(data.displayingAccountName ?? "", data.value);
       isUrl = Uri.parse(url).isAbsolute;
     }
@@ -100,7 +101,9 @@ class DesktopBasicInfoWidget extends StatelessWidget {
                 child: Text(
                   data.value ?? '',
                   style: appTheme.textTheme.bodyText2?.copyWith(
-                    color: isUrl || isEmail ? Colors.blue : appTheme.primaryTextColor,
+                    color: isUrl || isEmail
+                        ? Colors.blue
+                        : appTheme.primaryTextColor,
                   ),
                 ),
               ),

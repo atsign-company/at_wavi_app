@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:at_wavi_app/model/user.dart';
+import 'package:at_wavi_app/services/storj_service.dart';
 import 'package:at_wavi_app/utils/at_enum.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class CustomMediaCard extends StatefulWidget {
@@ -23,13 +25,9 @@ class _CustomMediaCardState extends State<CustomMediaCard> {
 
   @override
   void initState() {
-    if (widget.basicData.type == CustomContentType.Image.name) {
-      _isImage = true;
-      if (widget.basicData.value is String) {
-        widget.basicData.value = json.decode(widget.basicData.value);
-      }
-      var intList = widget.basicData.value!.cast<int>();
-      customImage = Uint8List.fromList(intList);
+    if (widget.basicData.type == CustomContentType.Image.name ||
+        widget.basicData.type == CustomContentType.StorjImage.name) {
+      getImage();
     } else if (widget.basicData.type == CustomContentType.Youtube.name) {
       // getting youtube video ID
       String? videoId;
@@ -46,6 +44,24 @@ class _CustomMediaCardState extends State<CustomMediaCard> {
       );
     }
     super.initState();
+  }
+
+  Future<void> getImage() async {
+    _isImage = true;
+    if (widget.basicData.type == CustomContentType.StorjImage.name) {
+      String fileName = "custom_${widget.basicData.accountName}.png";
+      customImage = StorjService().getImageFromFile(fileName)?.readAsBytesSync();
+      return;
+    }
+    if (widget.basicData.value is String) {
+      widget.basicData.value = json.decode(widget.basicData.value);
+    }
+    try {
+      var intList = widget.basicData.value!.cast<int>();
+      customImage = Uint8List.fromList(intList);
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override

@@ -1,10 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
-
-import 'package:at_base2e15/at_base2e15.dart';
 import 'package:at_commons/at_commons.dart';
 import 'package:at_wavi_app/model/user.dart';
 import 'package:at_wavi_app/services/backend_service.dart';
+import 'package:at_wavi_app/services/storj_service.dart';
 import 'package:at_wavi_app/utils/at_enum.dart';
 import 'package:at_wavi_app/utils/at_key_constants.dart';
 import 'package:at_wavi_app/view_models/user_provider.dart';
@@ -102,7 +102,7 @@ class AtKeySetService {
 
     tempScanKeys.retainWhere((scanKey) =>
         scanKey.key == atKey.key &&
-        !scanKey.metadata!.isPublic! == atKey.metadata!.isPublic);
+        !scanKey.metadata.isPublic == atKey.metadata.isPublic);
 
     if (tempScanKeys.isNotEmpty) {
       await Future.forEach(tempScanKeys, (element) async {
@@ -144,7 +144,7 @@ class AtKeySetService {
       String oldkey = _formatOldCustomTitle(data.accountName);
       for (int i = 0; i < scanKeys.length; i++) {
         if (scanKeys[i].key != null &&
-            scanKeys[i].key!.contains(oldkey) &&
+            scanKeys[i].key.contains(oldkey) &&
             data.accountName!.contains(" ")) {
           await BackendService().atClientInstance.delete(scanKeys[i]);
         }
@@ -170,8 +170,12 @@ class AtKeySetService {
       var isDeleted = await _deleteChangedKeys(atKey, scanKeys);
 
       if (data.value == null || data.value == '') {
-        atKey.key = atKey.key!.replaceAll(' ', '');
+        atKey.key = atKey.key.replaceAll(' ', '');
         AtKeyGetService().objectReference().remove(key.split('.')[0]);
+
+        // Delete the image from Storj
+        await StorjService().deleteFile(atKey.key);
+
         result = await BackendService().atClientInstance.delete(atKey);
         if (!result) return result;
         continue;
@@ -181,6 +185,25 @@ class AtKeySetService {
             key, BasicData(value: jsonValue, isPrivate: data.isPrivate));
         if (notUpdate) {
           continue;
+        }
+      }
+
+      // upload the image to storj
+      if (data.type == CustomContentType.Image.name ||
+          data.type == CustomContentType.StorjImage.name) {
+        if (data.value is String) {
+          continue;
+        }
+        var imageFile = StorjService().saveImageToFile(atKey.key, data.value);
+        var res = await StorjService().uploadFile(imageFile, atKey.key);
+        if (res == null) {
+          return false;
+        }
+        data.value = res;
+        try {
+          jsonValue = _encodeToJsonString(data, category);
+        } catch (e) {
+          print(e);
         }
       }
 
@@ -289,19 +312,19 @@ class AtKeySetService {
   ///returns [json] by modifying the value based on [type].
   _setCustomContentValue({required var type, required var json}) {
     json[CustomFieldConstants.valueLabel] = '';
-    if (type == CustomContentType.Image.name) {
-      if (json[CustomFieldConstants.value] is String) {
-        json[CustomFieldConstants.value] =
-            json.decode(json[CustomFieldConstants.value]);
-        var intList = json[CustomFieldConstants.value]!.cast<int>();
-        var customImage = Uint8List.fromList(intList);
-        json[CustomFieldConstants.value] = Base2e15.encode(customImage);
-      } else {
-        json[CustomFieldConstants.value] =
-            Base2e15.encode(json[CustomFieldConstants.value]);
-      }
-      return json;
-    } else if (type == CustomContentType.Youtube.name) {
+    // if (type == CustomContentType.Image.name) {
+    //   if (json[CustomFieldConstants.value] is String) {
+    //     json[CustomFieldConstants.value] =
+    //         json.decode(json[CustomFieldConstants.value]);
+    //     var intList = json[CustomFieldConstants.value]!.cast<int>();
+    //     var customImage = Uint8List.fromList(intList);
+    //     json[CustomFieldConstants.value] = Base2e15.encode(customImage);
+    //   } else {
+    //     json[CustomFieldConstants.value] =
+    //         Base2e15.encode(json[CustomFieldConstants.value]);
+    //   }
+    //   return json;
+    if (type == CustomContentType.Youtube.name) {
       json[CustomFieldConstants.valueLabel] = json[CustomFieldConstants.value];
       var match = RegExp(AtText.YOUTUBE_PATTERN)
           .firstMatch(json[CustomFieldConstants.value].toString());

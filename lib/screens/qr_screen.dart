@@ -8,7 +8,9 @@ import '../utils/text_styles.dart';
 
 class QrScreen extends StatefulWidget {
   QrScreen({required this.atSign});
+
   String atSign;
+
   @override
   State<QrScreen> createState() => _QrScreenState();
 }
@@ -79,12 +81,13 @@ class _QrScreenState extends State<QrScreen> {
                 SizedBox(
                   height: 30,
                 ),
-                QrImage(
+                QrImageView(
                   data: widget.atSign,
                   size: 180,
-                  foregroundColor: _themeData!.brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
+                  eyeStyle: QrEyeStyle(
+                      color: _themeData!.brightness == Brightness.dark
+                          ? Colors.white
+                          : Colors.black),
                 ),
                 SizedBox(
                   height: 30,
@@ -149,8 +152,9 @@ class _QrScreenState extends State<QrScreen> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      textStyle: const TextStyle(fontSize: 20),
-                      primary: _highlightColor),
+                    textStyle: const TextStyle(fontSize: 20),
+                    backgroundColor: _highlightColor,
+                  ),
                   onPressed: () {
                     // print(_commentController.text.length);
                     Share.share("https://wavi.ng/" + widget.atSign.toString(),

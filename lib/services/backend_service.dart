@@ -11,6 +11,7 @@ import 'package:at_wavi_app/desktop/utils/snackbar_utils.dart';
 import 'package:at_wavi_app/model/at_follows_value.dart';
 import 'package:at_wavi_app/routes/route_names.dart';
 import 'package:at_wavi_app/routes/routes.dart';
+import 'package:at_wavi_app/services/storj_service.dart';
 import 'package:at_wavi_app/services/version_service.dart';
 import 'package:at_wavi_app/view_models/base_model.dart';
 import 'package:at_wavi_app/view_models/follow_service.dart';
@@ -156,6 +157,7 @@ class BackendService {
     await Provider.of<FollowService>(NavService.navKey.currentContext!,
             listen: false)
         .init();
+    await StorjService().init();
 
     var _themeProvider = Provider.of<ThemeProvider>(
         NavService.navKey.currentContext!,

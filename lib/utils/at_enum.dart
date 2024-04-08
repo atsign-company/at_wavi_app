@@ -262,6 +262,7 @@ String getUrl(String name, String value) {
 /// new app doesnt have IMAGE
 enum AtCategory {
   IMAGE,
+  STORJIMAGE,
   DETAILS,
   LOCATION,
   SOCIAL,
@@ -281,6 +282,9 @@ extension AtCategoryValues on AtCategory {
     switch (this) {
       case AtCategory.IMAGE:
         return 'Image';
+
+      case AtCategory.STORJIMAGE:
+        return 'StorjImage';
 
       case AtCategory.DETAILS:
         return 'Details';
@@ -308,6 +312,8 @@ extension AtCategoryValues on AtCategory {
     switch (this) {
       case AtCategory.IMAGE:
         return 'Image';
+      case AtCategory.STORJIMAGE:
+        return 'StorjImage';
       case AtCategory.DETAILS:
         return 'Contact';
       case AtCategory.SOCIAL:
@@ -457,7 +463,7 @@ extension value on RootEnvironment {
 
 enum CustomContentStatus { Exists, Success, Fails }
 
-enum CustomContentType { Text, Link, Number, Image, Youtube, Html, Location }
+enum CustomContentType { Text, Link, Number, Image, StorjImage, Youtube, Html, Location }
 
 extension values on CustomContentType {
   String get name {
@@ -473,6 +479,9 @@ extension values on CustomContentType {
 
       case CustomContentType.Image:
         return 'Image';
+
+      case CustomContentType.StorjImage:
+        return 'StorjImage';
 
       case CustomContentType.Youtube:
         return 'Youtube';
@@ -528,6 +537,9 @@ CustomContentType customContentNameToType(String name) {
 
     case 'Image':
       return CustomContentType.Image;
+
+    case 'StorjImage':
+      return CustomContentType.StorjImage;
 
     case 'Youtube':
       return CustomContentType.Youtube;

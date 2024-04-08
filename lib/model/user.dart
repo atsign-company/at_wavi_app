@@ -270,10 +270,9 @@ class User {
             BasicData.fromJson(json.decode(userMap[FieldsEnum.DISCORD.name])),
         htmlToastView: BasicData.fromJson(
             json.decode(userMap[FieldsEnum.HTMLTOASTVIEW.name])),
-        switchField: BasicData.fromJson(
-            json.decode(userMap[FieldsEnum.SWITCH.name])),
-        epic: BasicData.fromJson(
-            json.decode(userMap[FieldsEnum.EPIC.name])),
+        switchField:
+            BasicData.fromJson(json.decode(userMap[FieldsEnum.SWITCH.name])),
+        epic: BasicData.fromJson(json.decode(userMap[FieldsEnum.EPIC.name])),
         customFields: customFields,
       );
     } catch (e) {
@@ -316,6 +315,16 @@ class BasicData {
     } else {
       return accountName;
     }
+  }
+
+  factory BasicData.copyWith(BasicData basicData) {
+    return BasicData(
+      accountName: basicData.accountName,
+      isPrivate: basicData.isPrivate,
+      type: basicData.type,
+      value: basicData.value,
+      valueDescription: basicData.valueDescription,
+    );
   }
 
   factory BasicData.fromJson(Map<String, dynamic> json) {

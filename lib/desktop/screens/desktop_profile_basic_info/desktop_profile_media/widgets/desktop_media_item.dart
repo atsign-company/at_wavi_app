@@ -1,8 +1,12 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:at_wavi_app/desktop/services/theme/app_theme.dart';
 import 'package:at_wavi_app/model/user.dart';
+import 'package:at_wavi_app/services/storj_service.dart';
 import 'package:flutter/material.dart';
 
-class DesktopMediaItem extends StatelessWidget {
+class DesktopMediaItem extends StatefulWidget {
   final BasicData data;
   final bool showMenu;
   final VoidCallback? onEditPressed;
@@ -16,15 +20,42 @@ class DesktopMediaItem extends StatelessWidget {
   });
 
   @override
+  State<DesktopMediaItem> createState() => _DesktopMediaItemState();
+}
+
+class _DesktopMediaItemState extends State<DesktopMediaItem> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    String fileName = "custom_${widget.data.accountName}.png";
+
     final appTheme = AppTheme.of(context);
     return Stack(
       children: [
         Container(
-          child: Image.memory(
-            data.value,
-            fit: BoxFit.cover,
-          ),
+          child: widget.data.value is Uint8List
+              ? Image.memory(
+                  widget.data.value,
+                  fit: BoxFit.cover,
+                )
+              : FutureBuilder<File?>(
+                  future: StorjService().getFile(fileName, widget.data.value),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      File file = snapshot.data!;
+                      return Image.memory(
+                        file.readAsBytesSync(),
+                        fit: BoxFit.cover,
+                      );
+                    } else {
+                      return Icon(Icons.image);
+                    }
+                  },
+                ),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
           clipBehavior: Clip.antiAlias,
         ),
@@ -51,14 +82,14 @@ class DesktopMediaItem extends StatelessWidget {
                 Expanded(
                   child: Container(
                     child: Text(
-                      data.accountName ?? '',
+                      widget.data.accountName ?? '',
                       style: appTheme.textTheme.subtitle2
                           ?.copyWith(color: Colors.white),
                     ),
                     padding: EdgeInsets.only(left: 8, top: 8, bottom: 8),
                   ),
                 ),
-                if (showMenu) _buildMenuWidget(context),
+                if (widget.showMenu) _buildMenuWidget(context),
               ],
             ),
           ),
@@ -101,9 +132,9 @@ class DesktopMediaItem extends StatelessWidget {
       ),
       onSelected: (index) {
         if (index == 0) {
-          onEditPressed?.call();
+          widget.onEditPressed?.call();
         } else if (index == 1) {
-          onDeletePressed?.call();
+          widget.onDeletePressed?.call();
         }
       },
     );

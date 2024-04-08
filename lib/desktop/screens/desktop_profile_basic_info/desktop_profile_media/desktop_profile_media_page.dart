@@ -215,7 +215,7 @@ class _DesktopProfileMediaPageState extends State<DesktopProfileMediaPage>
         child: DesktopProfileAddCustomField(
           atCategory: widget.atCategory,
           allowContentType: [
-            CustomContentType.Image,
+            CustomContentType.StorjImage,
           ],
         ),
       ),
@@ -236,7 +236,7 @@ class _DesktopProfileMediaPageState extends State<DesktopProfileMediaPage>
           atCategory: AtCategory.IMAGE,
           data: basicData,
           allowContentType: [
-            CustomContentType.Image,
+            CustomContentType.StorjImage,
           ],
         ),
       ),
