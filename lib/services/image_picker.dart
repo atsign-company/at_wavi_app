@@ -10,7 +10,9 @@ import 'package:image_cropper/image_cropper.dart';
 
 class ImagePicker {
   ImagePicker._();
+
   static final ImagePicker _instance = ImagePicker._();
+
   factory ImagePicker() => _instance;
 
   Future<Uint8List?> pickImage() async {
@@ -24,17 +26,20 @@ class ImagePicker {
         // var file = File(path);
 
         var _cropped = await ImageCropper().cropImage(
-            sourcePath: pickedFile.path!,
-            aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-            compressQuality: 100,
-            maxHeight: 700,
-            maxWidth: 700,
-            compressFormat: ImageCompressFormat.jpg,
-            androidUiSettings: AndroidUiSettings(
+          sourcePath: pickedFile.path!,
+          aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+          compressQuality: 100,
+          maxHeight: 700,
+          maxWidth: 700,
+          compressFormat: ImageCompressFormat.jpg,
+          uiSettings: [
+            AndroidUiSettings(
                 toolbarColor: AllColors().WHITE,
                 toolbarTitle: 'Cropper',
                 statusBarColor: AllColors().DARK_GREY,
-                backgroundColor: AllColors().WHITE));
+                backgroundColor: AllColors().WHITE),
+          ],
+        );
 
         if (_cropped == null) {
           return null;

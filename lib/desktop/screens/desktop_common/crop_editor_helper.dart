@@ -43,12 +43,12 @@ Future<Uint8List?> cropImageDataWithDartLibrary(
   final DateTime time1 = DateTime.now();
 
   //Decode source to Animation. It can holds multi frame.
-  Animation? src;
+  Image? src;
   //LoadBalancer lb;
   if (kIsWeb) {
-    src = decodeAnimation(data);
+    src = decodeImage(data);
   } else {
-    src = await compute(decodeAnimation, data);
+    src = await compute(decodeImage, data);
   }
   if (src != null) {
     //handle every frame.
@@ -58,24 +58,29 @@ Future<Uint8List?> cropImageDataWithDartLibrary(
       image = bakeOrientation(image);
 
       if (editAction.needCrop) {
-        image = copyCrop(image, cropRect!.left.toInt(), cropRect.top.toInt(),
-            cropRect.width.toInt(), cropRect.height.toInt());
+        image = copyCrop(
+          image,
+          x: cropRect!.left.toInt(),
+          y: cropRect.top.toInt(),
+          width: cropRect.width.toInt(),
+          height: cropRect.height.toInt(),
+        );
       }
 
       if (editAction.needFlip) {
-        late Flip mode;
+        late FlipDirection mode;
         if (editAction.flipY && editAction.flipX) {
-          mode = Flip.both;
+          mode = FlipDirection.both;
         } else if (editAction.flipY) {
-          mode = Flip.horizontal;
+          mode = FlipDirection.horizontal;
         } else if (editAction.flipX) {
-          mode = Flip.vertical;
+          mode = FlipDirection.vertical;
         }
-        image = flip(image, mode);
+        image = flip(image, direction: mode);
       }
 
       if (editAction.hasRotateAngle) {
-        image = copyRotate(image, editAction.rotateAngle);
+        image = copyRotate(image, angle: editAction.rotateAngle);
       }
       final DateTime time3 = DateTime.now();
       print('${time3.difference(time2)} : crop/flip/rotate');
@@ -98,12 +103,12 @@ Future<Uint8List?> cropImageDataWithDartLibrary(
     final bool onlyOneFrame = src.numFrames == 1;
     //If there's only one frame, encode it to jpg.
     if (kIsWeb) {
-      fileData = onlyOneFrame ? encodeJpg(src.first) : encodeGifAnimation(src);
+      fileData = onlyOneFrame ? encodeJpg(src) : encodeGif(src);
     } else {
       //fileData = await lb.run<List<int>, Image>(encodeJpg, src);
       fileData = onlyOneFrame
-          ? await compute(encodeJpg, src.first)
-          : await compute(encodeGifAnimation, src);
+          ? await compute(encodeJpg, src)
+          : await compute(encodeGif, src);
     }
   }
   final DateTime time5 = DateTime.now();
@@ -138,7 +143,7 @@ void _isolateDecodeImage(SendPort port) {
   rPort.listen((dynamic message) {
     final SendPort send = message[0] as SendPort;
     final List<int> data = message[1] as List<int>;
-    send.send(decodeImage(data));
+    send.send(decodeImage(Uint8List.fromList(data)));
   });
 }
 

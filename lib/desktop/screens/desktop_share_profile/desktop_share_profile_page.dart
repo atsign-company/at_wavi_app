@@ -89,13 +89,13 @@ class _DesktopShareProfilePageState extends State<DesktopShareProfilePage> {
                             style: appTheme.textTheme.bodyLarge,
                           ),
                           SizedBox(height: DesktopDimens.paddingNormal),
-                          QrImage(
+                          QrImageView(
                             data: widget.atSign,
                             size: (MediaQuery.of(context).size.height - 60) /
                                     3 *
                                     2 -
                                 120,
-                            foregroundColor: Colors.black,
+                            eyeStyle: QrEyeStyle(color: Colors.black),
                             backgroundColor: Colors.white,
                           )
                         ],

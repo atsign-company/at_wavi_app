@@ -538,22 +538,25 @@ class _LocationWidgetState extends State<LocationWidget> {
                                 setState(() {});
                               },
                               child: Slidable(
-                                actionPane: SlidableDrawerActionPane(),
-                                actionExtentRatio: 0.15,
-                                secondaryActions: <Widget>[
-                                  IconSlideAction(
-                                    caption: '',
-                                    color: _themeData!.scaffoldBackgroundColor,
-                                    icon: Icons.delete,
-                                    onTap: () {
-                                      _deleteKey(Provider.of<UserPreview>(
-                                              context,
-                                              listen: false)
-                                          .user()!
-                                          .customFields['LOCATION']![index]);
-                                    },
-                                  ),
-                                ],
+                                endActionPane: ActionPane(
+                                  motion: ScrollMotion(),
+                                  extentRatio: 0.15,
+                                  children: [
+                                    SlidableAction(
+                                      label: '',
+                                      backgroundColor:
+                                          _themeData!.scaffoldBackgroundColor,
+                                      icon: Icons.delete,
+                                      onPressed: (context) {
+                                        _deleteKey(Provider.of<UserPreview>(
+                                                context,
+                                                listen: false)
+                                            .user()!
+                                            .customFields['LOCATION']![index]);
+                                      },
+                                    ),
+                                  ],
+                                ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -736,7 +739,9 @@ class _LocationWidgetState extends State<LocationWidget> {
 
 class LocationWidgetData {
   LocationWidgetData._();
+
   static final LocationWidgetData _instance = LocationWidgetData._();
+
   factory LocationWidgetData() => _instance;
 
   ValueNotifier<OsmLocationModel?>? osmLocationModelNotifier;
