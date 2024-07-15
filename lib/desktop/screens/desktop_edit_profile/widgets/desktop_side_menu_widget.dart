@@ -28,17 +28,15 @@ class DesktopSideMenuWidget extends StatelessWidget {
           alignment: Alignment.centerLeft,
           child: Text(
             menu.title,
-            style: appTheme.textTheme.button?.copyWith(
+            style: appTheme.textTheme.labelLarge?.copyWith(
               color: isSelected ? Colors.white : appTheme.secondaryTextColor,
             ),
           ),
         ),
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
-              isSelected ? appTheme.primaryColor : Colors.transparent),
-          shadowColor: MaterialStateProperty.all(
-              isSelected ? Colors.black.withOpacity(0.16) : Colors.transparent),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          backgroundColor: WidgetStateProperty.all(isSelected ? appTheme.primaryColor : Colors.transparent),
+          shadowColor: WidgetStateProperty.all(isSelected ? Colors.black.withOpacity(0.16) : Colors.transparent),
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5.0),
             ),

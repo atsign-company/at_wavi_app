@@ -12,8 +12,7 @@ class DesktopOnBoardingPage extends StatefulWidget {
   _DesktopOnBoardingPageState createState() => _DesktopOnBoardingPageState();
 }
 
-class _DesktopOnBoardingPageState extends State<DesktopOnBoardingPage>
-    with SingleTickerProviderStateMixin {
+class _DesktopOnBoardingPageState extends State<DesktopOnBoardingPage> with SingleTickerProviderStateMixin {
   final numOfPage = 2;
   late PageController _pageController;
   late TabController _tabController;
@@ -97,7 +96,7 @@ class _DesktopOnBoardingPageState extends State<DesktopOnBoardingPage>
             Text(
               Strings.desktop_login_title_page[index],
               textAlign: TextAlign.center,
-              style: appTheme.textTheme.headline6?.copyWith(
+              style: appTheme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -105,7 +104,7 @@ class _DesktopOnBoardingPageState extends State<DesktopOnBoardingPage>
             Text(
               Strings.desktop_login_sub_title_page[index],
               textAlign: TextAlign.center,
-              style: appTheme.textTheme.bodyText2?.copyWith(
+              style: appTheme.textTheme.bodyMedium?.copyWith(
                 color: appTheme.secondaryTextColor,
                 height: 1.2,
               ),

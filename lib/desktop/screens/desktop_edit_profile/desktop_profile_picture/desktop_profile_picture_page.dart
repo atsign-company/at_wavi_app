@@ -1,23 +1,22 @@
 import 'dart:typed_data';
 
 import 'package:at_wavi_app/common_components/provider_callback.dart';
+import 'package:at_wavi_app/desktop/services/theme/app_theme.dart';
 import 'package:at_wavi_app/desktop/utils/desktop_dimens.dart';
 import 'package:at_wavi_app/desktop/utils/snackbar_utils.dart';
+import 'package:at_wavi_app/desktop/widgets/buttons/desktop_icon_button.dart';
 import 'package:at_wavi_app/desktop/widgets/desktop_button.dart';
 import 'package:at_wavi_app/services/image_picker.dart';
 import 'package:at_wavi_app/view_models/user_preview.dart';
 import 'package:at_wavi_app/view_models/user_provider.dart';
-import 'package:provider/provider.dart';
-import 'package:at_wavi_app/desktop/services/theme/app_theme.dart';
-import 'package:at_wavi_app/desktop/widgets/buttons/desktop_icon_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DesktopProfilePicturePage extends StatefulWidget {
   DesktopProfilePicturePage({Key? key}) : super(key: key);
 
   @override
-  _DesktopProfilePicturePageState createState() =>
-      _DesktopProfilePicturePageState();
+  _DesktopProfilePicturePageState createState() => _DesktopProfilePicturePageState();
 }
 
 class _DesktopProfilePicturePageState extends State<DesktopProfilePicturePage> {
@@ -37,8 +36,7 @@ class _DesktopProfilePicturePageState extends State<DesktopProfilePicturePage> {
 
     ImagePicker().desktopPickImage(context).then((data) {
       if (data != null) {
-        final image =
-            Provider.of<UserPreview>(context, listen: false).user()!.image;
+        final image = Provider.of<UserPreview>(context, listen: false).user()!.image;
         image.value = data;
         Provider.of<UserPreview>(context, listen: false).user()!.image = image;
         Provider.of<UserPreview>(context, listen: false).notify();
@@ -51,8 +49,7 @@ class _DesktopProfilePicturePageState extends State<DesktopProfilePicturePage> {
     await providerCallback<UserProvider>(
       context,
       task: (provider) async {
-        await provider.saveUserData(
-            Provider.of<UserPreview>(context, listen: false).user()!);
+        await provider.saveUserData(Provider.of<UserPreview>(context, listen: false).user()!);
       },
       onError: (provider) {},
       showDialog: false,
@@ -81,7 +78,7 @@ class _DesktopProfilePicturePageState extends State<DesktopProfilePicturePage> {
           ),
           Text(
             'Edit image',
-            style: appTheme.textTheme.bodyText1?.copyWith(
+            style: appTheme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -90,14 +87,14 @@ class _DesktopProfilePicturePageState extends State<DesktopProfilePicturePage> {
           ),
           Text(
             'All info is public unless set to Private',
-            style: appTheme.textTheme.bodyText2,
+            style: appTheme.textTheme.bodyMedium,
           ),
           const SizedBox(
             height: DesktopDimens.paddingNormal,
           ),
           Text(
             'Update your profile Image',
-            style: appTheme.textTheme.bodyText1?.copyWith(
+            style: appTheme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -179,15 +176,13 @@ class _DesktopProfilePicturePageState extends State<DesktopProfilePicturePage> {
           activeColor: appTheme.primaryColor,
           title: Text(
             'Set image to private',
-            style: appTheme.textTheme.bodyText2,
+            style: appTheme.textTheme.bodyMedium,
           ),
           value: isPrivate,
           onChanged: (bool value) {
-            final image =
-                Provider.of<UserPreview>(context, listen: false).user()!.image;
+            final image = Provider.of<UserPreview>(context, listen: false).user()!.image;
             image.isPrivate = value;
-            Provider.of<UserPreview>(context, listen: false).user()!.image =
-                image;
+            Provider.of<UserPreview>(context, listen: false).user()!.image = image;
             Provider.of<UserPreview>(context, listen: false).notify();
           },
         ),

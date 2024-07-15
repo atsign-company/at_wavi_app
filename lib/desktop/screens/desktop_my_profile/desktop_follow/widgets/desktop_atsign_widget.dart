@@ -36,7 +36,7 @@ class DesktopAtSignWidget extends StatelessWidget {
                 children: [
                   Text(
                     atSign,
-                    style: appTheme.textTheme.subtitle1,
+                    style: appTheme.textTheme.titleMedium,
                   ),
                 ],
               ),
@@ -48,7 +48,7 @@ class DesktopAtSignWidget extends StatelessWidget {
                 child: Center(
                   child: Text(
                     isFollowing ? 'Unfollow' : 'Follow',
-                    style: appTheme.textTheme.subtitle2,
+                    style: appTheme.textTheme.titleSmall,
                   ),
                 ),
               ),

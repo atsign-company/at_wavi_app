@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:at_location_flutter/utils/constants/colors.dart';
 import 'package:at_wavi_app/model/user.dart';
 import 'package:at_wavi_app/services/at_key_set_service.dart';
@@ -12,7 +14,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:provider/provider.dart';
-import 'dart:convert';
 
 class HtmlEditorScreen extends StatefulWidget {
   final String? initialText;
@@ -30,18 +31,9 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
 
   @override
   void initState() {
-    if (Provider.of<UserProvider>(context, listen: false)
-            .user
-            ?.htmlToastView
-            .value !=
-        null) {
-      _showHtmlToast = Provider.of<UserProvider>(context, listen: false)
-                  .user
-                  ?.htmlToastView
-                  .value ==
-              'false'
-          ? false
-          : true;
+    if (Provider.of<UserProvider>(context, listen: false).user?.htmlToastView.value != null) {
+      _showHtmlToast =
+          Provider.of<UserProvider>(context, listen: false).user?.htmlToastView.value == 'false' ? false : true;
     }
     super.initState();
   }
@@ -63,7 +55,7 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
             },
             icon: Icon(Icons.keyboard_arrow_left),
           ),
-          backgroundColor: Theme.of(context).backgroundColor,
+          backgroundColor: Theme.of(context).colorScheme.surface,
           title: Text('HTML'),
         ),
         bottomSheet: InkWell(
@@ -77,8 +69,7 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
               color: ColorConstants.black,
               child: Text(
                 'Save',
-                style: CustomTextStyles.customTextStyle(ColorConstants.white,
-                    size: 18),
+                style: CustomTextStyles.customTextStyle(ColorConstants.white, size: 18),
               )),
         ),
         body: SafeArea(
@@ -87,12 +78,9 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
               HtmlEditor(
                 controller: _controller,
                 htmlToolbarOptions: HtmlToolbarOptions(
-                  buttonColor: Theme.of(context).brightness == Brightness.light
-                      ? Colors.black
-                      : Colors.white,
+                  buttonColor: Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white,
                   toolbarType: ToolbarType.nativeGrid,
-                  dropdownBackgroundColor:
-                      Theme.of(context).scaffoldBackgroundColor,
+                  dropdownBackgroundColor: Theme.of(context).scaffoldBackgroundColor,
                   mediaUploadInterceptor: (file, InsertFileType type) async {
                     if (type == InsertFileType.image) {
                       await imageCompressor(file.path!);
@@ -133,19 +121,16 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                                 ),
                               ),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   InkWell(
                                     onTap: () {
                                       _controller.undo();
-                                      ScaffoldMessenger.of(context)
-                                          .clearSnackBars();
+                                      ScaffoldMessenger.of(context).clearSnackBars();
                                     },
                                     child: Text(
                                       "Undo Paste",
-                                      style:
-                                          CustomTextStyles.customBoldTextStyle(
+                                      style: CustomTextStyles.customBoldTextStyle(
                                         ColorConstants.red,
                                         size: 16,
                                       ),
@@ -157,15 +142,11 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                                         BasicData(value: 'false'),
                                         FieldsEnum.HTMLTOASTVIEW.name,
                                       );
-                                      ScaffoldMessenger.of(context)
-                                          .clearSnackBars();
+                                      ScaffoldMessenger.of(context).clearSnackBars();
 
                                       _showHtmlToast = false;
-                                      Provider.of<UserProvider>(context,
-                                              listen: false)
-                                          .user
-                                          ?.htmlToastView
-                                          .value = 'false';
+                                      Provider.of<UserProvider>(context, listen: false).user?.htmlToastView.value =
+                                          'false';
                                     },
                                     child: Text(
                                       "Don't show again",
@@ -209,19 +190,15 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                 children: [
                   Align(
                     alignment: Alignment.center,
-                    child: Text('Image Compressor',
-                        style: TextStyles.boldText(
-                            Theme.of(context).primaryColor,
-                            size: 16)),
+                    child:
+                        Text('Image Compressor', style: TextStyles.boldText(Theme.of(context).primaryColor, size: 16)),
                   ),
                   SizedBox(height: 5.toHeight),
                   Align(
                     alignment: Alignment.center,
                     child: Text(
                       '(Aspect ratio will be maintained)',
-                      style: TextStyles.lightText(
-                          Theme.of(context).primaryColor.withOpacity(0.5),
-                          size: 12),
+                      style: TextStyles.lightText(Theme.of(context).primaryColor.withOpacity(0.5), size: 12),
                     ),
                   ),
                   SizedBox(height: 10.toHeight),
@@ -231,9 +208,7 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                   ),
                   SizedBox(height: 10.toHeight),
                   _errorMsg != null
-                      ? Text('$_errorMsg',
-                          style:
-                              CustomTextStyles.customTextStyle(AllColors().RED))
+                      ? Text('$_errorMsg', style: CustomTextStyles.customTextStyle(AllColors().RED))
                       : SizedBox(),
                   SizedBox(height: _errorMsg != null ? 10.toHeight : 0),
                   Padding(
@@ -241,10 +216,7 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                     child: Row(
                       children: [
                         Text('100% width:',
-                            style: CustomTextStyles.customTextStyle(
-                                Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.5))),
+                            style: CustomTextStyles.customTextStyle(Theme.of(context).primaryColor.withOpacity(0.5))),
                         Checkbox(
                             value: _fullWidth,
                             onChanged: (_val) {
@@ -258,10 +230,8 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                   SizedBox(height: 5.toHeight),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0.toWidth),
-                    child: Text(
-                        'Width: ' + (_fullWidth ? '100%' : '$_width px'),
-                        style: CustomTextStyles.customTextStyle(
-                            Theme.of(context).primaryColor.withOpacity(0.5))),
+                    child: Text('Width: ' + (_fullWidth ? '100%' : '$_width px'),
+                        style: CustomTextStyles.customTextStyle(Theme.of(context).primaryColor.withOpacity(0.5))),
                   ),
                   Slider(
                     activeColor: Theme.of(context).primaryColor,
@@ -282,8 +252,7 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0.toWidth),
                     child: Text('Quality: $_compression%',
-                        style: CustomTextStyles.customTextStyle(
-                            Theme.of(context).primaryColor.withOpacity(0.5))),
+                        style: CustomTextStyles.customTextStyle(Theme.of(context).primaryColor.withOpacity(0.5))),
                   ),
                   Slider(
                     activeColor: Theme.of(context).primaryColor,
@@ -303,9 +272,7 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 8.0.toWidth),
                     child: Text(
                       'NOTE: We only accept images below 1MB',
-                      style: CustomTextStyles.customTextStyle(
-                          Theme.of(context).primaryColor,
-                          size: 12),
+                      style: CustomTextStyles.customTextStyle(Theme.of(context).primaryColor, size: 12),
                     ),
                   ),
                   SizedBox(height: 10.toHeight),
@@ -316,8 +283,7 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                       children: [
                         ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
-                                Theme.of(context).scaffoldBackgroundColor),
+                            backgroundColor: WidgetStateProperty.all(Theme.of(context).scaffoldBackgroundColor),
                           ),
                           onPressed: () {
                             _width = -1;
@@ -325,9 +291,7 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                           },
                           child: Text(
                             'Cancel',
-                            style: TextStyles.lightText(
-                                Theme.of(context).primaryColor,
-                                size: 16),
+                            style: TextStyles.lightText(Theme.of(context).primaryColor, size: 16),
                           ),
                         ),
                         Stack(
@@ -335,12 +299,9 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                           children: [
                             ElevatedButton(
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    _loading
-                                        ? Theme.of(context)
-                                            .primaryColor
-                                            .withOpacity(0.5)
-                                        : Theme.of(context).primaryColor),
+                                backgroundColor: WidgetStateProperty.all(_loading
+                                    ? Theme.of(context).primaryColor.withOpacity(0.5)
+                                    : Theme.of(context).primaryColor),
                               ),
                               onPressed: _loading
                                   ? null
@@ -349,24 +310,18 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                                         _loading = true;
                                       });
 
-                                      var _compressedFile =
-                                          await FlutterImageCompress
-                                              .compressWithFile(
+                                      var _compressedFile = await FlutterImageCompress.compressWithFile(
                                         path,
-                                        minWidth: _fullWidth
-                                            ? 736
-                                            : _width.floor(), // 100% = 700
+                                        minWidth: _fullWidth ? 736 : _width.floor(), // 100% = 700
                                         minHeight: _height.floor(),
                                         quality: _compression.floor(),
                                       );
 
-                                      if (_compressedFile!.lengthInBytes >
-                                          1000000) {
+                                      if (_compressedFile!.lengthInBytes > 1000000) {
                                         /// 1MB
                                         if (mounted) {
                                           _setDialogState(() {
-                                            _errorMsg =
-                                                'File greater than 512 KB';
+                                            _errorMsg = 'File greater than 512 KB';
                                             _loading = false;
                                           });
                                         }
@@ -376,9 +331,7 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                                           _loading = false;
                                         });
 
-                                        String _finalWidth = _fullWidth
-                                            ? '100%'
-                                            : _width.floor().toString();
+                                        String _finalWidth = _fullWidth ? '100%' : _width.floor().toString();
 
                                         _controller.insertHtml(
                                             '<img src="data:image/jpeg;base64,${base64.encode(_compressedFile)}" width="$_finalWidth">');
@@ -388,14 +341,10 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                                     },
                               child: Text(
                                 'Done',
-                                style: TextStyles.lightText(
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                    size: 16),
+                                style: TextStyles.lightText(Theme.of(context).scaffoldBackgroundColor, size: 16),
                               ),
                             ),
-                            _loading
-                                ? CupertinoActivityIndicator()
-                                : SizedBox(),
+                            _loading ? CupertinoActivityIndicator() : SizedBox(),
                           ],
                         ),
                       ],

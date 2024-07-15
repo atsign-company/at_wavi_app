@@ -26,7 +26,7 @@ class DesktopLocationPreviewPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           title,
-          style: appTheme.textTheme.headline6?.copyWith(color: Colors.white),
+          style: appTheme.textTheme.titleLarge?.copyWith(color: Colors.white),
         ),
         iconTheme: IconThemeData(color: Colors.white),
         centerTitle: false,
@@ -41,8 +41,7 @@ class DesktopLocationPreviewPage extends StatelessWidget {
         ),
         layers: [
           TileLayerOptions(
-            urlTemplate:
-                'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=${MixedConstants.MAP_KEY}',
+            urlTemplate: 'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=${MixedConstants.MAP_KEY}',
             subdomains: ['a', 'b', 'c'],
             minNativeZoom: 2,
             maxNativeZoom: 18,
@@ -54,8 +53,7 @@ class DesktopLocationPreviewPage extends StatelessWidget {
               width: 40,
               height: 50,
               point: latLng,
-              builder: (ctx) => Container(
-                  child: createMarker(diameterOfCircle: diameterOfCircle)),
+              builder: (ctx) => Container(child: createMarker(diameterOfCircle: diameterOfCircle)),
             )
           ])
         ],

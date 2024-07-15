@@ -63,18 +63,13 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
         atsign: AtClientManager.getInstance().atClient.getCurrentAtSign(),
       );
     }
-    if ((widget.isPreview) &&
-        (_currentUser.atsign !=
-            BackendService().atClientInstance.getCurrentAtSign())) {
+    if ((widget.isPreview) && (_currentUser.atsign != BackendService().atClientInstance.getCurrentAtSign())) {
       _isSearchScreen = true;
     }
-    String? previewUserName =
-        Provider.of<UserPreview>(context, listen: false).user()?.atsign;
-    String? currentUserName =
-        Provider.of<UserProvider>(context, listen: false).user?.atsign;
-    bool isMine = widget.isPreview &&
-        (toAccountNameWithAtsign(previewUserName) ==
-            toAccountNameWithAtsign(currentUserName));
+    String? previewUserName = Provider.of<UserPreview>(context, listen: false).user()?.atsign;
+    String? currentUserName = Provider.of<UserProvider>(context, listen: false).user?.atsign;
+    bool isMine =
+        widget.isPreview && (toAccountNameWithAtsign(previewUserName) == toAccountNameWithAtsign(currentUserName));
     print(isMine);
     final appTheme = AppTheme.of(context);
     return Container(
@@ -85,8 +80,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
           SizedBox(height: DesktopDimens.paddingLarge),
           Expanded(
             child: SingleChildScrollView(
-              padding:
-                  EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
+              padding: EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -115,7 +109,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
                   SizedBox(height: DesktopDimens.paddingSmall),
                   Text(
                     _currentUser.atsign,
-                    style: appTheme.textTheme.subtitle1?.copyWith(
+                    style: appTheme.textTheme.titleMedium?.copyWith(
                       color: appTheme.primaryColor,
                     ),
                   ),
@@ -128,8 +122,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
                           Strings.desktop_followers,
                           _isSearchScreen
                               ? (SearchService()
-                                          .getAlreadySearchedAtsignDetails(
-                                              _currentUser.atsign)
+                                          .getAlreadySearchedAtsignDetails(_currentUser.atsign)
                                           ?.followers_count ??
                                       '-')
                                   .toString()
@@ -146,8 +139,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
                           Strings.desktop_following,
                           _isSearchScreen
                               ? (SearchService()
-                                          .getAlreadySearchedAtsignDetails(
-                                              _currentUser.atsign)
+                                          .getAlreadySearchedAtsignDetails(_currentUser.atsign)
                                           ?.following_count ??
                                       '-')
                                   .toString()
@@ -178,18 +170,14 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
                             ),
                           ],
                         )
-                      : Consumer<FollowService>(
-                          builder: (context, provider, _) {
-                          final isFollowing =
-                              provider.isFollowing(_currentUser.atsign);
+                      : Consumer<FollowService>(builder: (context, provider, _) {
+                          final isFollowing = provider.isFollowing(_currentUser.atsign);
                           if (!isMine) {
                             return DesktopButton(
                               width: double.infinity,
                               height: DesktopDimens.buttonHeight,
                               backgroundColor: appTheme.primaryColor,
-                              title: isFollowing
-                                  ? Strings.desktop_unfollow
-                                  : Strings.desktop_follow,
+                              title: isFollowing ? Strings.desktop_unfollow : Strings.desktop_follow,
                               onPressed: () async {
                                 unfollowAtSign(_currentUser.atsign);
                               },
@@ -208,8 +196,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
   }
 
   void unfollowAtSign(String atSign) async {
-    await Provider.of<FollowService>(context, listen: false)
-        .performFollowUnfollow(atSign);
+    await Provider.of<FollowService>(context, listen: false).performFollowUnfollow(atSign);
     setState(() {});
   }
 
@@ -266,7 +253,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
     }
     return Text(
       name,
-      style: appTheme.textTheme.headline6?.copyWith(
+      style: appTheme.textTheme.titleLarge?.copyWith(
         fontWeight: FontWeight.w600,
       ),
       maxLines: 2,
@@ -278,7 +265,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
       children: [
         Text(
           title,
-          style: appTheme.textTheme.subtitle2?.copyWith(
+          style: appTheme.textTheme.titleSmall?.copyWith(
             color: appTheme.secondaryTextColor,
             fontWeight: FontWeight.normal,
           ),
@@ -286,7 +273,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
         Spacer(),
         Text(
           subTitle,
-          style: appTheme.textTheme.subtitle1?.copyWith(
+          style: appTheme.textTheme.titleMedium?.copyWith(
             color: appTheme.primaryTextColor,
             fontWeight: FontWeight.w600,
           ),
@@ -310,8 +297,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
 
   void _openEditProfile() async {
     FieldOrderService().setPreviewOrder = {...FieldOrderService().fieldOrders};
-    var userJson =
-        User.toJson(Provider.of<UserProvider>(context, listen: false).user);
+    var userJson = User.toJson(Provider.of<UserProvider>(context, listen: false).user);
     User previewUser = User.fromJson(json.decode(json.encode(userJson)));
     Provider.of<UserPreview>(context, listen: false).setUser = previewUser;
     await Navigator.pushNamed(context, DesktopRoutes.DESKTOP_EDIT_PROFILE);
@@ -319,11 +305,9 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
     setState(() {});
   }
 
-  String followsCount({bool isFollowers: false}) {
+  String followsCount({bool isFollowers = false}) {
     AtFollowsData atFollowsData;
-    var followsProvider = Provider.of<FollowService>(
-        NavService.navKey.currentContext!,
-        listen: false);
+    var followsProvider = Provider.of<FollowService>(NavService.navKey.currentContext!, listen: false);
     if (!followsProvider.isFollowersFetched && isFollowers) {
       return '0';
     }
@@ -356,8 +340,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
   void shareProfile() {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) =>
-            DesktopShareProfilePage(atSign: _currentUser.atsign),
+        builder: (context) => DesktopShareProfilePage(atSign: _currentUser.atsign),
       ),
     );
     // try {

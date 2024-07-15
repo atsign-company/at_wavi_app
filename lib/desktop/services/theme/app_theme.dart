@@ -1,5 +1,6 @@
 import 'package:at_wavi_app/utils/colors.dart';
 import 'package:flutter/material.dart';
+
 import 'inherited_app_theme.dart';
 
 class AppTheme {
@@ -9,9 +10,7 @@ class AppTheme {
   /// The color displayed most frequently across your app’s screens and components.
   final Color primaryColor;
 
-  Color get primaryLighterColor => brightness == Brightness.light
-      ? primaryColor.withOpacity(0.05)
-      : Color(0xFF171717);
+  Color get primaryLighterColor => brightness == Brightness.light ? primaryColor.withOpacity(0.05) : Color(0xFF171717);
 
   /// An accent color that, when used sparingly, calls attention to parts
   /// of your app.
@@ -64,28 +63,19 @@ class AppTheme {
     required this.shadowColor,
   }) {
     this.textTheme = TextTheme(
-      headline1: TextStyle(fontSize: 96.0, color: primaryTextColor),
-      headline2: TextStyle(fontSize: 60.0, color: this.primaryTextColor),
-      headline3: TextStyle(fontSize: 48.0, color: this.primaryTextColor),
-      headline4: TextStyle(fontSize: 34.0, color: this.primaryTextColor),
-      headline5: TextStyle(fontSize: 24.0, color: this.primaryTextColor),
-      headline6: TextStyle(
-          fontSize: 20.0,
-          color: this.primaryTextColor,
-          fontWeight: FontWeight.w500),
-      subtitle1: TextStyle(fontSize: 16.0, color: this.primaryTextColor),
-      subtitle2: TextStyle(
-          fontSize: 14.0,
-          color: this.primaryTextColor,
-          fontWeight: FontWeight.w500),
-      bodyText1: TextStyle(fontSize: 16.0, color: this.primaryTextColor),
-      bodyText2: TextStyle(fontSize: 14.0, color: this.primaryTextColor),
-      button: TextStyle(
-          fontSize: 14.0,
-          color: this.primaryTextColor,
-          fontWeight: FontWeight.w500),
-      caption: TextStyle(fontSize: 12.0, color: this.primaryTextColor),
-      overline: TextStyle(fontSize: 14.0, color: this.primaryTextColor),
+      displayLarge: TextStyle(fontSize: 96.0, color: primaryTextColor),
+      displayMedium: TextStyle(fontSize: 60.0, color: this.primaryTextColor),
+      displaySmall: TextStyle(fontSize: 48.0, color: this.primaryTextColor),
+      headlineMedium: TextStyle(fontSize: 34.0, color: this.primaryTextColor),
+      headlineSmall: TextStyle(fontSize: 24.0, color: this.primaryTextColor),
+      titleLarge: TextStyle(fontSize: 20.0, color: this.primaryTextColor, fontWeight: FontWeight.w500),
+      titleMedium: TextStyle(fontSize: 16.0, color: this.primaryTextColor),
+      titleSmall: TextStyle(fontSize: 14.0, color: this.primaryTextColor, fontWeight: FontWeight.w500),
+      bodyLarge: TextStyle(fontSize: 16.0, color: this.primaryTextColor),
+      bodyMedium: TextStyle(fontSize: 14.0, color: this.primaryTextColor),
+      labelLarge: TextStyle(fontSize: 14.0, color: this.primaryTextColor, fontWeight: FontWeight.w500),
+      bodySmall: TextStyle(fontSize: 12.0, color: this.primaryTextColor),
+      labelSmall: TextStyle(fontSize: 14.0, color: this.primaryTextColor),
     );
   }
 
@@ -122,17 +112,11 @@ class AppTheme {
               ? ColorConstants.desktopSecondaryTextDark
               : ColorConstants.desktopSecondaryTextLight),
       separatorColor: separatorColor ??
-          (brightness == Brightness.dark
-              ? ColorConstants.desktopSeparatorDark
-              : ColorConstants.desktopSeparatorLight),
+          (brightness == Brightness.dark ? ColorConstants.desktopSeparatorDark : ColorConstants.desktopSeparatorLight),
       borderColor: borderColor ??
-          (brightness == Brightness.dark
-              ? ColorConstants.desktopBorderDark
-              : ColorConstants.desktopBorderLight),
+          (brightness == Brightness.dark ? ColorConstants.desktopBorderDark : ColorConstants.desktopBorderLight),
       shadowColor: shadowColor ??
-          (brightness == Brightness.dark
-              ? ColorConstants.desktopShadowDark
-              : ColorConstants.desktopShadowLight),
+          (brightness == Brightness.dark ? ColorConstants.desktopShadowDark : ColorConstants.desktopShadowLight),
     );
   }
 
@@ -146,15 +130,13 @@ class AppTheme {
       colorScheme: ThemeData.dark().colorScheme.copyWith(
             brightness: brightness,
             primary: primaryColor,
-            background: backgroundColor,
+            surface: backgroundColor,
             secondary: accentColor,
           ),
     );
   }
 
   static AppTheme of(BuildContext context) {
-    return context
-        .dependOnInheritedWidgetOfExactType<InheritedAppTheme>()!
-        .theme;
+    return context.dependOnInheritedWidgetOfExactType<InheritedAppTheme>()!.theme;
   }
 }

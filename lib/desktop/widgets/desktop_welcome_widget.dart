@@ -22,7 +22,7 @@ class DesktopWelcomeWidget extends StatelessWidget {
             children: [
               Text(
                 'Welcome to',
-                style: appTheme.textTheme.headline4?.copyWith(
+                style: appTheme.textTheme.headlineMedium?.copyWith(
                   fontSize: 32,
                 ),
               ),
@@ -37,7 +37,7 @@ class DesktopWelcomeWidget extends StatelessWidget {
           SizedBox(height: DesktopDimens.paddingSmall),
           Text(
             titlePage ?? 'Please fill-in the necessary details to start using.',
-            style: appTheme.textTheme.subtitle2?.copyWith(
+            style: appTheme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w500,
               color: appTheme.secondaryTextColor,
             ),

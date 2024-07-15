@@ -1,9 +1,9 @@
 import 'package:at_wavi_app/routes/route_names.dart';
 import 'package:at_wavi_app/routes/routes.dart';
+import 'package:at_wavi_app/services/size_config.dart';
 import 'package:at_wavi_app/utils/colors.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:at_wavi_app/services/size_config.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -24,7 +24,7 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: themeData.backgroundColor,
+      color: themeData.colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -33,9 +33,7 @@ class CustomCard extends StatelessWidget {
             title != null
                 ? Text(
                     '${title![0].toUpperCase()}${title!.substring(1)}',
-                    style: TextStyles.lightText(
-                        themeData.primaryColor.withOpacity(0.5),
-                        size: 16),
+                    style: TextStyles.lightText(themeData.primaryColor.withOpacity(0.5), size: 16),
                   )
                 : SizedBox(),
             SizedBox(height: 6),
@@ -56,23 +54,18 @@ class CustomCard extends StatelessWidget {
 
                       if (await canLaunchUrl(Uri.parse(url ?? ""))) {
                         try {
-                          await launchUrl(Uri.parse(url ?? ""),
-                              mode: LaunchMode.externalApplication);
+                          await launchUrl(Uri.parse(url ?? ""), mode: LaunchMode.externalApplication);
                         } catch (e) {
-                          SetupRoutes.push(context, Routes.WEB_VIEW,
-                              arguments: {'title': title, 'url': url});
+                          SetupRoutes.push(context, Routes.WEB_VIEW, arguments: {'title': title, 'url': url});
                         }
                       } else {
-                        SetupRoutes.push(context, Routes.WEB_VIEW,
-                            arguments: {'title': title, 'url': url});
+                        SetupRoutes.push(context, Routes.WEB_VIEW, arguments: {'title': title, 'url': url});
                       }
                     },
                     child: HtmlWidget(
                       subtitle!,
                       textStyle: TextStyle(
-                        color: isUrl || isEmail
-                            ? ColorConstants.orange
-                            : themeData.primaryColor,
+                        color: isUrl || isEmail ? ColorConstants.orange : themeData.primaryColor,
                         fontSize: 16.toFont,
                       ),
                     ),

@@ -17,8 +17,7 @@ class DesktopSearchAtSignPage extends StatefulWidget {
   const DesktopSearchAtSignPage({Key? key}) : super(key: key);
 
   @override
-  _DesktopSearchAtSignPageState createState() =>
-      _DesktopSearchAtSignPageState();
+  _DesktopSearchAtSignPageState createState() => _DesktopSearchAtSignPageState();
 }
 
 class _DesktopSearchAtSignPageState extends State<DesktopSearchAtSignPage> {
@@ -106,7 +105,7 @@ class _DesktopSearchAtSignPageState extends State<DesktopSearchAtSignPage> {
                       return Center(
                         child: Text(
                           Strings.desktop_empty,
-                          style: appTheme.textTheme.bodyText1,
+                          style: appTheme.textTheme.bodyLarge,
                         ),
                       );
                     } else {
@@ -122,8 +121,7 @@ class _DesktopSearchAtSignPageState extends State<DesktopSearchAtSignPage> {
                             // ),
                             // subTitle: '@${model.users[index].atsign}',
                             onPressed: () {
-                              _openUser(model.searchInstance[index].user,
-                                  model.searchInstance[index].fieldOrders);
+                              _openUser(model.searchInstance[index].user, model.searchInstance[index].fieldOrders);
                             },
                           );
                         },

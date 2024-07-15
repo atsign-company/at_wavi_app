@@ -51,7 +51,7 @@ class _CustomMediaCardState extends State<CustomMediaCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: widget.themeData.backgroundColor,
+      color: widget.themeData.colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -59,21 +59,16 @@ class _CustomMediaCardState extends State<CustomMediaCard> {
           children: <Widget>[
             Text(
               '${widget.basicData.accountName![0].toUpperCase()}${widget.basicData.accountName!.substring(1)}',
-              style: TextStyles.lightText(
-                  widget.themeData.primaryColor.withOpacity(0.5),
-                  size: 16),
+              style: TextStyles.lightText(widget.themeData.primaryColor.withOpacity(0.5), size: 16),
             ),
             SizedBox(height: 6),
-            ((widget.basicData.valueDescription != null) &&
-                    (widget.basicData.valueDescription != 'null'))
+            ((widget.basicData.valueDescription != null) && (widget.basicData.valueDescription != 'null'))
                 ? Text(
                     widget.basicData.valueDescription!,
-                    style: TextStyles.lightText(widget.themeData.primaryColor,
-                        size: 18),
+                    style: TextStyles.lightText(widget.themeData.primaryColor, size: 18),
                   )
                 : SizedBox(),
-            (widget.basicData.valueDescription != null) &&
-                    (widget.basicData.valueDescription != 'null')
+            (widget.basicData.valueDescription != null) && (widget.basicData.valueDescription != 'null')
                 ? SizedBox(height: 6)
                 : SizedBox(),
             _isImage && customImage != null

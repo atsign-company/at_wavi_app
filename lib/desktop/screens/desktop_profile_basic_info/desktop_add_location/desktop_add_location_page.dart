@@ -70,8 +70,7 @@ class _DesktopAddLocationPageState extends State<DesktopAddLocationPage> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            border: Border.all(
-                                color: appTheme.borderColor, width: 1),
+                            border: Border.all(color: appTheme.borderColor, width: 1),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: model.osmLocationModel != null
@@ -81,11 +80,9 @@ class _DesktopAddLocationPageState extends State<DesktopAddLocationPage> {
                                     absorbing: true,
                                     child: FlutterMap(
                                       options: MapOptions(
-                                        boundsOptions: FitBoundsOptions(
-                                            padding: EdgeInsets.all(0)),
+                                        boundsOptions: FitBoundsOptions(padding: EdgeInsets.all(0)),
                                         center: model.osmLocationModel?.latLng,
-                                        zoom: model.osmLocationModel?.zoom ??
-                                            14.0,
+                                        zoom: model.osmLocationModel?.zoom ?? 14.0,
                                       ),
                                       layers: [
                                         TileLayerOptions(
@@ -95,23 +92,17 @@ class _DesktopAddLocationPageState extends State<DesktopAddLocationPage> {
                                           minNativeZoom: 2,
                                           maxNativeZoom: 18,
                                           minZoom: 1,
-                                          tileProvider:
-                                              NonCachingNetworkTileProvider(),
+                                          tileProvider: NonCachingNetworkTileProvider(),
                                         ),
                                         MarkerLayerOptions(markers: [
-                                          if (model.osmLocationModel?.latLng !=
-                                              null)
+                                          if (model.osmLocationModel?.latLng != null)
                                             Marker(
                                               width: 40,
                                               height: 50,
-                                              point: model
-                                                  .osmLocationModel!.latLng!,
+                                              point: model.osmLocationModel!.latLng!,
                                               builder: (ctx) => Container(
                                                   child: createMarker(
-                                                      diameterOfCircle: model
-                                                              .osmLocationModel!
-                                                              .diameter ??
-                                                          0)),
+                                                      diameterOfCircle: model.osmLocationModel!.diameter ?? 0)),
                                             )
                                         ])
                                       ],
@@ -140,7 +131,7 @@ class _DesktopAddLocationPageState extends State<DesktopAddLocationPage> {
                     children: [
                       Text(
                         'Location',
-                        style: appTheme.textTheme.bodyText2,
+                        style: appTheme.textTheme.bodyMedium,
                       ),
                       SizedBox(height: DesktopDimens.paddingNormal),
                       GestureDetector(
@@ -148,19 +139,15 @@ class _DesktopAddLocationPageState extends State<DesktopAddLocationPage> {
                         child: Container(
                           height: 48,
                           decoration: BoxDecoration(
-                            border: Border.all(
-                                color: appTheme.borderColor, width: 1),
+                            border: Border.all(color: appTheme.borderColor, width: 1),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Text(
-                                model.osmLocationModel != null
-                                    ? 'Change'
-                                    : 'Search',
-                                style: appTheme.textTheme.button
-                                    ?.copyWith(color: appTheme.primaryColor),
+                                model.osmLocationModel != null ? 'Change' : 'Search',
+                                style: appTheme.textTheme.labelLarge?.copyWith(color: appTheme.primaryColor),
                               ),
                               SizedBox(width: DesktopDimens.paddingNormal),
                             ],
@@ -170,24 +157,22 @@ class _DesktopAddLocationPageState extends State<DesktopAddLocationPage> {
                       SizedBox(height: DesktopDimens.paddingNormal),
                       Text(
                         'Tag',
-                        style: appTheme.textTheme.bodyText2,
+                        style: appTheme.textTheme.bodyMedium,
                       ),
                       SizedBox(height: DesktopDimens.paddingSmall),
                       Container(
                         height: 48,
                         child: TextFormField(
                           controller: model.tagTextController,
-                          style: appTheme.textTheme.bodyText2?.copyWith(
+                          style: appTheme.textTheme.bodyMedium?.copyWith(
                             color: appTheme.primaryTextColor,
                           ),
                           decoration: InputDecoration(
                             enabledBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: appTheme.borderColor),
+                              borderSide: BorderSide(color: appTheme.borderColor),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide:
-                                  BorderSide(color: appTheme.primaryColor),
+                              borderSide: BorderSide(color: appTheme.primaryColor),
                             ),
                           ),
                         ),

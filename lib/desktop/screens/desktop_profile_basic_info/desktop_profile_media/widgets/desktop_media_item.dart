@@ -52,8 +52,7 @@ class DesktopMediaItem extends StatelessWidget {
                   child: Container(
                     child: Text(
                       data.accountName ?? '',
-                      style: appTheme.textTheme.subtitle2
-                          ?.copyWith(color: Colors.white),
+                      style: appTheme.textTheme.titleSmall?.copyWith(color: Colors.white),
                     ),
                     padding: EdgeInsets.only(left: 8, top: 8, bottom: 8),
                   ),
@@ -75,7 +74,7 @@ class DesktopMediaItem extends StatelessWidget {
           child: SizedBox(
             child: Text(
               "Edit",
-              style: appTheme.textTheme.bodyText2,
+              style: appTheme.textTheme.bodyMedium,
             ),
           ),
           value: 0,
@@ -84,7 +83,7 @@ class DesktopMediaItem extends StatelessWidget {
           child: SizedBox(
             child: Text(
               "Delete",
-              style: appTheme.textTheme.bodyText2,
+              style: appTheme.textTheme.bodyMedium,
             ),
           ),
           value: 1,

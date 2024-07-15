@@ -8,9 +8,9 @@ import 'package:at_wavi_app/desktop/widgets/desktop_button.dart';
 import 'package:at_wavi_app/model/here_result.dart';
 import 'package:at_wavi_app/model/osm_location_model.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
-import 'package:geolocator/geolocator.dart';
 
 import 'desktop_search_location_model.dart';
 
@@ -18,8 +18,7 @@ class DesktopSearchLocationPage extends StatefulWidget {
   const DesktopSearchLocationPage({Key? key}) : super(key: key);
 
   @override
-  _DesktopSearchLocationPageState createState() =>
-      _DesktopSearchLocationPageState();
+  _DesktopSearchLocationPageState createState() => _DesktopSearchLocationPageState();
 }
 
 class _DesktopSearchLocationPageState extends State<DesktopSearchLocationPage> {
@@ -96,7 +95,7 @@ class _DesktopSearchLocationPageState extends State<DesktopSearchLocationPage> {
                 ),
                 Text(
                   'Near me',
-                  style: appTheme.textTheme.bodyText2,
+                  style: appTheme.textTheme.bodyMedium,
                 ),
                 Spacer(),
                 DesktopButton(
@@ -188,8 +187,7 @@ class _DesktopSearchLocationPageState extends State<DesktopSearchLocationPage> {
         builder: (BuildContext context) => Dialog(
           backgroundColor: Colors.transparent,
           child: DesktopDialogPage(
-            title:
-                'Location services are disabled. Please enable them in your settings to search by your location.',
+            title: 'Location services are disabled. Please enable them in your settings to search by your location.',
             onOkPressed: () {
               Geolocator.openLocationSettings();
             },
@@ -201,8 +199,7 @@ class _DesktopSearchLocationPageState extends State<DesktopSearchLocationPage> {
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied ||
-          permission == LocationPermission.deniedForever) {
+      if (permission == LocationPermission.denied || permission == LocationPermission.deniedForever) {
         // Permissions are denied, next time you could try
         // requesting permissions again (this is also where
         // Android's shouldShowRequestPermissionRationale
@@ -214,8 +211,7 @@ class _DesktopSearchLocationPageState extends State<DesktopSearchLocationPage> {
           builder: (BuildContext context) => Dialog(
             backgroundColor: Colors.transparent,
             child: DesktopDialogPage(
-              title:
-                  'Location permissions are denied. Please enable them in your settings to search by your location.',
+              title: 'Location permissions are denied. Please enable them in your settings to search by your location.',
               onOkPressed: () {
                 Geolocator.openLocationSettings();
               },

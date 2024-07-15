@@ -44,7 +44,7 @@ class _DesktopDialogPageState extends State<DesktopDialogPage> {
           SizedBox(height: DesktopDimens.paddingNormal),
           Text(
             widget.title,
-            style: appTheme.textTheme.headline6,
+            style: appTheme.textTheme.titleLarge,
             textAlign: TextAlign.center,
           ),
           SizedBox(height: DesktopDimens.paddingLarge),

@@ -35,7 +35,7 @@ class DesktopSettingSwitchWidget extends StatelessWidget {
           Expanded(
             child: Text(
               title,
-              style: appTheme.textTheme.subtitle1,
+              style: appTheme.textTheme.titleMedium,
             ),
           ),
           SizedBox(width: DesktopDimens.paddingSmall),

@@ -31,7 +31,7 @@ class DesktopPublicButton extends StatelessWidget {
                 SizedBox(width: DesktopDimens.paddingSmall),
                 Text(
                   "Public",
-                  style: appTheme.textTheme.bodyText1,
+                  style: appTheme.textTheme.bodyLarge,
                 ),
               ],
             ),
@@ -51,7 +51,7 @@ class DesktopPublicButton extends StatelessWidget {
                 SizedBox(width: DesktopDimens.paddingSmall),
                 Text(
                   "Private",
-                  style: appTheme.textTheme.bodyText1,
+                  style: appTheme.textTheme.bodyLarge,
                 ),
               ],
             ),

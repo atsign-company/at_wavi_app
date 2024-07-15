@@ -1,6 +1,5 @@
 import 'package:at_wavi_app/desktop/services/theme/app_theme.dart';
 import 'package:at_wavi_app/desktop/utils/desktop_dimens.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DesktopEmptyWidget extends StatelessWidget {
@@ -31,7 +30,7 @@ class DesktopEmptyWidget extends StatelessWidget {
         SizedBox(height: DesktopDimens.paddingNormal),
         Text(
           title,
-          style: appTheme.textTheme.subtitle1?.copyWith(
+          style: appTheme.textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
             color: appTheme.primaryTextColor,
           ),
@@ -39,7 +38,7 @@ class DesktopEmptyWidget extends StatelessWidget {
         SizedBox(height: DesktopDimens.paddingSmall),
         Text(
           description,
-          style: appTheme.textTheme.subtitle2?.copyWith(
+          style: appTheme.textTheme.titleSmall?.copyWith(
             color: appTheme.secondaryTextColor,
             fontWeight: FontWeight.normal,
           ),
@@ -51,14 +50,13 @@ class DesktopEmptyWidget extends StatelessWidget {
             onPressed: onButtonPressed,
             child: Text(
               buttonTitle,
-              style: appTheme.textTheme.button?.copyWith(
+              style: appTheme.textTheme.labelLarge?.copyWith(
                 color: appTheme.primaryColor,
               ),
             ),
             style: ButtonStyle(
-              backgroundColor:
-                  MaterialStateProperty.all<Color>(Colors.transparent),
-              elevation: MaterialStateProperty.all<double>(0),
+              backgroundColor: WidgetStateProperty.all<Color>(Colors.transparent),
+              elevation: WidgetStateProperty.all<double>(0),
             ),
           )
       ],

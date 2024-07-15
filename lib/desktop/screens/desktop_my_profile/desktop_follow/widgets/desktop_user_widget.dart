@@ -23,12 +23,9 @@ class DesktopUserWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = AppTheme.of(context);
-    bool isFollowingThisAtSign =
-        Provider.of<FollowService>(context, listen: false)
-            .isFollowing(user.atsign);
+    bool isFollowingThisAtSign = Provider.of<FollowService>(context, listen: false).isFollowing(user.atsign);
     bool isMine = toAccountNameWithAtsign(user.atsign) ==
-        toAccountNameWithAtsign(
-            Provider.of<UserProvider>(context, listen: false).user?.atsign);
+        toAccountNameWithAtsign(Provider.of<UserProvider>(context, listen: false).user?.atsign);
     return InkWell(
       onTap: onPressed,
       child: Container(
@@ -51,15 +48,14 @@ class DesktopUserWidget extends StatelessWidget {
                       firstname: user.firstname,
                       lastname: user.lastname,
                     ),
-                    style: appTheme.textTheme.subtitle1,
+                    style: appTheme.textTheme.titleMedium,
                   ),
                   SizedBox(
                     height: 4,
                   ),
                   Text(
                     '@' + user.atsign,
-                    style: appTheme.textTheme.subtitle2
-                        ?.copyWith(color: appTheme.secondaryTextColor),
+                    style: appTheme.textTheme.titleSmall?.copyWith(color: appTheme.secondaryTextColor),
                   ),
                 ],
               ),
@@ -72,7 +68,7 @@ class DesktopUserWidget extends StatelessWidget {
                   child: Center(
                     child: Text(
                       isFollowingThisAtSign ? 'Unfollow' : 'Follow1',
-                      style: appTheme.textTheme.subtitle2,
+                      style: appTheme.textTheme.titleSmall,
                     ),
                   ),
                 ),

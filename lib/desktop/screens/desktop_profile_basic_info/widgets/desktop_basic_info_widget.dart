@@ -37,8 +37,7 @@ class DesktopBasicInfoWidget extends StatelessWidget {
       return Container();
     }
 
-    if (data.type == CustomContentType.Youtube.name ||
-        data.type == CustomContentType.Link.name) {
+    if (data.type == CustomContentType.Youtube.name || data.type == CustomContentType.Link.name) {
       return _youtubeContent(context);
     } else if (data.type == CustomContentType.Image.name) {
       return _imageContent(context);
@@ -54,10 +53,10 @@ class DesktopBasicInfoWidget extends StatelessWidget {
   Widget _textContent(BuildContext context) {
     bool isUrl;
     String url;
-    if(Uri.parse(data.value).isAbsolute) {
+    if (Uri.parse(data.value).isAbsolute) {
       isUrl = true;
       url = data.value;
-    }else {
+    } else {
       url = getUrl(data.displayingAccountName ?? "", data.value);
       isUrl = Uri.parse(url).isAbsolute;
     }
@@ -74,7 +73,7 @@ class DesktopBasicInfoWidget extends StatelessWidget {
             width: 150,
             child: Text(
               getTitle(data.displayingAccountName ?? ''),
-              style: appTheme.textTheme.bodyText2?.copyWith(
+              style: appTheme.textTheme.bodyMedium?.copyWith(
                 color: appTheme.secondaryTextColor,
               ),
             ),
@@ -99,7 +98,7 @@ class DesktopBasicInfoWidget extends StatelessWidget {
                 },
                 child: Text(
                   data.value ?? '',
-                  style: appTheme.textTheme.bodyText2?.copyWith(
+                  style: appTheme.textTheme.bodyMedium?.copyWith(
                     color: isUrl || isEmail ? Colors.blue : appTheme.primaryTextColor,
                   ),
                 ),
@@ -126,7 +125,7 @@ class DesktopBasicInfoWidget extends StatelessWidget {
             width: 150,
             child: Text(
               getTitle(data.displayingAccountName ?? ''),
-              style: appTheme.textTheme.bodyText2?.copyWith(
+              style: appTheme.textTheme.bodyMedium?.copyWith(
                 color: appTheme.secondaryTextColor,
               ),
             ),
@@ -141,7 +140,7 @@ class DesktopBasicInfoWidget extends StatelessWidget {
               child: Container(
                 child: Text(
                   data.value ?? '',
-                  style: appTheme.textTheme.bodyText2?.copyWith(
+                  style: appTheme.textTheme.bodyMedium?.copyWith(
                     color: Colors.blue,
                   ),
                 ),
@@ -168,16 +167,14 @@ class DesktopBasicInfoWidget extends StatelessWidget {
             width: 150,
             child: Text(
               getTitle(data.displayingAccountName ?? ''),
-              style:
-                  TextStyle(color: appTheme.secondaryTextColor, fontSize: 16),
+              style: TextStyle(color: appTheme.secondaryTextColor, fontSize: 16),
             ),
           ),
           Expanded(
             child: GestureDetector(
               onTap: () {},
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: DesktopDimens.paddingSmall),
+                padding: const EdgeInsets.symmetric(vertical: DesktopDimens.paddingSmall),
                 child: Container(
                   alignment: Alignment.centerLeft,
                   constraints: BoxConstraints(
@@ -214,8 +211,7 @@ class DesktopBasicInfoWidget extends StatelessWidget {
             width: 150,
             child: Text(
               getTitle(data.displayingAccountName ?? ''),
-              style:
-                  TextStyle(color: appTheme.secondaryTextColor, fontSize: 16),
+              style: TextStyle(color: appTheme.secondaryTextColor, fontSize: 16),
             ),
           ),
           Expanded(
@@ -252,7 +248,7 @@ class DesktopBasicInfoWidget extends StatelessWidget {
           child: SizedBox(
             child: Text(
               "Public",
-              style: appTheme.textTheme.bodyText2,
+              style: appTheme.textTheme.bodyMedium,
             ),
           ),
           value: 0,
@@ -261,7 +257,7 @@ class DesktopBasicInfoWidget extends StatelessWidget {
           child: SizedBox(
             child: Text(
               "Private",
-              style: appTheme.textTheme.bodyText2,
+              style: appTheme.textTheme.bodyMedium,
             ),
           ),
           value: 1,
@@ -307,7 +303,7 @@ class DesktopBasicInfoWidget extends StatelessWidget {
           child: SizedBox(
             child: Text(
               "Edit",
-              style: appTheme.textTheme.bodyText2,
+              style: appTheme.textTheme.bodyMedium,
             ),
           ),
           value: 0,
@@ -316,7 +312,7 @@ class DesktopBasicInfoWidget extends StatelessWidget {
           child: SizedBox(
             child: Text(
               "Delete",
-              style: appTheme.textTheme.bodyText2,
+              style: appTheme.textTheme.bodyMedium,
             ),
           ),
           value: 1,

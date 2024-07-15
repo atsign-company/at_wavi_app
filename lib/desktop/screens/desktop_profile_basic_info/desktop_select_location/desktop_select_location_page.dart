@@ -19,8 +19,7 @@ class DesktopSelectLocationPage extends StatefulWidget {
   });
 
   @override
-  _DesktopSelectLocationPageState createState() =>
-      _DesktopSelectLocationPageState();
+  _DesktopSelectLocationPageState createState() => _DesktopSelectLocationPageState();
 }
 
 class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
@@ -53,9 +52,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
 
   calculateMarkerDimensions() {
     /// bottomOfCircle = (((bottom of icon + (size of icon/2))*2 - height of circle)) / 2
-    bottomOfCircle = ((((heightOfMarker / 2) + (widthOfMarker / 2)) * 2 -
-            diameterOfCircle)) /
-        2;
+    bottomOfCircle = ((((heightOfMarker / 2) + (widthOfMarker / 2)) * 2 - diameterOfCircle)) / 2;
 
     /// leftOfCircle = (size of icon - width of circle)/2
     leftOfCircle = (widthOfMarker - diameterOfCircle) / 2;
@@ -66,8 +63,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
     final appTheme = AppTheme.of(context);
     calculateMarkerDimensions();
     return Container(
-      width:
-          MediaQuery.of(context).size.width / 2 + DesktopDimens.sideMenuWidth,
+      width: MediaQuery.of(context).size.width / 2 + DesktopDimens.sideMenuWidth,
       decoration: BoxDecoration(
         color: appTheme.backgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -109,8 +105,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
             clipBehavior: Clip.none,
             children: [
               Positioned(
-                bottom:
-                    heightOfMarker / 2, // height/2 => so, it starts from center
+                bottom: heightOfMarker / 2, // height/2 => so, it starts from center
                 child: Icon(
                   Icons.location_on,
                   color: appTheme.primaryColor,
@@ -128,8 +123,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
                   height: diameterOfCircle,
                   child: CustomPaint(
                     painter: CircleMarkerPainter(
-                        color: appTheme.primaryColor.withOpacity(0.4),
-                        paintingStyle: PaintingStyle.fill),
+                        color: appTheme.primaryColor.withOpacity(0.4), paintingStyle: PaintingStyle.fill),
                   ),
                 ),
               ),
@@ -156,8 +150,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
       ),
       layers: [
         TileLayerOptions(
-          urlTemplate:
-              'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=${MixedConstants.MAP_KEY}',
+          urlTemplate: 'https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=${MixedConstants.MAP_KEY}',
           subdomains: ['a', 'b', 'c'],
           minNativeZoom: 2,
           maxNativeZoom: 18,
@@ -191,8 +184,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Checkbox(
-                      fillColor: MaterialStateProperty.all<Color>(
-                          Theme.of(context).primaryColor),
+                      fillColor: WidgetStateProperty.all<Color>(Theme.of(context).primaryColor),
                       checkColor: Theme.of(context).scaffoldBackgroundColor,
                       value: _absorbDoubleTapPointer,
                       tristate: false,
@@ -211,7 +203,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
                           SizedBox(height: 7),
                           Text(
                             'Enable double tap to move pointer',
-                            style: appTheme.textTheme.bodyText2,
+                            style: appTheme.textTheme.bodyMedium,
                           ),
                           (_absorbDoubleTapPointer)
                               ? Flexible(
@@ -219,7 +211,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
                                     '(Double tap zoom is disabled)',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: appTheme.textTheme.bodyText2,
+                                    style: appTheme.textTheme.bodyMedium,
                                   ),
                                 )
                               : SizedBox()
@@ -276,10 +268,10 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
                         TextSpan(
                           text:
                               'The view you select (Position of the marker, zoom level and radius of the circle), will be shown to other users.',
-                          style: appTheme.textTheme.bodyText2,
+                          style: appTheme.textTheme.bodyMedium,
                         )
                       ],
-                      style: appTheme.textTheme.bodyText2?.copyWith(
+                      style: appTheme.textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),

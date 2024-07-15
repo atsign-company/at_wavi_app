@@ -75,7 +75,7 @@ class _DesktopEditBasicDetailState extends State<DesktopEditBasicDetailPage> {
               padding: EdgeInsets.only(left: DesktopDimens.paddingNormal),
               child: Text(
                 widget.atCategory.label,
-                style: appTheme.textTheme.bodyText1?.copyWith(
+                style: appTheme.textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: appTheme.primaryTextColor,
                 ),
@@ -102,8 +102,7 @@ class _DesktopEditBasicDetailState extends State<DesktopEditBasicDetailPage> {
             ),
             SizedBox(height: DesktopDimens.paddingNormal),
             Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
+              padding: EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
               child: Row(
                 children: [
                   Expanded(

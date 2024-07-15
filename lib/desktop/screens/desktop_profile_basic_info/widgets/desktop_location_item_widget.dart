@@ -34,13 +34,11 @@ class DesktopLocationItemWidget extends StatelessWidget {
 
     OsmLocationModel? osmLocationModel;
     try {
-      osmLocationModel =
-          OsmLocationModel.fromJson(jsonDecode(location ?? "{}"));
+      osmLocationModel = OsmLocationModel.fromJson(jsonDecode(location ?? "{}"));
     } catch (e) {
       print(e);
     }
-    final isValidData =
-        osmLocationModel != null && osmLocationModel.latLng != null;
+    final isValidData = osmLocationModel != null && osmLocationModel.latLng != null;
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
@@ -59,8 +57,7 @@ class DesktopLocationItemWidget extends StatelessWidget {
               width: 100,
               child: Text(
                 title ?? '',
-                style:
-                    TextStyle(color: appTheme.secondaryTextColor, fontSize: 16),
+                style: TextStyle(color: appTheme.secondaryTextColor, fontSize: 16),
               ),
             ),
             SizedBox(width: 20),
@@ -72,8 +69,7 @@ class DesktopLocationItemWidget extends StatelessWidget {
                           absorbing: true,
                           child: FlutterMap(
                             options: MapOptions(
-                              boundsOptions:
-                                  FitBoundsOptions(padding: EdgeInsets.all(0)),
+                              boundsOptions: FitBoundsOptions(padding: EdgeInsets.all(0)),
                               center: osmLocationModel!.latLng,
                               zoom: osmLocationModel.zoom ?? 14.0,
                             ),
@@ -94,10 +90,7 @@ class DesktopLocationItemWidget extends StatelessWidget {
                                     height: 50,
                                     point: osmLocationModel.latLng!,
                                     builder: (ctx) => Container(
-                                        child: createMarker(
-                                            diameterOfCircle:
-                                                osmLocationModel!.diameter ??
-                                                    0)),
+                                        child: createMarker(diameterOfCircle: osmLocationModel!.diameter ?? 0)),
                                   )
                               ])
                             ],
@@ -152,7 +145,7 @@ class DesktopLocationItemWidget extends StatelessWidget {
           child: SizedBox(
             child: Text(
               "Edit",
-              style: appTheme.textTheme.bodyText2,
+              style: appTheme.textTheme.bodyMedium,
             ),
           ),
           value: 0,
@@ -162,7 +155,7 @@ class DesktopLocationItemWidget extends StatelessWidget {
             child: SizedBox(
               child: Text(
                 "Delete",
-                style: appTheme.textTheme.bodyText2,
+                style: appTheme.textTheme.bodyMedium,
               ),
             ),
             value: 1,

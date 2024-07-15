@@ -32,7 +32,7 @@ class DesktopSettingWidget extends StatelessWidget {
             SizedBox(width: DesktopDimens.paddingNormal),
             Text(
               title,
-              style: appTheme.textTheme.subtitle1,
+              style: appTheme.textTheme.titleMedium,
             ),
           ],
         ),

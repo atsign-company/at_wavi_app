@@ -36,8 +36,8 @@ class DesktopProfileTabBar extends StatelessWidget {
             ],
             labelColor: Colors.white,
             unselectedLabelColor: appTheme.primaryTextColor,
-            labelStyle: appTheme.textTheme.subtitle1,
-            unselectedLabelStyle: appTheme.textTheme.subtitle1,
+            labelStyle: appTheme.textTheme.titleMedium,
+            unselectedLabelStyle: appTheme.textTheme.titleMedium,
             padding: EdgeInsets.zero,
             indicator: BoxDecoration(
               color: appTheme.primaryColor,

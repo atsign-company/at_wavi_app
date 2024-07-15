@@ -1,5 +1,4 @@
 import 'package:at_wavi_app/desktop/services/theme/app_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DesktopTextField extends StatelessWidget {
@@ -49,7 +48,7 @@ class DesktopTextField extends StatelessWidget {
         if (title.isNotEmpty)
           Text(
             title,
-            style: appTheme.textTheme.bodyText2?.copyWith(
+            style: appTheme.textTheme.bodyMedium?.copyWith(
               color: appTheme.secondaryTextColor,
             ),
           ),
@@ -59,15 +58,14 @@ class DesktopTextField extends StatelessWidget {
           readOnly: readOnly,
           enabled: enabled,
           style: style ??
-              appTheme.textTheme.bodyText2?.copyWith(
+              appTheme.textTheme.bodyMedium?.copyWith(
                 color: appTheme.primaryTextColor,
               ),
           onChanged: onChanged,
           validator: validator,
           decoration: InputDecoration(
             isDense: contentPadding == 0 ? false : true,
-            contentPadding: EdgeInsets.fromLTRB(
-                contentPadding, contentPadding, contentPadding, contentPadding),
+            contentPadding: EdgeInsets.fromLTRB(contentPadding, contentPadding, contentPadding, contentPadding),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
               borderSide: BorderSide.none,
@@ -77,22 +75,20 @@ class DesktopTextField extends StatelessWidget {
                 style?.copyWith(
                   color: appTheme.secondaryTextColor,
                 ) ??
-                appTheme.textTheme.bodyText2?.copyWith(
+                appTheme.textTheme.bodyMedium?.copyWith(
                   color: appTheme.secondaryTextColor,
                 ),
             filled: backgroundColor != null,
             fillColor: backgroundColor,
             enabledBorder: hasUnderlineBorder
                 ? UnderlineInputBorder(
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(borderRadius)),
+                    borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
                     borderSide: BorderSide(color: appTheme.separatorColor),
                   )
                 : null,
             focusedBorder: hasUnderlineBorder
                 ? UnderlineInputBorder(
-                    borderRadius:
-                        BorderRadius.all(Radius.circular(borderRadius)),
+                    borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
                     borderSide: BorderSide(color: appTheme.primaryColor),
                   )
                 : null,

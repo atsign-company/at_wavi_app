@@ -12,16 +12,18 @@ class Themes {
       brightness: Brightness.light,
       primaryColor: ColorConstants.black,
       primaryColorDark: getPrimaryColorDark(highlightColor, themeColor),
-      backgroundColor: getBackgroundColor(highlightColor, themeColor),
       canvasColor: Colors.white,
       highlightColor: highlightColor,
       scaffoldBackgroundColor: ColorConstants.white,
       fontFamily: fontFamily ?? 'HelveticaNeu',
       visualDensity: VisualDensity.adaptivePlatformDensity,
-      colorScheme: ThemeData.dark().colorScheme.copyWith(
-        brightness: Brightness.light,
-        primary: ColorConstants.desktopPrimaryDefault,
-      ),
+      colorScheme: ThemeData.dark()
+          .colorScheme
+          .copyWith(
+            brightness: Brightness.light,
+            primary: ColorConstants.desktopPrimaryDefault,
+          )
+          .copyWith(surface: getBackgroundColor(highlightColor, themeColor)),
     );
   }
 
@@ -35,15 +37,17 @@ class Themes {
       canvasColor: Colors.black,
       primaryColor: ColorConstants.white,
       primaryColorDark: getPrimaryColorDark(highlightColor, themeColor),
-      backgroundColor: getBackgroundColor(highlightColor, themeColor),
       highlightColor: highlightColor,
       scaffoldBackgroundColor: ColorConstants.black,
       fontFamily: fontFamily ?? 'HelveticaNeu',
       visualDensity: VisualDensity.adaptivePlatformDensity,
-      colorScheme: ThemeData.dark().colorScheme.copyWith(
-        brightness: Brightness.dark,
-        primary: ColorConstants.desktopPrimaryDefault,
-      ),
+      colorScheme: ThemeData.dark()
+          .colorScheme
+          .copyWith(
+            brightness: Brightness.dark,
+            primary: ColorConstants.desktopPrimaryDefault,
+          )
+          .copyWith(surface: getBackgroundColor(highlightColor, themeColor)),
     );
   }
 
