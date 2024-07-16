@@ -15,66 +15,60 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-
 # For mobile version
 version: 1.0.8+30
 # For desktop version macos
 # version: 1.0.2+16
 # For desktop version windows
 # version: 1.0.0+1
-
 environment:
   sdk: ">=2.12.0 <4.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-
-  biometric_storage: ^5.0.1
-
-  flutter_slidable: ^3.0.1
-  provider: ^6.1.2
-  flutter_image_compress: ^2.1.0
-  path_provider: ^2.1.2
-  permission_handler: ^11.3.0
+  another_flushbar: ^1.12.30
   at_base2e15: ^1.0.0
-  youtube_player_flutter: ^9.0.1
-  receive_sharing_intent: ^1.8.0
-  http: ^0.13.4
-  file_picker: ^4.5.0
-  easy_debounce: ^2.0.3
-  validators: ^3.0.0
-  latlong2: ^0.9.0
-  image_cropper: ^7.1.0
-  extended_image: ^8.2.0
-  image: ^4.1.7
-  showcaseview: ^3.0.0
-  desktop_window: ^0.4.0
-  shared_preferences: ^2.2.2
-
-  html_editor_enhanced: ^2.5.1
-  flutter_widget_from_html: ^0.15.1
-  qr_flutter: ^4.1.0
-  share_plus: ^7.2.2
-  url_launcher: ^6.2.5
-
-  at_common_flutter: ^2.0.13
-  at_onboarding_flutter: ^6.1.7
   at_client_mobile: ^3.2.15
-  at_contact: ^3.0.8
-  at_lookup: ^3.0.46
-  at_contacts_flutter: ^4.0.14
+  at_common_flutter: ^2.0.13
   at_commons: ^4.0.3
+  at_contact: ^3.0.8
+  at_contacts_flutter: ^4.0.14
   at_follows_flutter: ^3.0.12
   at_location_flutter: ^3.1.12
-  at_sync_ui_flutter: ^1.0.11
-  uni_links: ^0.5.1
-  internet_connection_checker: ^1.0.0+1
+  at_lookup: ^3.0.46
+  at_onboarding_flutter: ^6.1.7
   at_server_status: ^1.0.4
+  at_sync_ui_flutter: ^1.0.11
+  biometric_storage: ^5.0.1
+  desktop_window: ^0.4.0
+  easy_debounce: ^2.0.3
+  extended_image: ^8.2.0
+  file_picker: ^4.5.0
+  flutter:
+    sdk: flutter
   flutter_dotenv: ^5.1.0
-
+  flutter_image_compress: ^2.1.0
+  flutter_lints: ^4.0.0
+  flutter_slidable: ^3.0.1
+  flutter_widget_from_html: ^0.15.1
+  html_editor_enhanced: ^2.5.1
+  http: ^0.13.4
+  image: ^4.1.7
+  image_cropper: ^7.1.0
+  internet_connection_checker: ^1.0.0+1
+  latlong2: ^0.9.0
   new_version: ^0.3.1
-  another_flushbar: ^1.12.30
+  path_provider: ^2.1.2
+  permission_handler: ^11.3.0
+  provider: ^6.1.2
+  qr_flutter: ^4.1.0
+  receive_sharing_intent: ^1.8.0
+  share_plus: ^7.2.2
+  shared_preferences: ^2.2.2
+  showcaseview: ^3.0.0
+  uni_links: ^0.5.1
+  url_launcher: ^6.2.5
+  validators: ^3.0.0
+  youtube_player_flutter: ^9.0.1
 
 dependency_overrides:
   http: ^1.2.1
@@ -90,7 +84,6 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter.
 flutter:
   # The following line ensures that the Material Icons font is
@@ -105,10 +98,8 @@ flutter:
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
@@ -140,10 +131,8 @@ flutter:
           weight: 800
         - asset: assets/fonts/inter/Inter-Black.ttf
           weight: 900
-  #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
-
 msix_config:
   display_name: "atWavi"
   publisher_display_name: "The @ Company"
