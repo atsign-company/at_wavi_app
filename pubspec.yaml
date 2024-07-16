@@ -38,22 +38,22 @@ dependencies:
   path_provider: ^2.1.2
   permission_handler: ^11.3.0
   at_base2e15: ^1.0.0
-  youtube_player_flutter: ^8.1.2
-  receive_sharing_intent: 1.5.4
+  youtube_player_flutter: ^9.0.1
+  receive_sharing_intent: ^1.8.0
   http: ^0.13.4
   file_picker: ^4.5.0
   easy_debounce: ^2.0.3
   validators: ^3.0.0
   latlong2: ^0.9.0
-  image_cropper: ^5.0.1
+  image_cropper: ^7.1.0
   extended_image: ^8.2.0
   image: ^4.1.7
-  showcaseview: ^2.0.3
+  showcaseview: ^3.0.0
   desktop_window: ^0.4.0
   shared_preferences: ^2.2.2
 
   html_editor_enhanced: ^2.5.1
-  flutter_widget_from_html: ^0.14.11
+  flutter_widget_from_html: ^0.15.1
   qr_flutter: ^4.1.0
   share_plus: ^7.2.2
   url_launcher: ^6.2.5

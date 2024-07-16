@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:async';
+
 import 'package:at_wavi_app/routes/route_names.dart';
 import 'package:at_wavi_app/routes/routes.dart';
 import 'package:at_wavi_app/services/nav_service.dart';
@@ -55,36 +56,32 @@ class DeepLinkProvider extends BaseModel {
 
   _receiveIntent() async {
     // For sharing images coming from outside the app while the app is in the memory
-    _intentDataStreamSubscription = ReceiveSharingIntent.getMediaStream()
-        .listen((List<SharedMediaFile> value) {
-      print("Incoming Shared file in home :" +
-          (value.map((f) => f.path).join(",")));
+    _intentDataStreamSubscription =
+        ReceiveSharingIntent.instance.getMediaStream().listen((List<SharedMediaFile> value) {
+      print("Incoming Shared file in home :" + (value.map((f) => f.path).join(",")));
     }, onError: (err) {
       print("getIntentDataStream error: $err");
     });
 
     // For sharing images coming from outside the app while the app is closed
-    ReceiveSharingIntent.getInitialMedia().then((List<SharedMediaFile> value) {
+    ReceiveSharingIntent.instance.getInitialMedia().then((List<SharedMediaFile> value) {
       print('Incoming images Value in home  is $value');
     });
 
     // For sharing or opening urls/text coming from outside the app while the app is in the memory
-    _intentDataStreamSubscription =
-        ReceiveSharingIntent.getTextStream().listen((String value) {
+    _intentDataStreamSubscription = ReceiveSharingIntent.instance.getMediaStream().listen((value) {
       print('Incoming text Value in home  is $value');
-      if ((value != null) && (!value.contains('atprotocol://persona'))) {
-        SetupRoutes.push(NavService.navKey.currentContext!, Routes.ADD_LINK,
-            arguments: {'url': value});
+      if ((value.isNotEmpty) && (!value.contains('atprotocol://persona'))) {
+        SetupRoutes.push(NavService.navKey.currentContext!, Routes.ADD_LINK, arguments: {'url': value});
       }
     }, onError: (err) {
       print("getLinkStream error: $err");
     });
 
     // For sharing or opening urls/text coming from outside the app while the app is closed
-    ReceiveSharingIntent.getInitialText().then((String? value) {
-      if ((value != null) && (!value.contains('atprotocol://persona'))) {
-        SetupRoutes.push(NavService.navKey.currentContext!, Routes.ADD_LINK,
-            arguments: {'url': value});
+    ReceiveSharingIntent.instance.getInitialMedia().then((value) {
+      if ((value.isNotEmpty) && (!value.contains('atprotocol://persona'))) {
+        SetupRoutes.push(NavService.navKey.currentContext!, Routes.ADD_LINK, arguments: {'url': value});
       }
       print('Incoming text in home  when app is closed $value');
     });
