@@ -1,18 +1,13 @@
+import 'package:at_wavi_app/services/size_config.dart';
 import 'package:at_wavi_app/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:at_wavi_app/services/size_config.dart';
 
 class CustomInputField extends StatelessWidget {
   final String hintText, initialValue;
   final double width, height;
   final IconData? icon, secondIcon;
   final Function? onTap, onIconTap, onSecondIconTap, onSubmitted;
-  final Color? iconColor,
-      textColor,
-      bgColor,
-      hintTextColor,
-      borderColor,
-      focusedBorderColor;
+  final Color? iconColor, textColor, bgColor, hintTextColor, borderColor, focusedBorderColor;
   final ValueChanged<String>? value;
   final bool isReadOnly;
   final int? maxLines;
@@ -25,6 +20,7 @@ class CustomInputField extends StatelessWidget {
   var textController = TextEditingController();
 
   CustomInputField({
+    Key? key,
     this.hintText = '',
     this.height = 50,
     this.width = 300,
@@ -50,7 +46,7 @@ class CustomInputField extends StatelessWidget {
     this.textInputType,
     this.blankSpacesAllowed,
     this.autoCorrectAllowed,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +66,7 @@ class CustomInputField extends StatelessWidget {
         }
       },
       child: Container(
-        padding: padding ?? EdgeInsets.all(0),
+        padding: padding ?? const EdgeInsets.all(0),
         width: width,
         height: height,
         decoration: BoxDecoration(
@@ -82,26 +78,20 @@ class CustomInputField extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: TextField(
-                autocorrect:
-                    autoCorrectAllowed ?? true, // textfield autocorrect off
-                keyboardType: textInputType ??
-                    TextInputType
-                        .text, // Tweak, if the device's keyboard's autocorrect is on
+                autocorrect: autoCorrectAllowed ?? true, // textfield autocorrect off
+                keyboardType:
+                    textInputType ?? TextInputType.text, // Tweak, if the device's keyboard's autocorrect is on
                 readOnly: isReadOnly,
-                style: TextStyle(
-                    fontSize: 15.toFont, color: textColor ?? Colors.white),
+                style: TextStyle(fontSize: 15.toFont, color: textColor ?? Colors.white),
                 textAlignVertical: TextAlignVertical.top,
                 decoration: InputDecoration(
                   hintText: hintText,
                   enabledBorder: _outlineInputBorder(),
-                  focusedBorder: _outlineInputBorder(
-                      color: focusedBorderColor ?? ColorConstants.LIGHT_GREY),
+                  focusedBorder: _outlineInputBorder(color: focusedBorderColor ?? ColorConstants.LIGHT_GREY),
                   // InputBorder.none,
                   border: _outlineInputBorder(),
                   // InputBorder.none,
-                  hintStyle: TextStyle(
-                      color: hintTextColor ?? ColorConstants.LIGHT_GREY,
-                      fontSize: 15.toFont),
+                  hintStyle: TextStyle(color: hintTextColor ?? ColorConstants.LIGHT_GREY, fontSize: 15.toFont),
                 ),
                 onTap: () {
                   if (onTap != null) {
@@ -113,9 +103,7 @@ class CustomInputField extends StatelessWidget {
                 expands: expands,
                 onChanged: (val) {
                   if (value != null) {
-                    value!((blankSpacesAllowed ?? true)
-                        ? val
-                        : val.replaceAll(' ', ''));
+                    value!((blankSpacesAllowed ?? true) ? val : val.replaceAll(' ', ''));
                   }
                 },
                 controller: textController,
@@ -138,12 +126,12 @@ class CustomInputField extends StatelessWidget {
                       color: iconColor ?? ColorConstants.DARK_GREY,
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             secondIcon != null
-                ? SizedBox(
+                ? const SizedBox(
                     width: 7,
                   )
-                : SizedBox(),
+                : const SizedBox(),
             icon != null
                 ? InkWell(
                     onTap: () {
@@ -158,7 +146,7 @@ class CustomInputField extends StatelessWidget {
                       color: iconColor ?? ColorConstants.DARK_GREY,
                     ),
                   )
-                : SizedBox()
+                : const SizedBox()
           ],
         ),
       ),
@@ -166,8 +154,6 @@ class CustomInputField extends StatelessWidget {
   }
 
   OutlineInputBorder _outlineInputBorder({Color? color}) {
-    return OutlineInputBorder(
-        borderSide: new BorderSide(
-            color: color ?? borderColor ?? ColorConstants.MILD_GREY));
+    return OutlineInputBorder(borderSide: BorderSide(color: color ?? borderColor ?? ColorConstants.MILD_GREY));
   }
 }

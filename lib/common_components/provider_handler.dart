@@ -4,10 +4,10 @@
 /// [Status.Loading] renders a CircularProgressIndicator whereas
 /// [Status.Error] renders [errorBuilder]
 
+import 'package:at_common_flutter/services/size_config.dart';
 import 'package:at_wavi_app/view_models/base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:at_common_flutter/services/size_config.dart';
 
 import 'error_dialog.dart';
 
@@ -30,42 +30,40 @@ class ProviderHandler<T extends BaseModel> extends StatelessWidget {
       : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Consumer<T>(builder: (context, _provider, __) {
+    return Consumer<T>(builder: (context, provider, __) {
       print(
-          '_provider?.status[functionName]=====>${_provider.status[functionName]}========>$functionName=======>before');
-      if (_provider.status[functionName] == Status.Loading) {
-        return loaderBuilder!(_provider) ??
+          '_provider?.status[functionName]=====>${provider.status[functionName]}========>$functionName=======>before');
+      if (provider.status[functionName] == Status.Loading) {
+        return loaderBuilder!(provider) ??
             Center(
-              child: Container(
+              child: SizedBox(
                 height: 50.toHeight,
                 width: 50.toHeight,
-                child: CircularProgressIndicator(),
+                child: const CircularProgressIndicator(),
               ),
             );
-      } else if (_provider.status[functionName] == Status.Error) {
-        print(
-            '_provider?.status[functionName]=====>${_provider.status[functionName]}========>$functionName');
+      } else if (provider.status[functionName] == Status.Error) {
+        print('_provider?.status[functionName]=====>${provider.status[functionName]}========>$functionName');
         if (showError) {
           print('IN SHOW ERROR');
-          ErrorDialog()
-              .show(_provider.error[functionName].toString(), context: context);
-          _provider.reset(functionName);
-          return SizedBox();
+          ErrorDialog().show(provider.error[functionName].toString(), context: context);
+          provider.reset(functionName);
+          return const SizedBox();
         } else {
-          _provider.reset(functionName);
-          return errorBuilder!(_provider);
+          provider.reset(functionName);
+          return errorBuilder!(provider);
         }
-      } else if (_provider.status[functionName] == Status.Done) {
-        return successBuilder(_provider);
+      } else if (provider.status[functionName] == Status.Done) {
+        return successBuilder(provider);
       } else {
         WidgetsBinding.instance.addPostFrameCallback((_) async {
-          await load(_provider);
+          await load(provider);
         });
         return Center(
-          child: Container(
+          child: SizedBox(
             height: 50.toHeight,
             width: 50.toHeight,
-            child: CircularProgressIndicator(),
+            child: const CircularProgressIndicator(),
           ),
         );
       }

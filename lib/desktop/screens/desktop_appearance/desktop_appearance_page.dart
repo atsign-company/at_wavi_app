@@ -9,10 +9,10 @@ import 'package:at_wavi_app/desktop/widgets/desktop_button.dart';
 import 'package:at_wavi_app/desktop/widgets/desktop_tabbar.dart';
 import 'package:at_wavi_app/desktop/widgets/desktop_welcome_widget.dart';
 import 'package:at_wavi_app/utils/colors.dart';
+import 'package:at_wavi_app/utils/text_styles.dart';
 import 'package:at_wavi_app/view_models/theme_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:at_wavi_app/utils/text_styles.dart';
 
 import 'desktop_appearance_model.dart';
 
@@ -23,8 +23,7 @@ class DesktopAppearancePage extends StatefulWidget {
   _DesktopAppearancePageState createState() => _DesktopAppearancePageState();
 }
 
-class _DesktopAppearancePageState extends State<DesktopAppearancePage>
-    with SingleTickerProviderStateMixin {
+class _DesktopAppearancePageState extends State<DesktopAppearancePage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late PageController _pageController;
 
@@ -42,9 +41,7 @@ class _DesktopAppearancePageState extends State<DesktopAppearancePage>
       listen: false,
     );
     _model = DesktopAppearanceModel(
-      isDarkMode:
-          themeProvider.currentAtsignThemeData?.scaffoldBackgroundColor ==
-              ColorConstants.black,
+      isDarkMode: themeProvider.currentAtsignThemeData?.scaffoldBackgroundColor == ColorConstants.black,
       color: themeProvider.currentAtsignThemeData?.highlightColor,
     );
   }
@@ -59,17 +56,17 @@ class _DesktopAppearancePageState extends State<DesktopAppearancePage>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: DesktopDimens.paddingLarge),
+              const SizedBox(height: DesktopDimens.paddingLarge),
               Container(
-                child: Center(
+                child: const Center(
                   child: DesktopWelcomeWidget(),
                 ),
               ),
-              SizedBox(height: DesktopDimens.paddingLarge),
+              const SizedBox(height: DesktopDimens.paddingLarge),
               _buildTabBar(),
               Expanded(child: _buildPageView()),
               Container(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   right: DesktopDimens.paddingLarge,
                   bottom: DesktopDimens.paddingLarge,
                 ),
@@ -77,7 +74,7 @@ class _DesktopAppearancePageState extends State<DesktopAppearancePage>
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     _buildReorderButton(),
-                    SizedBox(width: DesktopDimens.paddingNormal),
+                    const SizedBox(width: DesktopDimens.paddingNormal),
                     _buildSaveButton(),
                   ],
                 ),
@@ -92,9 +89,9 @@ class _DesktopAppearancePageState extends State<DesktopAppearancePage>
   Widget _buildTabBar() {
     return Container(
       width: 200,
-      margin: EdgeInsets.only(left: 80),
+      margin: const EdgeInsets.only(left: 80),
       child: DesktopTabBar(
-        tabTitles: [
+        tabTitles: const [
           'Themes',
           'Colors',
         ],
@@ -118,8 +115,7 @@ class _DesktopAppearancePageState extends State<DesktopAppearancePage>
         );
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => InheritedAppTheme(
-                theme: appTheme, child: DesktopUserProfilePage()),
+            builder: (context) => InheritedAppTheme(theme: appTheme, child: const DesktopUserProfilePage()),
           ),
         );
       },
@@ -133,13 +129,10 @@ class _DesktopAppearancePageState extends State<DesktopAppearancePage>
         await providerCallback<ThemeProvider>(
           context,
           task: (provider) async {
-            await provider.setTheme(
-                themeColor:
-                    _model.isDarkMode ? ThemeColor.Dark : ThemeColor.Light);
+            await provider.setTheme(themeColor: _model.isDarkMode ? ThemeColor.Dark : ThemeColor.Light);
           },
           onError: (provider) {
-            ScaffoldMessenger.of(scaffoldKey.currentContext!)
-                .showSnackBar(SnackBar(
+            ScaffoldMessenger.of(scaffoldKey.currentContext!).showSnackBar(SnackBar(
               backgroundColor: ColorConstants.RED,
               content: Text(
                 'Publishing theme failed. Try again!',
@@ -163,8 +156,7 @@ class _DesktopAppearancePageState extends State<DesktopAppearancePage>
             await provider.setTheme(highlightColor: _model.color);
           },
           onError: (provider) {
-            ScaffoldMessenger.of(scaffoldKey.currentContext!)
-                .showSnackBar(SnackBar(
+            ScaffoldMessenger.of(scaffoldKey.currentContext!).showSnackBar(SnackBar(
               backgroundColor: ColorConstants.RED,
               content: Text(
                 'Publishing theme color failed. Try again!',
@@ -186,8 +178,8 @@ class _DesktopAppearancePageState extends State<DesktopAppearancePage>
   Widget _buildPageView() {
     return PageView(
       controller: _pageController,
-      physics: NeverScrollableScrollPhysics(),
-      children: [
+      physics: const NeverScrollableScrollPhysics(),
+      children: const [
         DesktopThemeSettingPage(),
         DesktopColorSettingPage(),
       ],

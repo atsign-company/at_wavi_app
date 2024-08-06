@@ -36,7 +36,7 @@ class LoadingDialog {
                                             fontWeight: FontWeight.w400,
                                             decoration: TextDecoration.none)),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -51,18 +51,16 @@ class LoadingDialog {
                                         decoration: TextDecoration.none),
                                   ),
                                 ),
-                                TypingIndicator(
+                                const TypingIndicator(
                                   showIndicator: true,
-                                  flashingCircleBrightColor:
-                                      ColorConstants.LIGHT_GREY,
-                                  flashingCircleDarkColor:
-                                      ColorConstants.DARK_GREY,
+                                  flashingCircleBrightColor: ColorConstants.LIGHT_GREY,
+                                  flashingCircleDarkColor: ColorConstants.DARK_GREY,
                                 ),
                               ],
                             ),
                           ],
                         )
-                      : CircularProgressIndicator(),
+                      : const CircularProgressIndicator(),
                 );
               },
               barrierDismissible: false))
@@ -87,7 +85,7 @@ class LoadingDialog {
                     decoration: TextDecoration.none),
           ),
         ),
-        TypingIndicator(
+        const TypingIndicator(
           showIndicator: true,
           flashingCircleBrightColor: ColorConstants.LIGHT_GREY,
           flashingCircleDarkColor: ColorConstants.DARK_GREY,

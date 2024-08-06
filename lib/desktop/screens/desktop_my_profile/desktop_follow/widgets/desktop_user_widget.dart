@@ -13,7 +13,7 @@ class DesktopUserWidget extends StatelessWidget {
   final VoidCallback? onPressed;
   final VoidCallback? onFollowPressed;
 
-  DesktopUserWidget({
+  const DesktopUserWidget({
     Key? key,
     required this.user,
     this.onPressed,
@@ -29,7 +29,7 @@ class DesktopUserWidget extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -37,7 +37,7 @@ class DesktopUserWidget extends StatelessWidget {
               atSign: user.atsign,
               imageData: user.image.value,
             ),
-            SizedBox(width: DesktopDimens.paddingSmall),
+            const SizedBox(width: DesktopDimens.paddingSmall),
             Expanded(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -50,11 +50,11 @@ class DesktopUserWidget extends StatelessWidget {
                     ),
                     style: appTheme.textTheme.titleMedium,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 4,
                   ),
                   Text(
-                    '@' + user.atsign,
+                    '@${user.atsign}',
                     style: appTheme.textTheme.titleSmall?.copyWith(color: appTheme.secondaryTextColor),
                   ),
                 ],
@@ -80,12 +80,12 @@ class DesktopUserWidget extends StatelessWidget {
   }
 
   String _displayingName({dynamic firstname, dynamic lastname}) {
-    String _name = '';
-    _name = firstname?.value ?? '';
+    String name = '';
+    name = firstname?.value ?? '';
     if (lastname?.value != null) {
-      _name = '$_name ${lastname.value}';
+      name = '$name ${lastname.value}';
     }
 
-    return _name;
+    return name;
   }
 }

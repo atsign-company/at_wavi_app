@@ -1,10 +1,7 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:at_wavi_app/common_components/provider_callback.dart';
 import 'package:at_wavi_app/desktop/screens/desktop_appearance/desktop_appearance_page.dart';
-import 'package:at_wavi_app/desktop/screens/desktop_profile_basic_info/desktop_profile_basic_info_page.dart';
 import 'package:at_wavi_app/desktop/screens/desktop_edit_profile/desktop_profile_picture/desktop_profile_picture_page.dart';
+import 'package:at_wavi_app/desktop/screens/desktop_profile_basic_info/desktop_profile_basic_info_page.dart';
 import 'package:at_wavi_app/desktop/screens/desktop_profile_basic_info/desktop_profile_media/desktop_profile_media_page.dart';
 import 'package:at_wavi_app/desktop/services/theme/app_theme.dart';
 import 'package:at_wavi_app/desktop/utils/desktop_dimens.dart';
@@ -82,14 +79,17 @@ class _DesktopEditProfilePageState extends State<DesktopEditProfilePage> {
       builder: (context, provider, child) {
         return Container(
           width: DesktopDimens.sideMenuWidth,
-          margin: EdgeInsets.only(right: 1),
+          margin: const EdgeInsets.only(right: 1),
+          decoration: BoxDecoration(
+            color: appTheme.primaryLighterColor,
+          ),
           child: Column(
             children: [
-              Container(
+              SizedBox(
                 height: 120,
                 child: Stack(
                   children: [
-                    Center(
+                    const Center(
                       child: DesktopLogo(),
                     ),
                     Positioned(
@@ -120,9 +120,6 @@ class _DesktopEditProfilePageState extends State<DesktopEditProfilePage> {
               ),
             ],
           ),
-          decoration: BoxDecoration(
-            color: appTheme.primaryLighterColor,
-          ),
         );
       },
     );
@@ -132,43 +129,43 @@ class _DesktopEditProfilePageState extends State<DesktopEditProfilePage> {
     return Container(
       child: PageView(
         controller: _pageController,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: DesktopSideMenu.values.map((e) {
           switch (e) {
             case DesktopSideMenu.profile:
               return DesktopProfilePicturePage();
             case DesktopSideMenu.media:
               // return DesktopMediaPage();
-              return DesktopProfileMediaPage(
+              return const DesktopProfileMediaPage(
                 isMyProfile: true,
                 isEditable: true,
               );
             case DesktopSideMenu.basicDetails:
-              return DesktopProfileBasicInfoPage(
+              return const DesktopProfileBasicInfoPage(
                 atCategory: AtCategory.DETAILS,
                 isMyProfile: true,
                 isEditable: true,
               );
             case DesktopSideMenu.additionalDetails:
-              return DesktopProfileBasicInfoPage(
+              return const DesktopProfileBasicInfoPage(
                 atCategory: AtCategory.ADDITIONAL_DETAILS,
                 isMyProfile: true,
                 isEditable: true,
               );
             case DesktopSideMenu.location:
-              return DesktopProfileBasicInfoPage(
+              return const DesktopProfileBasicInfoPage(
                 atCategory: AtCategory.LOCATION,
                 isMyProfile: true,
                 isEditable: true,
               );
             case DesktopSideMenu.socialChannel:
-              return DesktopProfileBasicInfoPage(
+              return const DesktopProfileBasicInfoPage(
                 atCategory: AtCategory.SOCIAL,
                 isMyProfile: true,
                 isEditable: true,
               );
             case DesktopSideMenu.gameChannel:
-              return DesktopProfileBasicInfoPage(
+              return const DesktopProfileBasicInfoPage(
                 atCategory: AtCategory.GAMER,
                 isMyProfile: true,
                 isEditable: true,
@@ -176,7 +173,7 @@ class _DesktopEditProfilePageState extends State<DesktopEditProfilePage> {
             // case DesktopSideMenu.featuredChannel:
             //   return DesktopProfileBasicInfoPage(atCategory: AtCategory.FEATURED);
             case DesktopSideMenu.appearance:
-              return DesktopAppearancePage();
+              return const DesktopAppearancePage();
             default:
               return Container(color: Colors.green);
           }
@@ -186,10 +183,10 @@ class _DesktopEditProfilePageState extends State<DesktopEditProfilePage> {
   }
 
   void _handleClosePressed() async {
-    var _changes = _calculateChanges();
-    if (_changes) {
-      var _res = await _confirmationDialog();
-      if (_res == true) {
+    var changes = _calculateChanges();
+    if (changes) {
+      var res = await _confirmationDialog();
+      if (res == true) {
         await _saveButtonCall();
       } else {
         Navigator.of(context).pop();
@@ -204,8 +201,7 @@ class _DesktopEditProfilePageState extends State<DesktopEditProfilePage> {
     await providerCallback<UserProvider>(
       context,
       task: (provider) async {
-        await provider.saveUserData(
-            Provider.of<UserPreview>(context, listen: false).user()!);
+        await provider.saveUserData(Provider.of<UserPreview>(context, listen: false).user()!);
       },
       onError: (provider) {},
       showDialog: false,
@@ -227,8 +223,7 @@ class _DesktopEditProfilePageState extends State<DesktopEditProfilePage> {
         Provider.of<UserPreview>(context, listen: false).user()!)) {
       return true;
     }
-    if (FieldOrderService().previewOrders.toString() !=
-        FieldOrderService().fieldOrders.toString()) {
+    if (FieldOrderService().previewOrders.toString() != FieldOrderService().fieldOrders.toString()) {
       return true;
     }
     return false;
@@ -240,21 +235,21 @@ class _DesktopEditProfilePageState extends State<DesktopEditProfilePage> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return Container(
+        return SizedBox(
           width: DesktopDimens.dialogWidth,
           child: AlertDialog(
-            contentPadding: EdgeInsets.all(DesktopDimens.paddingNormal),
+            contentPadding: const EdgeInsets.all(DesktopDimens.paddingNormal),
             content: SingleChildScrollView(
               child: Container(
                 child: Column(
                   children: <Widget>[
-                    Text(
+                    const Text(
                       'Do you want to save your changes?',
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -264,7 +259,7 @@ class _DesktopEditProfilePageState extends State<DesktopEditProfilePage> {
                                 value = false;
                                 Navigator.of(context).pop();
                               }),
-                          SizedBox(width: DesktopDimens.paddingNormal),
+                          const SizedBox(width: DesktopDimens.paddingNormal),
                           DesktopButton(
                               title: 'Save',
                               onPressed: () {

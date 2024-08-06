@@ -9,21 +9,18 @@ class DesktopProfileDetailsPage extends StatefulWidget {
   final bool isMyProfile;
   final bool isEditable;
 
-  DesktopProfileDetailsPage({
+  const DesktopProfileDetailsPage({
     Key? key,
     required this.isMyProfile,
     required this.isEditable,
   }) : super(key: key);
 
   @override
-  _DesktopProfileDetailsPageState createState() =>
-      _DesktopProfileDetailsPageState();
+  _DesktopProfileDetailsPageState createState() => _DesktopProfileDetailsPageState();
 }
 
 class _DesktopProfileDetailsPageState extends State<DesktopProfileDetailsPage>
-    with
-        SingleTickerProviderStateMixin,
-        AutomaticKeepAliveClientMixin<DesktopProfileDetailsPage> {
+    with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin<DesktopProfileDetailsPage> {
   late TabController _tabController;
 
   final categories = [
@@ -50,7 +47,7 @@ class _DesktopProfileDetailsPageState extends State<DesktopProfileDetailsPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: DesktopDimens.paddingNormal,
               horizontal: DesktopDimens.paddingExtraLarge,
             ),

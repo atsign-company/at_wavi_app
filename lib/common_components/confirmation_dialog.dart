@@ -9,18 +9,16 @@ import 'package:flutter/material.dart';
 import 'custom_button.dart';
 
 Future<bool?> confirmationDialog(String atsign) async {
-  bool? _choice;
+  bool? choice;
   await showDialog<bool>(
     context: NavService.navKey.currentContext!,
     barrierDismissible: true,
     builder: (BuildContext context) {
-      return Container(
+      return SizedBox(
         width: SizeConfig().screenWidth * 0.8,
         child: AlertDialog(
-          backgroundColor: Theme.of(context).brightness == Brightness.light
-              ? Colors.white
-              : ColorConstants.darkGrey,
-          contentPadding: EdgeInsets.fromLTRB(15, 30, 15, 20),
+          backgroundColor: Theme.of(context).brightness == Brightness.light ? Colors.white : ColorConstants.darkGrey,
+          contentPadding: const EdgeInsets.fromLTRB(15, 30, 15, 20),
           content: SingleChildScrollView(
             child: Container(
               child: Column(
@@ -30,39 +28,34 @@ Future<bool?> confirmationDialog(String atsign) async {
                     style: TextStyles.grey16,
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   CustomButton(
                     onTap: () {
-                      _choice = true;
-                      Navigator.pop(NavService.navKey.currentContext!, _choice);
+                      choice = true;
+                      Navigator.pop(NavService.navKey.currentContext!, choice);
                     },
                     bgColor: Theme.of(context).primaryColor,
                     highlightColor:
-                        Theme.of(context).brightness == Brightness.light
-                            ? Colors.white
-                            : ColorConstants.darkGrey,
+                        Theme.of(context).brightness == Brightness.light ? Colors.white : ColorConstants.darkGrey,
                     width: 164.toWidth,
                     height: 48.toHeight,
                     child: Text(
                       'Yes!',
-                      style: TextStyle(
-                          fontSize: 15.toFont,
-                          color: Theme.of(context).scaffoldBackgroundColor),
+                      style: TextStyle(fontSize: 15.toFont, color: Theme.of(context).scaffoldBackgroundColor),
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   CustomButton(
                     onTap: () {
-                      _choice = false;
-                      Navigator.pop(NavService.navKey.currentContext!, _choice);
+                      choice = false;
+                      Navigator.pop(NavService.navKey.currentContext!, choice);
                     },
                     bgColor: Theme.of(context).brightness == Brightness.light
                         ? Theme.of(context).scaffoldBackgroundColor
                         : ColorConstants.darkGrey,
-                    highlightColor:
-                        Theme.of(context).brightness == Brightness.light
-                            ? Theme.of(context).scaffoldBackgroundColor
-                            : ColorConstants.darkGrey,
+                    highlightColor: Theme.of(context).brightness == Brightness.light
+                        ? Theme.of(context).scaffoldBackgroundColor
+                        : ColorConstants.darkGrey,
                     width: 164.toWidth,
                     height: 48.toHeight,
                     child: Text(
@@ -80,5 +73,5 @@ Future<bool?> confirmationDialog(String atsign) async {
       );
     },
   );
-  return _choice;
+  return choice;
 }

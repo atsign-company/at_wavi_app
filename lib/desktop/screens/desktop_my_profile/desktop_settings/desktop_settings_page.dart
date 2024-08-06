@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:at_client_mobile/at_client_mobile.dart';
@@ -16,11 +15,11 @@ import 'package:at_wavi_app/utils/constants.dart';
 import 'package:at_wavi_app/view_models/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'desktop_switch_account/desktop_switch_account_page.dart';
 import 'widgets/desktop_setting_switch_widget.dart';
 import 'widgets/desktop_setting_widget.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class DesktopSettingsPage extends StatefulWidget {
   const DesktopSettingsPage({Key? key}) : super(key: key);
@@ -47,8 +46,7 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
   @override
   Widget build(BuildContext context) {
     final appTheme = AppTheme.of(context);
-    final isPrivateAccount =
-        Provider.of<UserProvider>(context).user?.allPrivate ?? false;
+    final isPrivateAccount = Provider.of<UserProvider>(context).user?.allPrivate ?? false;
     final isUpdating = Provider.of<SetPrivateState>(context).isLoading;
 
     return Container(
@@ -56,15 +54,14 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
       color: appTheme.backgroundColor,
       child: Column(
         children: [
-          SizedBox(height: DesktopDimens.paddingLarge),
+          const SizedBox(height: DesktopDimens.paddingLarge),
           DesktopSettingSwitchWidget(
             prefixIcon: Icons.lock_rounded,
             title: "Make all information private",
             isOn: isPrivateAccount,
             isUpdating: isUpdating,
             onChanged: (isOn) async {
-              final user =
-                  Provider.of<UserProvider>(context, listen: false).user;
+              final user = Provider.of<UserProvider>(context, listen: false).user;
               if (user != null) {
                 await ChangePrivacyService().setAllPrivate(isOn, user);
               }
@@ -174,7 +171,7 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
                 alignment: Alignment.center,
                 child: Container(
                   width: 400,
-                  padding: EdgeInsets.all(DesktopDimens.paddingNormal),
+                  padding: const EdgeInsets.all(DesktopDimens.paddingNormal),
                   decoration: BoxDecoration(
                     color: appTheme.backgroundColor,
                     borderRadius: BorderRadius.circular(8),
@@ -184,7 +181,7 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(left: 16),
+                        padding: const EdgeInsets.only(left: 16),
                         child: Text(
                           'Delete atSign',
                           style: TextStyle(
@@ -194,13 +191,12 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       ListView.builder(
                         shrinkWrap: true,
                         itemCount: atSignList?.length ?? 0,
                         itemBuilder: (context, index) {
-                          Uint8List? image = CommonFunctions()
-                              .getCachedContactImage(atSignList![index]);
+                          Uint8List? image = CommonFunctions().getCachedContactImage(atSignList![index]);
                           return InkWell(
                             splashColor: Colors.transparent,
                             highlightColor: Colors.transparent,
@@ -215,7 +211,7 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
                               );
                             },
                             child: Padding(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: [
                                   image != null
@@ -228,7 +224,7 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
                                           initials: atSignList[index],
                                           size: 40,
                                         ),
-                                  SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                                   Text(
                                     atSignList[index],
                                     style: TextStyle(
@@ -236,8 +232,8 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                   ),
-                                  Spacer(),
-                                  Icon(
+                                  const Spacer(),
+                                  const Icon(
                                     Icons.delete,
                                     color: Colors.grey,
                                   ),

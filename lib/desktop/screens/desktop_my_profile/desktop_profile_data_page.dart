@@ -5,6 +5,7 @@ import 'package:at_wavi_app/desktop/utils/shared_preferences_utils.dart';
 import 'package:at_wavi_app/desktop/widgets/buttons/desktop_icon_button.dart';
 import 'package:at_wavi_app/services/backend_service.dart';
 import 'package:flutter/material.dart';
+
 import 'desktop_profile_channels/desktop_profile_channels_page.dart';
 import 'desktop_profile_details/desktop_profile_details_page.dart';
 import 'widgets/desktop_profile_tabbar.dart';
@@ -15,7 +16,7 @@ class DesktopProfileDataPage extends StatefulWidget {
   final bool isMyProfile;
   final bool isEditable;
 
-  DesktopProfileDataPage({
+  const DesktopProfileDataPage({
     Key? key,
     this.onSearchPressed,
     this.onSettingPressed,
@@ -27,8 +28,7 @@ class DesktopProfileDataPage extends StatefulWidget {
   _DesktopProfileDataPageState createState() => _DesktopProfileDataPageState();
 }
 
-class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
-    with TickerProviderStateMixin {
+class _DesktopProfileDataPageState extends State<DesktopProfileDataPage> with TickerProviderStateMixin {
   late PageController _pageController;
   late TabController _tabController;
   late final AnimationController _controller = AnimationController(
@@ -71,15 +71,15 @@ class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(height: DesktopDimens.paddingLarge),
+          const SizedBox(height: DesktopDimens.paddingLarge),
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: DesktopDimens.paddingLarge,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(child: Container(), flex: 1),
+                Expanded(flex: 1, child: Container()),
                 DesktopProfileTabBar(
                   onTap: (index) {
                     _pageController.jumpToPage(index);
@@ -96,13 +96,12 @@ class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
                             DesktopIconButton(
                               iconData: Icons.search,
                               iconColor: appTheme.primaryTextColor,
-                              backgroundColor:
-                                  appTheme.secondaryBackgroundColor,
+                              backgroundColor: appTheme.secondaryBackgroundColor,
                               onPressed: () {
                                 widget.onSearchPressed?.call();
                               },
                             ),
-                            SizedBox(width: DesktopDimens.paddingSmall),
+                            const SizedBox(width: DesktopDimens.paddingSmall),
                             // if (widget.isMyProfile &&
                             //     widget.isEditable == false)
                             //   RotationTransition(
@@ -115,12 +114,11 @@ class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
                             //       onPressed: _syncData,
                             //     ),
                             //   ),
-                            SizedBox(width: DesktopDimens.paddingSmall),
+                            const SizedBox(width: DesktopDimens.paddingSmall),
                             DesktopIconButton(
                               iconData: Icons.more_vert,
                               iconColor: appTheme.primaryTextColor,
-                              backgroundColor:
-                                  appTheme.secondaryBackgroundColor,
+                              backgroundColor: appTheme.secondaryBackgroundColor,
                               onPressed: () {
                                 widget.onSettingPressed?.call();
                               },
@@ -132,14 +130,14 @@ class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: DesktopDimens.paddingNormal,
           ),
           Expanded(
             child: Stack(
               children: [
                 PageView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   onPageChanged: (int page) {},
                   controller: _pageController,
                   children: [
@@ -164,7 +162,7 @@ class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
   void _showTutorialDialog() async {
     await showDialog<String>(
       context: context,
-      builder: (BuildContext context) => DesktopTutorialPage(),
+      builder: (BuildContext context) => const DesktopTutorialPage(),
     );
   }
 

@@ -13,13 +13,15 @@ class CustomCard extends StatelessWidget {
   final String? url;
   final bool isEmail;
   final ThemeData themeData;
-  CustomCard(
-      {this.title,
+  const CustomCard(
+      {Key? key,
+      this.title,
       this.isEmail = false,
       this.url,
       required this.subtitle,
       this.isUrl = false,
-      required this.themeData});
+      required this.themeData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +37,8 @@ class CustomCard extends StatelessWidget {
                     '${title![0].toUpperCase()}${title!.substring(1)}',
                     style: TextStyles.lightText(themeData.primaryColor.withOpacity(0.5), size: 16),
                   )
-                : SizedBox(),
-            SizedBox(height: 6),
+                : const SizedBox(),
+            const SizedBox(height: 6),
             subtitle != null
                 ? GestureDetector(
                     onTap: () async {
@@ -70,7 +72,7 @@ class CustomCard extends StatelessWidget {
                       ),
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ],
         ),
       ),

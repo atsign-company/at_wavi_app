@@ -1,9 +1,10 @@
 import 'dart:typed_data';
+
+import 'package:at_common_flutter/at_common_flutter.dart';
 import 'package:at_wavi_app/common_components/contact_initial.dart';
 import 'package:at_wavi_app/utils/colors.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:at_common_flutter/at_common_flutter.dart';
 
 // ignore: must_be_immutable
 class CustomPersonHorizontalTile extends StatelessWidget {
@@ -15,13 +16,15 @@ class CustomPersonHorizontalTile extends StatelessWidget {
   final Widget? trailingWidget;
 
   CustomPersonHorizontalTile(
-      {this.image,
+      {Key? key,
+      this.image,
       this.title,
       this.subTitle,
       this.isTopRight = false,
       this.icon,
       this.textColor,
-      this.trailingWidget}) {
+      this.trailingWidget})
+      : super(key: key) {
     if (image != null) {
       var intList = image!.cast<int>();
       image = Uint8List.fromList(intList);
@@ -38,8 +41,7 @@ class CustomPersonHorizontalTile extends StatelessWidget {
             children: [
               image != null
                   ? ClipRRect(
-                      borderRadius:
-                          BorderRadius.all(Radius.circular(30.toWidth)),
+                      borderRadius: BorderRadius.all(Radius.circular(30.toWidth)),
                       child: Image.memory(
                         image as Uint8List,
                         width: 40.toWidth,
@@ -49,12 +51,8 @@ class CustomPersonHorizontalTile extends StatelessWidget {
                     )
                   : ContactInitial(initials: subTitle ?? ' '),
               icon != null
-                  ? Positioned(
-                      top: isTopRight ? 0 : null,
-                      right: 0,
-                      bottom: !isTopRight ? 0 : null,
-                      child: Icon(icon))
-                  : SizedBox(),
+                  ? Positioned(top: isTopRight ? 0 : null, right: 0, bottom: !isTopRight ? 0 : null, child: Icon(icon))
+                  : const SizedBox(),
             ],
           ),
           SizedBox(width: 10.toHeight),
@@ -67,12 +65,11 @@ class CustomPersonHorizontalTile extends StatelessWidget {
                   title != null
                       ? Text(
                           title!,
-                          style: TextStyles.lightText(
-                              textColor ?? ColorConstants.black),
+                          style: TextStyles.lightText(textColor ?? ColorConstants.black),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                   SizedBox(height: 5.toHeight),
                   subTitle != null
                       ? Text(
@@ -81,12 +78,12 @@ class CustomPersonHorizontalTile extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                 ],
               ),
             ),
           ),
-          trailingWidget != null ? trailingWidget! : SizedBox()
+          trailingWidget != null ? trailingWidget! : const SizedBox()
         ],
       ),
     );

@@ -25,9 +25,7 @@ Widget createMarker({
   }
 
   /// bottomOfCircle = (((bottom of icon + (size of icon/2))*2 - height of circle)) / 2
-  double bottomOfCircle =
-      ((((heightOfMarker / 2) + (widthOfMarker / 2)) * 2 - diameterOfCircle)) /
-          2;
+  double bottomOfCircle = ((((heightOfMarker / 2) + (widthOfMarker / 2)) * 2 - diameterOfCircle)) / 2;
 
   /// leftOfCircle = (size of icon - width of circle)/2
   double leftOfCircle = (widthOfMarker - diameterOfCircle) / 2;
@@ -45,16 +43,14 @@ Widget createMarker({
       ),
       Positioned(
         // 25 + 20 (bottom + size/2) for center
-        bottom:
-            bottomOfCircle, // ((25 + (20))*2 - 200) => ((bottom of icon + (size of icon/2))*2 - heightof circle)
+        bottom: bottomOfCircle, // ((25 + (20))*2 - 200) => ((bottom of icon + (size of icon/2))*2 - heightof circle)
         left: leftOfCircle, // (40-200)/2 => (size of icon - width of circle)/2
         child: SizedBox(
           width: diameterOfCircle,
           height: diameterOfCircle,
           child: CustomPaint(
-            painter: CircleMarkerPainter(
-                color: Color(0xFFF47B5D).withOpacity(0.2),
-                paintingStyle: PaintingStyle.fill),
+            painter:
+                CircleMarkerPainter(color: const Color(0xFFF47B5D).withOpacity(0.2), paintingStyle: PaintingStyle.fill),
           ),
         ),
       ),

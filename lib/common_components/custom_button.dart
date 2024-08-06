@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:at_common_flutter/services/size_config.dart';
+import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
   final double width, height;
@@ -11,7 +11,8 @@ class CustomButton extends StatelessWidget {
   final Border? border;
   final Color? highlightColor;
 
-  CustomButton({
+  const CustomButton({
+    Key? key,
     required this.child,
     this.height = 50,
     required this.onTap,
@@ -21,7 +22,7 @@ class CustomButton extends StatelessWidget {
     this.radius,
     this.border,
     this.highlightColor,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +34,9 @@ class CustomButton extends StatelessWidget {
         alignment: Alignment.center,
         width: width.toWidth,
         height: height.toHeight,
-        padding: padding ?? EdgeInsets.all(0),
+        padding: padding ?? const EdgeInsets.all(0),
         decoration: BoxDecoration(
-            color: bgColor,
-            border: border ?? Border(),
-            borderRadius: BorderRadius.circular(radius ?? 30)),
+            color: bgColor, border: border ?? const Border(), borderRadius: BorderRadius.circular(radius ?? 30)),
         child: child,
       ),
     );
