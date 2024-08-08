@@ -25,7 +25,7 @@ class DesktopProfileAddCustomField extends StatefulWidget {
   final BasicData? data;
   final List<CustomContentType> allowContentType;
 
-  DesktopProfileAddCustomField({
+  const DesktopProfileAddCustomField({
     Key? key,
     this.title = Strings.desktop_add_custom_content,
     required this.atCategory,
@@ -76,10 +76,10 @@ class _DesktopProfileAddCustomFieldState
         builder: (_, model, child) {
           return Container(
             width: DesktopDimens.dialogWidth,
-            padding: EdgeInsets.all(DesktopDimens.paddingNormal),
+            padding: const EdgeInsets.all(DesktopDimens.paddingNormal),
             decoration: BoxDecoration(
               color: appTheme.backgroundColor,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -93,7 +93,7 @@ class _DesktopProfileAddCustomFieldState
                     color: appTheme.primaryTextColor,
                   ),
                 ),
-                SizedBox(height: DesktopDimens.paddingNormal),
+                const SizedBox(height: DesktopDimens.paddingNormal),
                 DesktopTextField(
                   title: Strings.desktop_title,
                   controller: model.titleTextController,
@@ -101,11 +101,11 @@ class _DesktopProfileAddCustomFieldState
                 _buildTypeSelectionWidget(model),
                 _buildFieldInputWidget(model),
                 Container(height: 1, color: appTheme.separatorColor),
-                SizedBox(height: DesktopDimens.paddingNormal),
+                const SizedBox(height: DesktopDimens.paddingNormal),
                 DesktopShowHideRadioButton(
                   controller: model.showHideController,
                 ),
-                SizedBox(height: DesktopDimens.paddingNormal),
+                const SizedBox(height: DesktopDimens.paddingNormal),
                 Row(
                   children: [
                     Expanded(
@@ -116,7 +116,7 @@ class _DesktopProfileAddCustomFieldState
                         },
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: DesktopButton(
                         title: Strings.desktop_done,
@@ -140,7 +140,7 @@ class _DesktopProfileAddCustomFieldState
         return DropdownButtonFormField<CustomContentType>(
           dropdownColor: appTheme.backgroundColor,
           autovalidateMode: AutovalidateMode.disabled,
-          hint: Text(Strings.desktop_select_type),
+          hint: const Text(Strings.desktop_select_type),
           decoration: InputDecoration(
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(color: appTheme.separatorColor),
@@ -150,7 +150,7 @@ class _DesktopProfileAddCustomFieldState
             ),
           ),
           value: model.fieldType,
-          icon: Icon(Icons.keyboard_arrow_down),
+          icon: const Icon(Icons.keyboard_arrow_down),
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.w600,
@@ -212,7 +212,7 @@ class _DesktopProfileAddCustomFieldState
                   isPrefixIcon: false,
                   padding: EdgeInsets.zero,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: DesktopDimens.paddingSmall,
                 ),
                 if (model.selectedMedia != null)
@@ -227,7 +227,7 @@ class _DesktopProfileAddCustomFieldState
           );
         } else if (model.fieldType == CustomContentType.Html) {
           return Container(
-            padding: EdgeInsets.symmetric(vertical: DesktopDimens.paddingSmall),
+            padding: const EdgeInsets.symmetric(vertical: DesktopDimens.paddingSmall),
             child: DesktopHtmlEditorPage(
               textController: _model.valueContentTextController,
               onPreviewPressed: _openHtmlPreview,
@@ -247,13 +247,13 @@ class _DesktopProfileAddCustomFieldState
       return Container();
     }
     return Container(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         maxHeight: 120.0,
       ),
-      margin: EdgeInsets.all(DesktopDimens.paddingSmall),
-      child: Image.memory(uInt8list),
+      margin: const EdgeInsets.all(DesktopDimens.paddingSmall),
       decoration: BoxDecoration(
           border: Border.all(color: appTheme.secondaryTextColor, width: 1)),
+      child: Image.memory(uInt8list),
     );
   }
 

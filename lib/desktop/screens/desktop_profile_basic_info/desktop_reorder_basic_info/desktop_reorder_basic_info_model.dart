@@ -10,7 +10,7 @@ class DesktopReorderBasicDetailModel extends ChangeNotifier {
   final UserPreview userPreview;
   final AtCategory atCategory;
 
-  List<String> _fields = [];
+  final List<String> _fields = [];
 
   List<String> get fields => _fields;
 
@@ -36,8 +36,8 @@ class DesktopReorderBasicDetailModel extends ChangeNotifier {
 
       if (userMap.containsKey(fields[i])) {
         basicData = userMap[fields[i]];
-        if (basicData.accountName == null) basicData.accountName = fields[i];
-        if (basicData.value == null) basicData.value = '';
+        basicData.accountName ??= fields[i];
+        basicData.value ??= '';
       } else {
         var index =
         customFields.indexWhere((el) => el.accountName == fields[i]);

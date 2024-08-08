@@ -46,10 +46,6 @@ class _DesktopProfileMediaPageState extends State<DesktopProfileMediaPage>
   @override
   bool get wantKeepAlive => true;
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +63,7 @@ class _DesktopProfileMediaPageState extends State<DesktopProfileMediaPage>
       children: [
         if (widget.showWelcome)
           Container(
-            padding: EdgeInsets.only(top: DesktopDimens.paddingLarge),
+            padding: const EdgeInsets.only(top: DesktopDimens.paddingLarge),
             child: DesktopWelcomeWidget(
               titlePage: widget.atCategory.titlePage,
             ),
@@ -89,7 +85,7 @@ class _DesktopProfileMediaPageState extends State<DesktopProfileMediaPage>
 
   Widget _buildContentWidget() {
     User? user;
-    User? myProfile = Provider.of<UserProvider>(context).user;;
+    User? myProfile = Provider.of<UserProvider>(context).user;
     if (widget.isMyProfile && widget.isEditable == false) {
       user = Provider.of<UserProvider>(context).user;
     } else {
@@ -122,12 +118,12 @@ class _DesktopProfileMediaPageState extends State<DesktopProfileMediaPage>
 
     final appTheme = AppTheme.of(context);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: DesktopDimens.paddingExtraLarge),
+      margin: const EdgeInsets.symmetric(horizontal: DesktopDimens.paddingExtraLarge),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (widget.hideMenu == false)
-            SizedBox(height: DesktopDimens.paddingLarge),
+            const SizedBox(height: DesktopDimens.paddingLarge),
           if (widget.hideMenu == false)
             Container(
               child: Row(
@@ -140,12 +136,12 @@ class _DesktopProfileMediaPageState extends State<DesktopProfileMediaPage>
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   DesktopIconButton(
                     iconData: Icons.add_circle_outline_sharp,
                     onPressed: _showAddCustomContent,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   DesktopPreviewButton(
                     onPressed: _showUserPreview,
                   ),
@@ -153,13 +149,13 @@ class _DesktopProfileMediaPageState extends State<DesktopProfileMediaPage>
               ),
             ),
           if (widget.hideMenu == false)
-            SizedBox(height: DesktopDimens.paddingLarge),
+            const SizedBox(height: DesktopDimens.paddingLarge),
           Expanded(
             child: Container(
               child: _buildFieldsWidget(items),
             ),
           ),
-          SizedBox(height: DesktopDimens.paddingNormal),
+          const SizedBox(height: DesktopDimens.paddingNormal),
           if (widget.isEditable)
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -170,14 +166,14 @@ class _DesktopProfileMediaPageState extends State<DesktopProfileMediaPage>
                 ),
               ],
             ),
-          if (widget.isEditable) SizedBox(height: DesktopDimens.paddingLarge),
+          if (widget.isEditable) const SizedBox(height: DesktopDimens.paddingLarge),
         ],
       ),
     );
   }
 
   Widget _buildFieldsWidget(List<BasicData> items) {
-    return Container(
+    return SizedBox(
       width: double.infinity,
       child: GridView.count(
         controller: _scrollController,
@@ -202,7 +198,7 @@ class _DesktopProfileMediaPageState extends State<DesktopProfileMediaPage>
   void _showUserPreview() async {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => DesktopUserProfilePage(),
+        builder: (context) => const DesktopUserProfilePage(),
       ),
     );
   }
@@ -214,7 +210,7 @@ class _DesktopProfileMediaPageState extends State<DesktopProfileMediaPage>
         backgroundColor: Colors.transparent,
         child: DesktopProfileAddCustomField(
           atCategory: widget.atCategory,
-          allowContentType: [
+          allowContentType: const [
             CustomContentType.Image,
           ],
         ),
@@ -235,7 +231,7 @@ class _DesktopProfileMediaPageState extends State<DesktopProfileMediaPage>
         child: DesktopProfileAddCustomField(
           atCategory: AtCategory.IMAGE,
           data: basicData,
-          allowContentType: [
+          allowContentType: const [
             CustomContentType.Image,
           ],
         ),

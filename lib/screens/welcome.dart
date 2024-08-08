@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:at_common_flutter/at_common_flutter.dart';
 
 class Welcome extends StatefulWidget {
+  const Welcome({Key? key}) : super(key: key);
+
   @override
   _WelcomeState createState() => _WelcomeState();
 }
@@ -44,13 +46,13 @@ class _WelcomeState extends State<Welcome> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Container(
             child: Column(
               children: <Widget>[
                 Container(
                   alignment: Alignment.center,
-                  padding: EdgeInsets.only(top: 30),
+                  padding: const EdgeInsets.only(top: 30),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -81,13 +83,13 @@ class _WelcomeState extends State<Welcome> {
                     ),
                   ],
                 ),
-                SizedBox(height: 60),
+                const SizedBox(height: 60),
                 Text('Say Hello with atWavi',
                     style: TextStyle(
                         color: Colors.black,
                         fontSize: 28.toFont,
                         fontFamily: 'PlayfairDisplay')),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 Text(
                   '''
 Create your very own,
@@ -96,7 +98,7 @@ free personal microsite.''',
                       color: ColorConstants.greyText, fontSize: 15.toFont),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 CustomButton(
                   onPressed: () {
                     setState(() {});
@@ -108,7 +110,7 @@ free personal microsite.''',
                   width: SizeConfig().screenWidth * 0.8,
                   height: 65.toHeight,
                 ),
-                SizedBox(height: 15),
+                const SizedBox(height: 15),
                 InkWell(
                   onTap: () {
                     _showResetDialog();
@@ -117,7 +119,7 @@ free personal microsite.''',
                       style: TextStyle(
                           fontSize: 15.toFont, fontWeight: FontWeight.bold)),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Text('© 2022 The @ Company',
                     style: TextStyle(
                         color: ColorConstants.greyText, fontSize: 13.toFont)),
@@ -133,9 +135,7 @@ free personal microsite.''',
     bool isSelectAtsign = false;
     bool? isSelectAll = false;
     var atsignsList = await KeychainUtil.getAtsignList();
-    if (atsignsList == null) {
-      atsignsList = [];
-    }
+    atsignsList ??= [];
     Map atsignMap = {};
     for (String atsign in atsignsList) {
       atsignMap[atsign] = false;
@@ -146,7 +146,7 @@ free personal microsite.''',
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, stateSet) {
             return AlertDialog(
-                title: Column(
+                title: const Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(Strings.resetDescription,
@@ -162,7 +162,7 @@ free personal microsite.''',
                 ),
                 content: atsignsList!.isEmpty
                     ? Column(mainAxisSize: MainAxisSize.min, children: [
-                        Text(Strings.noAtsignToReset,
+                        const Text(Strings.noAtsignToReset,
                             style: TextStyle(fontSize: 15)),
                         Align(
                           alignment: Alignment.bottomRight,
@@ -170,7 +170,7 @@ free personal microsite.''',
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text(
+                            child: const Text(
                               'Close',
                               style: TextStyle(
                                 fontSize: 15,
@@ -194,7 +194,7 @@ free personal microsite.''',
                               },
                               value: isSelectAll,
                               checkColor: Colors.white,
-                              title: Text('Select All',
+                              title: const Text('Select All',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   )),
@@ -207,19 +207,19 @@ free personal microsite.''',
                                 },
                                 value: atsignMap[atsign],
                                 checkColor: Colors.white,
-                                title: Text('$atsign'),
+                                title: Text(atsign),
                               ),
-                            Divider(thickness: 0.8),
+                            const Divider(thickness: 0.8),
                             if (isSelectAtsign)
-                              Text(Strings.resetErrorText,
+                              const Text(Strings.resetErrorText,
                                   style: TextStyle(
                                       color: Colors.red, fontSize: 14)),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            Text(Strings.resetWarningText,
+                            const Text(Strings.resetWarningText,
                                 style: TextStyle(fontSize: 14)),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(children: [
@@ -237,18 +237,18 @@ free personal microsite.''',
                                     _resetDevice(tempAtsignMap.keys.toList());
                                   }
                                 },
-                                child: Text('Remove',
+                                child: const Text('Remove',
                                     style: TextStyle(
                                       color: ColorConstants.green,
                                       fontSize: 15,
                                     )),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text('Cancel',
+                                  child: const Text('Cancel',
                                       style: TextStyle(
                                           fontSize: 15, color: Colors.black)))
                             ])

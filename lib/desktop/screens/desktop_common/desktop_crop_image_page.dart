@@ -31,14 +31,14 @@ class _DesktopCropImagePageState extends State<DesktopCropImagePage> {
     return Container(
       height: double.infinity,
       width: MediaQuery.of(context).size.height - 100,
-      padding: EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
+      padding: const EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
       decoration: BoxDecoration(
         color: appTheme.backgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(8)),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: Column(
         children: [
-          SizedBox(height: DesktopDimens.paddingNormal),
+          const SizedBox(height: DesktopDimens.paddingNormal),
           Expanded(
             child: ClipRRect(
               child: AspectRatio(
@@ -52,7 +52,7 @@ class _DesktopCropImagePageState extends State<DesktopCropImagePage> {
                   initEditorConfigHandler: (state) {
                     return EditorConfig(
                         maxScale: 8.0,
-                        cropRectPadding: EdgeInsets.all(20.0),
+                        cropRectPadding: const EdgeInsets.all(20.0),
                         hitTestSize: 20.0,
                         cropAspectRatio: 1.0);
                   },
@@ -60,7 +60,7 @@ class _DesktopCropImagePageState extends State<DesktopCropImagePage> {
               ),
             ),
           ),
-          SizedBox(height: DesktopDimens.paddingNormal),
+          const SizedBox(height: DesktopDimens.paddingNormal),
           Container(
             child: Row(
               children: [
@@ -72,7 +72,7 @@ class _DesktopCropImagePageState extends State<DesktopCropImagePage> {
                     },
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Expanded(
                   child: _cropping
                       ? Center(
@@ -87,7 +87,7 @@ class _DesktopCropImagePageState extends State<DesktopCropImagePage> {
               ],
             ),
           ),
-          SizedBox(height: DesktopDimens.paddingNormal),
+          const SizedBox(height: DesktopDimens.paddingNormal),
         ],
       ),
     );

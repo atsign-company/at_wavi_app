@@ -42,7 +42,7 @@ class MixedConstants {
   static String MAP_KEY = dotenv.get('MAP_KEY');
   static String API_KEY = dotenv.get('API_KEY');
 
-  static final String twitterBearerToken = '';
+  static const String twitterBearerToken = '';
   static const int responseTimeLimit = 30;
   static const String fieldOrderKey = 'field_order_of_self';
 

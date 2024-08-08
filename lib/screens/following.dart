@@ -26,12 +26,12 @@ class Following extends StatefulWidget {
   final int tabIndex;
   final ThemeData themeData;
   final String? searchedAtsign;
-  Following({
+  const Following({Key? key, 
     required this.themeData,
     this.forSearchedAtsign = false,
     this.tabIndex = 0,
     this.searchedAtsign,
-  });
+  }) : super(key: key);
 
   @override
   _FollowingState createState() => _FollowingState();
@@ -57,7 +57,7 @@ class _FollowingState extends State<Following>
       backgroundColor: widget.themeData.scaffoldBackgroundColor,
       body: SafeArea(
         child: Container(
-          padding: EdgeInsets.only(top: 20, left: 25, right: 25),
+          padding: const EdgeInsets.only(top: 20, left: 25, right: 25),
           // color: ColorConstants.white,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +85,7 @@ class _FollowingState extends State<Following>
                 ),
                 // trailing: Icon(Icons.public),
               ),
-              SizedBox(height: 35),
+              const SizedBox(height: 35),
               TabBar(
                 onTap: (index) async {},
                 labelColor: widget.themeData.primaryColor,
@@ -112,8 +112,8 @@ class _FollowingState extends State<Following>
                   )
                 ],
               ),
-              Divider(height: 1),
-              SizedBox(height: 25),
+              const Divider(height: 1),
+              const SizedBox(height: 25),
               CustomInputField(
                 inputFieldColor: ColorConstants.MILD_GREY,
                 width: 343.toWidth,
@@ -134,18 +134,18 @@ class _FollowingState extends State<Following>
               SizedBox(height: 25.toHeight),
               Expanded(
                 child: TabBarView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   controller: _controller,
                   children: [
                     SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       child: Consumer<FollowService>(
-                          builder: (context, _provider, _) {
-                        List<String?> _filteredList =
-                            _provider.following.list ?? [];
+                          builder: (context, provider, _) {
+                        List<String?> filteredList =
+                            provider.following.list ?? [];
 
                         if (widget.forSearchedAtsign) {
-                          _filteredList = SearchService()
+                          filteredList = SearchService()
                                   .getAlreadySearchedAtsignDetails(
                                       widget.searchedAtsign!)!
                                   .following ??
@@ -154,10 +154,10 @@ class _FollowingState extends State<Following>
 
                         return Wrap(
                           children:
-                              List.generate(_filteredList.length, (index) {
-                            if (!_filteredList[index]!
+                              List.generate(filteredList.length, (index) {
+                            if (!filteredList[index]!
                                 .contains(_searchedText.trim().toLowerCase())) {
-                              return SizedBox();
+                              return const SizedBox();
                             }
 
                             AtsignDetails? atsignDetail;
@@ -169,7 +169,7 @@ class _FollowingState extends State<Following>
                                 .atsignListDetails
                                 .indexWhere((element) =>
                                     element.atcontact.atSign ==
-                                    _filteredList[index]!);
+                                    filteredList[index]!);
                             if (i > -1) {
                               atsignDetail = Provider.of<FollowService>(context,
                                       listen: false)
@@ -190,41 +190,41 @@ class _FollowingState extends State<Following>
                               }
                             }
 
-                            bool _isFollowingThisAtsign =
+                            bool isFollowingThisAtsign =
                                 Provider.of<FollowService>(context,
                                         listen: false)
-                                    .isFollowing(_filteredList[index]!);
+                                    .isFollowing(filteredList[index]!);
 
                             return Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               child: InkWell(
                                 onTap: () {
-                                  _searchProfile(_filteredList[index]!);
+                                  _searchProfile(filteredList[index]!);
                                 },
                                 child: CustomPersonHorizontalTile(
                                   textColor: widget.themeData.primaryColor,
-                                  title: name != null ? name : null,
-                                  subTitle: _filteredList[index],
+                                  title: name,
+                                  subTitle: filteredList[index],
                                   trailingWidget: InkWell(
                                     onTap: () async {
                                       await Provider.of<FollowService>(context,
                                               listen: false)
                                           .performFollowUnfollow(
-                                              _filteredList[index]!);
+                                              filteredList[index]!);
                                     },
                                     child: (!widget.forSearchedAtsign &&
-                                            _provider
+                                            provider
                                                 .following
                                                 .atsignListDetails[index]
                                                 .isUnfollowing)
-                                        ? CircularProgressIndicator()
+                                        ? const CircularProgressIndicator()
                                         : Text(
-                                            _isFollowingThisAtsign
+                                            isFollowingThisAtsign
                                                 ? 'Unfollow'
                                                 : 'Follow',
                                             style: TextStyles.lightText(
-                                                _isFollowingThisAtsign
+                                                isFollowingThisAtsign
                                                     ? ColorConstants.orange
                                                     : ColorConstants.greyText,
                                                 size: 16),
@@ -239,17 +239,17 @@ class _FollowingState extends State<Following>
                       }),
                     ),
                     SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       child: Consumer<FollowService>(
-                          builder: (context, _provider, _) {
-                        List<String?> _filteredList =
-                            _provider.followers.list ?? [];
+                          builder: (context, provider, _) {
+                        List<String?> filteredList =
+                            provider.followers.list ?? [];
 
                         print(
-                            '_filteredList in following : ${_provider.followers.list}');
+                            '_filteredList in following : ${provider.followers.list}');
 
                         if (widget.forSearchedAtsign) {
-                          _filteredList = SearchService()
+                          filteredList = SearchService()
                                   .getAlreadySearchedAtsignDetails(
                                       widget.searchedAtsign!)!
                                   .followers ??
@@ -258,10 +258,10 @@ class _FollowingState extends State<Following>
 
                         return Wrap(
                           children:
-                              List.generate(_filteredList.length, (index) {
-                            if (!_filteredList[index]!
+                              List.generate(filteredList.length, (index) {
+                            if (!filteredList[index]!
                                 .contains(_searchedText.trim().toLowerCase())) {
-                              return SizedBox();
+                              return const SizedBox();
                             }
                             AtsignDetails? atsignDetail;
                             String? name;
@@ -272,7 +272,7 @@ class _FollowingState extends State<Following>
                                 .atsignListDetails
                                 .indexWhere((element) =>
                                     element.atcontact.atSign ==
-                                    _filteredList[index]!);
+                                    filteredList[index]!);
                             if (i > -1) {
                               atsignDetail = Provider.of<FollowService>(context,
                                       listen: false)
@@ -293,43 +293,43 @@ class _FollowingState extends State<Following>
                               }
                             }
 
-                            bool _isFollowingThisAtsign =
+                            bool isFollowingThisAtsign =
                                 Provider.of<FollowService>(context,
                                         listen: false)
-                                    .isFollowing(_filteredList[index]!);
+                                    .isFollowing(filteredList[index]!);
 
                             return Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 8.0),
                               child: InkWell(
                                 onTap: () {
-                                  _searchProfile(_filteredList[index]!);
+                                  _searchProfile(filteredList[index]!);
                                 },
                                 child: CustomPersonHorizontalTile(
                                     textColor: widget.themeData.primaryColor,
-                                    title: name != null ? name : null,
-                                    subTitle: _filteredList[index],
+                                    title: name,
+                                    subTitle: filteredList[index],
                                     trailingWidget: InkWell(
                                       onTap: () async {
                                         await Provider.of<FollowService>(
                                                 context,
                                                 listen: false)
                                             .performFollowUnfollow(
-                                                _filteredList[index]!,
+                                                filteredList[index]!,
                                                 forFollowersList: true);
                                       },
                                       child: (!widget.forSearchedAtsign &&
-                                              _provider
+                                              provider
                                                   .followers
                                                   .atsignListDetails[index]
                                                   .isRmovingFromFollowers)
-                                          ? CircularProgressIndicator()
+                                          ? const CircularProgressIndicator()
                                           : Text(
-                                              (_isFollowingThisAtsign
+                                              (isFollowingThisAtsign
                                                   ? 'Unfollow'
                                                   : 'Follow'),
                                               style: TextStyles.lightText(
-                                                  (_isFollowingThisAtsign
+                                                  (isFollowingThisAtsign
                                                       ? ColorConstants.orange
                                                       : ColorConstants
                                                           .greyText),
@@ -356,24 +356,24 @@ class _FollowingState extends State<Following>
   _searchProfile(String searchedAtsign) async {
     LoadingDialog().show(text: 'Fetching $searchedAtsign');
 
-    var _searchedAtsignData =
+    var searchedAtsignData =
         SearchService().getAlreadySearchedAtsignDetails(searchedAtsign);
 
-    late bool _isPresent;
-    if (_searchedAtsignData != null) {
-      _isPresent = true;
+    late bool isPresent;
+    if (searchedAtsignData != null) {
+      isPresent = true;
     } else {
-      _isPresent = await CommonFunctions().checkAtsign(searchedAtsign);
+      isPresent = await CommonFunctions().checkAtsign(searchedAtsign);
     }
 
-    if (_isPresent) {
-      SearchInstance? _searchService =
+    if (isPresent) {
+      SearchInstance? searchService =
           await SearchService().getAtsignDetails(searchedAtsign);
-      User? _res = _searchService?.user;
+      User? res = searchService?.user;
 
       LoadingDialog().hide();
 
-      if (_searchService == null) {
+      if (searchService == null) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: ColorConstants.RED,
           content: Text(
@@ -387,21 +387,21 @@ class _FollowingState extends State<Following>
         return;
       }
 
-      var _previousUser =
+      var previousUser =
           Provider.of<UserPreview>(context, listen: false).user();
-      var _previousFieldOrder = FieldOrderService().previewOrders;
+      var previousFieldOrder = FieldOrderService().previewOrders;
 
-      Provider.of<UserPreview>(context, listen: false).setUser = _res;
-      FieldOrderService().setPreviewOrder = _searchService.fieldOrders;
+      Provider.of<UserPreview>(context, listen: false).setUser = res;
+      FieldOrderService().setPreviewOrder = searchService.fieldOrders;
 
       await SetupRoutes.push(context, Routes.HOME, arguments: {
-        'themeData': _searchService.currentAtsignThemeData,
+        'themeData': searchService.currentAtsignThemeData,
         'isPreview': true,
       });
 
       /// Again sets the previous data
-      Provider.of<UserPreview>(context, listen: false).setUser = _previousUser;
-      FieldOrderService().setPreviewOrder = _previousFieldOrder;
+      Provider.of<UserPreview>(context, listen: false).setUser = previousUser;
+      FieldOrderService().setPreviewOrder = previousFieldOrder;
     } else {
       LoadingDialog().hide();
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(

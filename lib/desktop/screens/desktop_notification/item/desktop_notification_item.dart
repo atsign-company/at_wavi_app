@@ -2,36 +2,35 @@ import 'package:at_wavi_app/desktop/routes/desktop_route_names.dart';
 import 'package:at_wavi_app/desktop/routes/desktop_routes.dart';
 import 'package:at_wavi_app/desktop/services/theme/app_theme.dart';
 import 'package:at_wavi_app/desktop/utils/enums.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:at_wavi_app/desktop/widgets/images/desktop_circle_avatar.dart';
 
 class DesktopNotificationItem extends StatelessWidget {
   final NotificationItemType type;
 
-  DesktopNotificationItem({
+  const DesktopNotificationItem({Key? key, 
     this.type = NotificationItemType.Normal,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final appTheme = AppTheme.of(context);
     return Container(
       width: 400,
-      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.only(top: 4),
-            child: DesktopCircleAvatar(
+            padding: const EdgeInsets.only(top: 4),
+            child: const DesktopCircleAvatar(
               url:
                   'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde',
               size: 48,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 12,
           ),
           Expanded(
@@ -39,7 +38,7 @@ class DesktopNotificationItem extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Text(
                   '@lauren changed her profile picture',
                   style: TextStyle(
@@ -48,7 +47,7 @@ class DesktopNotificationItem extends StatelessWidget {
                   ),
                   maxLines: 2,
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Text(
                   '15 mins ago',
                   style: TextStyle(
@@ -57,7 +56,7 @@ class DesktopNotificationItem extends StatelessWidget {
                   ),
                   maxLines: 1,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 type != NotificationItemType.Normal
@@ -73,11 +72,11 @@ class DesktopNotificationItem extends StatelessWidget {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Color(0xFFFFBE21),
+                            color: const Color(0xFFFFBE21),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          padding: EdgeInsets.only(left: 8, top: 8, bottom: 8),
-                          child: Row(
+                          padding: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               SizedBox(

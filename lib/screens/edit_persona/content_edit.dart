@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 
 class CotentEdit extends StatefulWidget {
   final ThemeData themeData;
-  CotentEdit({required this.themeData, Key? key}) : super(key: key);
+  const CotentEdit({required this.themeData, Key? key}) : super(key: key);
   @override
   _CotentEditState createState() => _CotentEditState();
 }
@@ -59,9 +59,9 @@ class _CotentEditState extends State<CotentEdit> {
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> _children = [];
+    List<Widget> children = [];
 
-    _children = contentHeadings.map((contentHeading) {
+    children = contentHeadings.map((contentHeading) {
       return editContentCardHeading(
         contentHeading['heading'] as String,
         contentHeading['category'] as AtCategory,
@@ -69,7 +69,7 @@ class _CotentEditState extends State<CotentEdit> {
       );
     }).toList();
 
-    _children.add(
+    children.add(
       SizedBox(height: 60.toHeight), // to move bottom content up
     );
 
@@ -77,9 +77,9 @@ class _CotentEditState extends State<CotentEdit> {
       padding:
           const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0, bottom: 50),
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Column(
-          children: _children,
+          children: children,
         ),
       ),
     );
@@ -153,7 +153,7 @@ class _CotentEditState extends State<CotentEdit> {
                                     size: 20.toFont,
                                   ),
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 toolTipMenu(UserPreview().user()!.image)
                               ],
                             )
@@ -175,7 +175,7 @@ class _CotentEditState extends State<CotentEdit> {
               ],
             ),
           ),
-          category == AtCategory.IMAGE ? SizedBox(height: 25) : SizedBox(),
+          category == AtCategory.IMAGE ? const SizedBox(height: 25) : const SizedBox(),
           category == AtCategory.IMAGE
               ? UserPreview().user()!.image.value != null &&
                       UserPreview().user()!.image.value != ''
@@ -191,20 +191,20 @@ class _CotentEditState extends State<CotentEdit> {
                         ),
                       ),
                     )
-                  : Align(
+                  : const Align(
                       alignment: Alignment.center,
                       child: Icon(
                         Icons.person,
                         size: 50,
                       ),
                     )
-              : SizedBox(),
-          Divider(height: 25),
+              : const SizedBox(),
+          const Divider(height: 25),
           selectedcategory == category
               ? Column(
                   children: contentFields(),
                 )
-              : SizedBox()
+              : const SizedBox()
         ],
       ),
     );
@@ -242,8 +242,8 @@ class _CotentEditState extends State<CotentEdit> {
   Widget toolTipMenu(BasicData basicData) {
     return PopupMenuButton(
         padding: EdgeInsets.zero,
-        child: Padding(
-          padding: const EdgeInsets.only(right: 5.0),
+        child: const Padding(
+          padding: EdgeInsets.only(right: 5.0),
           child: Icon(Icons.edit),
         ),
         onSelected: (value) {
@@ -294,8 +294,8 @@ class _CotentEditState extends State<CotentEdit> {
 
       if (userMap.containsKey(fields[i])) {
         basicData = userMap[fields[i]];
-        if (basicData.accountName == null) basicData.accountName = fields[i];
-        if (basicData.value == null) basicData.value = '';
+        basicData.accountName ??= fields[i];
+        basicData.value ??= '';
       } else {
         var index =
             customFields!.indexWhere((el) => el.accountName == fields[i]);
@@ -305,7 +305,7 @@ class _CotentEditState extends State<CotentEdit> {
         }
       }
 
-      Widget widget = SizedBox();
+      Widget widget = const SizedBox();
       if (basicData.accountName == null) {
         continue;
       }
@@ -319,7 +319,7 @@ class _CotentEditState extends State<CotentEdit> {
               theme: this.widget.themeData,
               isPrivate: basicData.isPrivate,
             ),
-            SizedBox(height: 25)
+            const SizedBox(height: 25)
           ],
         );
       } else {
@@ -329,7 +329,7 @@ class _CotentEditState extends State<CotentEdit> {
                 width: double.infinity,
                 child: checkForCustomContentType(basicData,
                     isLocation: ((selectedcategory!) == AtCategory.LOCATION))),
-            SizedBox(height: 25)
+            const SizedBox(height: 25)
           ],
         );
       }
@@ -343,7 +343,7 @@ class _CotentEditState extends State<CotentEdit> {
   List<Widget> getDefinedFieldsCard() {
     if (selectedcategory == null ||
         Provider.of<UserPreview>(context, listen: false).user() == null) {
-      return [SizedBox()];
+      return [const SizedBox()];
     }
 
     var definedFieldsWidgets = <Widget>[];
@@ -363,7 +363,7 @@ class _CotentEditState extends State<CotentEdit> {
               subtitle: field.value.value,
               theme: this.widget.themeData,
             ),
-            SizedBox(height: 25)
+            const SizedBox(height: 25)
           ],
         );
 
@@ -376,7 +376,7 @@ class _CotentEditState extends State<CotentEdit> {
   List<Widget> getCustomFieldsCard() {
     if (selectedcategory == null ||
         Provider.of<UserPreview>(context, listen: false).user() == null) {
-      return [SizedBox()];
+      return [const SizedBox()];
     }
     var customFieldsWidgets = <Widget>[];
 
@@ -398,7 +398,7 @@ class _CotentEditState extends State<CotentEdit> {
                   isLocation: ((selectedcategory!) == AtCategory.LOCATION),
                 ),
               ),
-              SizedBox(height: 25)
+              const SizedBox(height: 25)
             ],
           );
           customFieldsWidgets.add(widget);
@@ -411,7 +411,7 @@ class _CotentEditState extends State<CotentEdit> {
 
   Widget checkForCustomContentType(BasicData basicData,
       {bool isLocation = false}) {
-    Widget fieldCard = SizedBox();
+    Widget fieldCard = const SizedBox();
     if (basicData.type == CustomContentType.Text.name ||
         basicData.type == CustomContentType.Number.name ||
         basicData.type == CustomContentType.Link.name ||

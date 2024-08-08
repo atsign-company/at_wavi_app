@@ -18,10 +18,10 @@ class DesktopSearchAtSignModel extends ChangeNotifier {
   void searchAtSignAccount({required String keyword}) async {
     _searchStatus = LoadStatus.loading;
     notifyListeners();
-    SearchInstance? _searchService =
+    SearchInstance? searchService =
         await SearchService().getAtsignDetails(keyword);
-    var _newSearchInstance = _searchService;
-    _searchInstance = _newSearchInstance == null ? [] : [_newSearchInstance];
+    var newSearchInstance = searchService;
+    _searchInstance = newSearchInstance == null ? [] : [newSearchInstance];
     _searchStatus = LoadStatus.success;
     notifyListeners();
   }

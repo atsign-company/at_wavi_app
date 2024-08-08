@@ -1,6 +1,5 @@
 import 'package:at_wavi_app/services/common_functions.dart';
 import 'package:at_wavi_app/utils/at_enum.dart';
-import 'package:at_wavi_app/utils/colors.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
 import 'package:at_wavi_app/utils/theme.dart';
 import 'package:at_wavi_app/view_models/theme_view_model.dart';
@@ -12,7 +11,7 @@ class HomeChannels extends StatefulWidget {
   final ThemeData? themeData;
   final bool isPreview;
 
-  HomeChannels({this.themeData, this.isPreview = false});
+  const HomeChannels({Key? key, this.themeData, this.isPreview = false}) : super(key: key);
   @override
   _HomeChannelsState createState() => _HomeChannelsState();
 }
@@ -51,7 +50,7 @@ class _HomeChannelsState extends State<HomeChannels> {
   @override
   Widget build(BuildContext context) {
     if (_themeData == null) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     } else {
       return Container(
         child: Column(
@@ -64,7 +63,7 @@ class _HomeChannelsState extends State<HomeChannels> {
                     style:
                         TextStyles.boldText(_themeData!.primaryColor, size: 18),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             SizedBox(
                 height: CommonFunctions().isFieldsPresentForCategory(
                         AtCategory.SOCIAL,
@@ -88,7 +87,7 @@ class _HomeChannelsState extends State<HomeChannels> {
                     style:
                         TextStyles.boldText(_themeData!.primaryColor, size: 18),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             SizedBox(height: 15.toHeight),
             Column(
               children: CommonFunctions().getCustomCardForFields(

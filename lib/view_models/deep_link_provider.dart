@@ -57,8 +57,7 @@ class DeepLinkProvider extends BaseModel {
     // For sharing images coming from outside the app while the app is in the memory
     _intentDataStreamSubscription = ReceiveSharingIntent.getMediaStream()
         .listen((List<SharedMediaFile> value) {
-      print("Incoming Shared file in home :" +
-          (value.map((f) => f.path).join(",")));
+      print("Incoming Shared file in home :${value.map((f) => f.path).join(",")}");
     }, onError: (err) {
       print("getIntentDataStream error: $err");
     });

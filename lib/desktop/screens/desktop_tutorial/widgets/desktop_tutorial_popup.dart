@@ -14,7 +14,7 @@ class DesktopTutorialPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = AppTheme.of(context);
-    return Container(
+    return SizedBox(
       width: 280,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -22,13 +22,13 @@ class DesktopTutorialPopup extends StatelessWidget {
           Container(
             width: 72,
             height: 72,
-            margin: EdgeInsets.only(right: 24),
-            child: Center(
-              child: header,
-            ),
+            margin: const EdgeInsets.only(right: 24),
             decoration: BoxDecoration(
               color: appTheme.backgroundColor,
               borderRadius: BorderRadius.circular(40),
+            ),
+            child: Center(
+              child: header,
             ),
           ),
           Container(

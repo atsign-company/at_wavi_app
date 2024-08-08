@@ -6,7 +6,7 @@ import 'package:at_wavi_app/desktop/widgets/desktop_tabbar.dart';
 import 'package:flutter/material.dart';
 
 class DesktopNotificationPage extends StatefulWidget {
-  DesktopNotificationPage({
+  const DesktopNotificationPage({
     Key? key,
   }) : super(key: key);
 
@@ -37,7 +37,7 @@ class _DesktopNotificationPageState extends State<DesktopNotificationPage>
             onTap: () {
               Navigator.pop(context);
             },
-            child: Container(
+            child: const SizedBox(
               width: double.infinity,
               height: double.infinity,
             ),
@@ -57,7 +57,7 @@ class _DesktopNotificationPageState extends State<DesktopNotificationPage>
                     boxShadow: [
                       BoxShadow(
                         color: appTheme.borderColor,
-                        offset: Offset(2, 2),
+                        offset: const Offset(2, 2),
                         blurRadius: 6,
                       )
                     ],
@@ -67,19 +67,19 @@ class _DesktopNotificationPageState extends State<DesktopNotificationPage>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
+                        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
                         child: DesktopTabBar(
                           controller: _tabController,
-                          tabTitles: [
+                          tabTitles: const [
                             Strings.desktop_notifications,
                             Strings.desktop_new_request,
                           ],
                         ),
-                        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
                       ),
                       Expanded(
                         child: TabBarView(
                           controller: _tabController,
-                          children: [
+                          children: const [
                             DesktopNotificationListPage(),
                             DesktopNewRequestPage(),
                           ],

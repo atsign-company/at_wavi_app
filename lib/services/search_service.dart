@@ -13,10 +13,10 @@ import 'at_key_get_service.dart';
 
 class SearchService {
   SearchService._();
-  static SearchService _instance = SearchService._();
+  static final SearchService _instance = SearchService._();
   factory SearchService() => _instance;
 
-  Map<String, SearchInstance> _searchData = {};
+  final Map<String, SearchInstance> _searchData = {};
 
   Future<SearchInstance?> getAtsignDetails(String atsign,
       {bool serverLookup = false}) async {
@@ -24,13 +24,13 @@ class SearchService {
       return _searchData[atsign]!;
     }
 
-    SearchInstance _atsignDetails = SearchInstance();
-    var _user = await _atsignDetails.getAtsignDetails(atsign);
-    if (_user == null) {
+    SearchInstance atsignDetails = SearchInstance();
+    var user = await atsignDetails.getAtsignDetails(atsign);
+    if (user == null) {
       return null;
     }
-    _searchData[atsign] = _atsignDetails;
-    return _atsignDetails;
+    _searchData[atsign] = atsignDetails;
+    return atsignDetails;
   }
 
   SearchInstance? getAlreadySearchedAtsignDetails(String atsign) {
@@ -68,8 +68,8 @@ class SearchInstance {
   String new_following_key = 'following_by_self.at_follows.wavi';
   String field_order_key = MixedConstants.fieldOrderKey;
 
-  _updateThemeData(_data) {
-    if ((_data ?? '').toLowerCase() == 'dark') {
+  _updateThemeData(data) {
+    if ((data ?? '').toLowerCase() == 'dark') {
       currentAtsignThemeData = Themes.darkTheme(
           highlightColor: highlightColor ?? ColorConstants.green);
       themeColor = ThemeColor.Dark;
@@ -80,9 +80,9 @@ class SearchInstance {
     }
   }
 
-  _updateHighlightColor(String _color) {
-    highlightColor = (_color != null)
-        ? ThemeProvider().convertToHighlightColor(_color)
+  _updateHighlightColor(String color) {
+    highlightColor = (color != null)
+        ? ThemeProvider().convertToHighlightColor(color)
         : ColorConstants.green;
     if (themeColor != null) {
       currentAtsignThemeData = themeColor == ThemeColor.Dark
@@ -103,16 +103,16 @@ class SearchInstance {
 
       isPrivateAccount = false;
       user = User(allPrivate: false, atsign: atsign);
-      var _response = await http.get(Uri.parse('$url$atsign'));
-      print('_jsonData ${_response.body}');
-      var _jsonData = jsonDecode(_response.body);
+      var response = await http.get(Uri.parse('$url$atsign'));
+      print('_jsonData ${response.body}');
+      var jsonData = jsonDecode(response.body);
 
-      _jsonData.forEach((_data) {
-        var _keyValuePair = _data;
-        for (var field in _keyValuePair.entries) {
+      jsonData.forEach((data) {
+        var keyValuePair = data;
+        for (var field in keyValuePair.entries) {
           if (field.key.contains(field_order_key)) {
             Map<String, dynamic> fielsOrder =
-                jsonDecode(_keyValuePair[field.key]);
+                jsonDecode(keyValuePair[field.key]);
             for (var field in fielsOrder.entries) {
               fieldOrders[field.key] =
                   _removeDuplicatesInFieldOrder(fielsOrder[field.key]);
@@ -121,39 +121,39 @@ class SearchInstance {
           }
 
           if (field.key.contains(privateAccountKey)) {
-            isPrivateAccount = _keyValuePair[field.key] == 'true';
+            isPrivateAccount = keyValuePair[field.key] == 'true';
             continue;
           }
 
           if ((field.key.contains(followers_key)) ||
               (field.key.contains(new_followers_key))) {
-            followers = _keyValuePair[field.key].split(',');
+            followers = keyValuePair[field.key].split(',');
             followers_count = followers?.length ?? 0;
             continue;
           }
 
           if ((field.key.contains(following_key)) ||
               (field.key.contains(new_following_key))) {
-            following = _keyValuePair[field.key].split(',');
+            following = keyValuePair[field.key].split(',');
             following_count = following?.length ?? 0;
             continue;
           }
 
           if (field.key.contains(themeKey)) {
-            _updateThemeData(_keyValuePair[field.key]);
+            _updateThemeData(keyValuePair[field.key]);
             continue;
           }
 
           if (field.key.contains(themeColorKey)) {
-            _updateHighlightColor(_keyValuePair[field.key]);
+            _updateHighlightColor(keyValuePair[field.key]);
             continue;
           }
 
           if (!keysToIgnore.contains(field.key)) {
             if (field.key.contains('custom_')) {
-              _setCustomField(_keyValuePair[field.key], false);
+              _setCustomField(keyValuePair[field.key], false);
             } else {
-              _setDefinedFields(field.key, _keyValuePair[field.key]);
+              _setDefinedFields(field.key, keyValuePair[field.key]);
             }
           }
         }
@@ -167,18 +167,19 @@ class SearchInstance {
     } catch (e) {
       print('Error in $e');
     }
+    return null;
   }
 
   /// function to remove duplicate entries in 'field_order_of_self.wavi'
   List<String> _removeDuplicatesInFieldOrder(String data) {
-    List<String> _result = [];
-    var _temp = jsonDecode(data);
-    for (var _str in (_temp as List)) {
-      if (_result.indexOf(_str) == -1) {
-        _result.add(_str);
+    List<String> result = [];
+    var temp = jsonDecode(data);
+    for (var _str in (temp as List)) {
+      if (!result.contains(_str)) {
+        result.add(_str);
       }
     }
-    return _result;
+    return result;
   }
 
   void _setCustomField(String response, isPrivate) {

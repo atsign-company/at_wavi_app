@@ -15,7 +15,7 @@ import 'nav_service.dart';
 
 class AtKeySetService {
   AtKeySetService._();
-  static AtKeySetService _instance = AtKeySetService._();
+  static final AtKeySetService _instance = AtKeySetService._();
   factory AtKeySetService() => _instance;
 
   final String UPDATE_USER = 'update_user';
@@ -23,7 +23,7 @@ class AtKeySetService {
   /// Returns true if the field gets updated in secondary successfully.
   Future<bool> update(BasicData data, String key,
       {List<AtKey>? scanKeys}) async {
-    var result;
+    bool result;
     key = key.trim().toLowerCase().replaceAll(' ', '');
     String? sharedWith = data.isPrivate
         ? BackendService().atClientInstance.getCurrentAtSign()!
@@ -93,7 +93,7 @@ class AtKeySetService {
 
   ///deletes old key for atKey if public status is changed.
   Future<bool> _deleteChangedKeys(AtKey atKey, List<AtKey> atKeys) async {
-    var response;
+    bool response=false;
     if (atKeys.isEmpty) {
       atKeys = await BackendService().getAtKeys();
     }
@@ -102,7 +102,7 @@ class AtKeySetService {
 
     tempScanKeys.retainWhere((scanKey) =>
         scanKey.key == atKey.key &&
-        !scanKey.metadata!.isPublic! == atKey.metadata!.isPublic);
+        !scanKey.metadata.isPublic == atKey.metadata.isPublic);
 
     if (tempScanKeys.isNotEmpty) {
       await Future.forEach(tempScanKeys, (element) async {
@@ -110,7 +110,7 @@ class AtKeySetService {
             await BackendService().atClientInstance.delete(element! as AtKey);
       });
     }
-    return response ?? false;
+    return response;
   }
 
   /// Example for updateCustomFields() => Will create custom_testing.wavi key with label = 'Testing
@@ -133,7 +133,7 @@ class AtKeySetService {
   /// Returns true on succesfully updating custom fields in secondary.
   Future<bool> updateCustomFields(String category, List<BasicData> value,
       {List<AtKey>? scanKeys, String? previousKey}) async {
-    var result;
+    bool result=true;
 
     scanKeys ??= [];
     if (scanKeys.isEmpty) {
@@ -143,15 +143,14 @@ class AtKeySetService {
     for (var data in value) {
       String oldkey = _formatOldCustomTitle(data.accountName);
       for (int i = 0; i < scanKeys.length; i++) {
-        if (scanKeys[i].key != null &&
-            scanKeys[i].key!.contains(oldkey) &&
+        if (scanKeys[i].key.contains(oldkey) &&
             data.accountName!.contains(" ")) {
           await BackendService().atClientInstance.delete(scanKeys[i]);
         }
       }
 
       String accountname = _formatCustomTitle(data.accountName ?? '');
-      String key = AtText.CUSTOM + '_' + accountname;
+      String key = '${AtText.CUSTOM}_$accountname';
       String? sharedWith = data.isPrivate
           ? BackendService().atClientInstance.getCurrentAtSign()
           : null;
@@ -170,7 +169,7 @@ class AtKeySetService {
       var isDeleted = await _deleteChangedKeys(atKey, scanKeys);
 
       if (data.value == null || data.value == '') {
-        atKey.key = atKey.key!.replaceAll(' ', '');
+        atKey.key = atKey.key.replaceAll(' ', '');
         AtKeyGetService().objectReference().remove(key.split('.')[0]);
         result = await BackendService().atClientInstance.delete(atKey);
         if (!result) return result;
@@ -196,43 +195,41 @@ class AtKeySetService {
       }
     }
 
-    return result ??= true;
+    return result;
   }
 
   updateProviderAndPreviousKey(String category, BasicData value, var scanKeys,
       {String? previousKey}) async {
-    bool _removePreviousKey = false;
-    bool _isNewKey = true;
+    bool removePreviousKey = false;
+    bool isNewKey = true;
 
     if (previousKey != null) {
-      if (scanKeys == null) {
-        scanKeys = await BackendService().atClientInstance.getAtKeys();
-      }
+      scanKeys ??= await BackendService().atClientInstance.getAtKeys();
 
-      _removePreviousKey = await deleteKey(previousKey, category,
+      removePreviousKey = await deleteKey(previousKey, category,
           scanKeys: scanKeys, isCustomKey: true, updateProvider: false);
     }
 
-    var _providerUser = (Provider.of<UserProvider>(
+    var providerUser = (Provider.of<UserProvider>(
                 NavService.navKey.currentContext!,
                 listen: false)
             .user!
             .customFields[category] ??
         []);
 
-    for (var i = 0; i < _providerUser.length; i++) {
+    for (var i = 0; i < providerUser.length; i++) {
       // for (int j = 0; j < value.length; j++) {
-      if (_providerUser[i].accountName ==
-          (_removePreviousKey ? previousKey : value.accountName)) {
-        _isNewKey = false;
-        _providerUser[i] = value;
+      if (providerUser[i].accountName ==
+          (removePreviousKey ? previousKey : value.accountName)) {
+        isNewKey = false;
+        providerUser[i] = value;
         break;
       }
       // }
     }
 
-    if (_isNewKey) {
-      _providerUser.add(value);
+    if (isNewKey) {
+      providerUser.add(value);
     }
 
     Provider.of<UserProvider>(NavService.navKey.currentContext!, listen: false)
@@ -244,20 +241,18 @@ class AtKeySetService {
       {var scanKeys,
       bool isCustomKey = false,
       bool updateProvider = true}) async {
-    if (scanKeys == null) {
-      scanKeys = await BackendService().atClientInstance.getAtKeys();
-    }
+    scanKeys ??= await BackendService().atClientInstance.getAtKeys();
 
     String updatedKey = isCustomKey ? "custom_${key.replaceAll(' ', '')}" : key;
 
     int previousAtKey = (scanKeys as List<AtKey>)
         .indexWhere((element) => element.key == updatedKey);
     if (previousAtKey > -1) {
-      var _result = await BackendService()
+      var result = await BackendService()
           .atClientInstance
           .delete(scanKeys[previousAtKey]);
 
-      if (_result) {
+      if (result) {
         (Provider.of<UserProvider>(NavService.navKey.currentContext!,
                         listen: false)
                     .user!
@@ -356,21 +351,16 @@ class AtKeySetService {
   }
 
   Future<bool> updateCustomData(
-    User _user,
+    User user,
     List<AtKey> scanKeys,
   ) async {
-    Map<String, List<BasicData>> customFields = _user.customFields;
+    Map<String, List<BasicData>> customFields = user.customFields;
     bool isUpdated = false;
-    if (customFields != null) {
-      for (var field in customFields.entries) {
-        if (field.value == null) {
-          continue;
-        }
-        isUpdated = await updateCustomFields(field.key, field.value,
-            scanKeys: scanKeys);
-        if (!isUpdated) return isUpdated;
-      }
+    for (var field in customFields.entries) {
+      isUpdated = await updateCustomFields(field.key, field.value,
+          scanKeys: scanKeys);
+      if (!isUpdated) return isUpdated;
     }
-    return isUpdated;
+      return isUpdated;
   }
 }

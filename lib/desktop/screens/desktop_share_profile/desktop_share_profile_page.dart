@@ -56,7 +56,7 @@ class _DesktopShareProfilePageState extends State<DesktopShareProfilePage> {
           body: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(DesktopDimens.paddingSmall),
+            padding: const EdgeInsets.all(DesktopDimens.paddingSmall),
             child: Row(
               children: [
                 DesktopIconButton(
@@ -65,7 +65,7 @@ class _DesktopShareProfilePageState extends State<DesktopShareProfilePage> {
                   },
                   iconData: Icons.close,
                 ),
-                SizedBox(width: DesktopDimens.paddingSmall),
+                const SizedBox(width: DesktopDimens.paddingSmall),
                 Text(
                   'Share Profile',
                   style: appTheme.textTheme.titleMedium,
@@ -75,7 +75,7 @@ class _DesktopShareProfilePageState extends State<DesktopShareProfilePage> {
           ),
           Expanded(
             child: Center(
-              child: Container(
+              child: SizedBox(
                 width: DesktopDimens.dialogWidth,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -88,20 +88,20 @@ class _DesktopShareProfilePageState extends State<DesktopShareProfilePage> {
                             "Scan the QR Code with Wavi App",
                             style: appTheme.textTheme.bodyLarge,
                           ),
-                          SizedBox(height: DesktopDimens.paddingNormal),
+                          const SizedBox(height: DesktopDimens.paddingNormal),
                           QrImageView(
                             data: widget.atSign,
                             size: (MediaQuery.of(context).size.height - 60) /
                                     3 *
                                     2 -
                                 120,
-                            eyeStyle: QrEyeStyle(color: Colors.black),
+                            eyeStyle: const QrEyeStyle(color: Colors.black),
                             backgroundColor: Colors.white,
                           )
                         ],
                       ),
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
@@ -120,7 +120,7 @@ class _DesktopShareProfilePageState extends State<DesktopShareProfilePage> {
                         ),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 40,
                     ),
                     Expanded(
@@ -133,7 +133,7 @@ class _DesktopShareProfilePageState extends State<DesktopShareProfilePage> {
                             controller: _commentController,
                             hint: "Comment",
                           ),
-                          SizedBox(height: DesktopDimens.paddingNormal),
+                          const SizedBox(height: DesktopDimens.paddingNormal),
                           DesktopButton(
                             onPressed: _handleShareViaApp,
                             title: 'Share Via App',
@@ -154,10 +154,9 @@ class _DesktopShareProfilePageState extends State<DesktopShareProfilePage> {
   void _handleShareViaApp() async {
     String content = '';
     if (_commentController.text.isNotEmpty) {
-      content = "${_commentController.text}\nhttps://wavi.ng/" +
-          widget.atSign.toString();
+      content = "${_commentController.text}\nhttps://wavi.ng/${widget.atSign}";
     } else {
-      content = "https://wavi.ng/" + widget.atSign.toString();
+      content = "https://wavi.ng/${widget.atSign}";
     }
     final result = await Share.shareWithResult(
       content,

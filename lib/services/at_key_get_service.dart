@@ -15,9 +15,9 @@ import 'package:provider/provider.dart';
 
 class AtKeyGetService {
   AtKeyGetService._();
-  static AtKeyGetService _instance = AtKeyGetService._();
+  static final AtKeyGetService _instance = AtKeyGetService._();
   factory AtKeyGetService() => _instance;
-  Map<dynamic, dynamic> _tempObject = {};
+  final Map<dynamic, dynamic> _tempObject = {};
   User user = User(allPrivate: false, atsign: '');
 
   init() {
@@ -45,7 +45,7 @@ class AtKeyGetService {
 
   ///fetches [atsign] profile.
   Future<User?> getProfile({String? atsign}) async {
-    bool _containsPrivateAccountKey = false;
+    bool containsPrivateAccountKey = false;
     resetUser();
     try {
       // _setUser(atsign: atsign);
@@ -56,12 +56,12 @@ class AtKeyGetService {
         await _performLookupAndSetUser(key);
         // if (!result) errorCallBack(false);
 
-        if (key.key!.contains(FieldsEnum.PRIVATEACCOUNT.name)) {
-          _containsPrivateAccountKey = true;
+        if (key.key.contains(FieldsEnum.PRIVATEACCOUNT.name)) {
+          containsPrivateAccountKey = true;
         }
       }
 
-      await createPrivateAccountKey(atsign!, _containsPrivateAccountKey);
+      await createPrivateAccountKey(atsign!, containsPrivateAccountKey);
       return user;
       // _container.updateWidgets();
       // successCallBack(true);
@@ -76,10 +76,10 @@ class AtKeyGetService {
 
   /// check & create 'PRIVATEACCOUNT key
   createPrivateAccountKey(
-      String atsign, bool _containsPrivateAccountKey) async {
+      String atsign, bool containsPrivateAccountKey) async {
     try {
       if (atsign == BackendService().atClientInstance.getCurrentAtSign()) {
-        if (!_containsPrivateAccountKey) {
+        if (!containsPrivateAccountKey) {
           await AtKeySetService().update(
               BasicData(value: user.allPrivate.toString()),
               FieldsEnum.PRIVATEACCOUNT.name);
@@ -94,14 +94,11 @@ class AtKeyGetService {
   Future<bool> _performLookupAndSetUser(AtKey atKey) async {
     try {
       var isSetUserField = false;
-      var isCustom;
-      if (atKey.key == null) {
-        return false;
-      }
+      bool isCustom;
 
-      isCustom = atKey.key!.contains(AtText.CUSTOM);
+      isCustom = atKey.key.contains(AtText.CUSTOM);
       if (atKey.key == FieldsEnum.IMAGE.name) {
-        atKey.metadata!.isBinary = true;
+        atKey.metadata.isBinary = true;
       }
 
       var successValue =
@@ -110,17 +107,17 @@ class AtKeyGetService {
       });
       
 
-      if (atKey.key!.contains(MixedConstants.fieldOrderKey)) {
+      if (atKey.key.contains(MixedConstants.fieldOrderKey)) {
         FieldOrderService().addFieldOrder(successValue);
       }
 
-      if (atKey.key!.contains(MixedConstants.FOLLOWERS_KEY)) {
+      if (atKey.key.contains(MixedConstants.FOLLOWERS_KEY)) {
         Provider.of<FollowService>(NavService.navKey.currentContext!,
                 listen: false)
             .addFollowersData(successValue);
       }
 
-      if (atKey.key!.contains(MixedConstants.FOLLOWING_KEY)) {
+      if (atKey.key.contains(MixedConstants.FOLLOWING_KEY)) {
         Provider.of<FollowService>(NavService.navKey.currentContext!,
                 listen: false)
             .addFollowingData(successValue);
@@ -187,9 +184,9 @@ class AtKeyGetService {
     if (type is String) {
       return type;
     }
-    if (type[CustomFieldConstants.name] == CustomFieldConstants.txtInNumber)
+    if (type[CustomFieldConstants.name] == CustomFieldConstants.txtInNumber) {
       return CustomContentType.Number.name;
-    else if (type[CustomFieldConstants.name] == CustomFieldConstants.txtInText)
+    } else if (type[CustomFieldConstants.name] == CustomFieldConstants.txtInText)
       return CustomContentType.Text.name;
     else if (type[CustomFieldConstants.name] == CustomFieldConstants.txtInUrl)
       return CustomContentType.Link.name;

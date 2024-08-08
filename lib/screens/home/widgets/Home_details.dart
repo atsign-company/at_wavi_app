@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 class HomeDetails extends StatefulWidget {
   final ThemeData? themeData;
   final bool isPreview;
-  HomeDetails({this.themeData, this.isPreview = false});
+  const HomeDetails({Key? key, this.themeData, this.isPreview = false}) : super(key: key);
   @override
   _HomeDetailsState createState() => _HomeDetailsState();
 }
@@ -49,7 +49,7 @@ class _HomeDetailsState extends State<HomeDetails> {
   @override
   Widget build(BuildContext context) {
     if (_themeData == null) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     } else {
       return Container(
         child: Column(
@@ -62,7 +62,7 @@ class _HomeDetailsState extends State<HomeDetails> {
                     style:
                         TextStyles.boldText(_themeData!.primaryColor, size: 18),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             SizedBox(height: 15.toHeight),
             Column(
               children: CommonFunctions().getCustomCardForFields(
@@ -81,7 +81,7 @@ class _HomeDetailsState extends State<HomeDetails> {
                 ? Text('Additional Details',
                     style:
                         TextStyles.boldText(_themeData!.primaryColor, size: 18))
-                : SizedBox(),
+                : const SizedBox(),
             SizedBox(height: 15.toHeight),
             Column(
               children: CommonFunctions().getCustomCardForFields(
@@ -99,7 +99,7 @@ class _HomeDetailsState extends State<HomeDetails> {
                 ? Text('Location',
                     style:
                         TextStyles.boldText(_themeData!.primaryColor, size: 18))
-                : SizedBox(),
+                : const SizedBox(),
             SizedBox(height: 15.toHeight),
             Column(
               children: CommonFunctions().getAllLocationCards(_themeData!,

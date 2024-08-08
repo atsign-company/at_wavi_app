@@ -15,10 +15,6 @@ class DesktopThemeSettingPage extends StatefulWidget {
 
 class _DesktopThemeSettingPageState extends State<DesktopThemeSettingPage>
     with AutomaticKeepAliveClientMixin {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +22,7 @@ class _DesktopThemeSettingPageState extends State<DesktopThemeSettingPage>
       context,
     );
     return Container(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
           left: DesktopDimens.marginExtraLarge, top: DesktopDimens.marginLarge),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +30,7 @@ class _DesktopThemeSettingPageState extends State<DesktopThemeSettingPage>
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Container(
+              SizedBox(
                 width: 166,
                 child: DesktopThemeCard(
                   primaryColor: desktopAppearanceModel.color,
@@ -45,8 +41,8 @@ class _DesktopThemeSettingPageState extends State<DesktopThemeSettingPage>
                   },
                 ),
               ),
-              SizedBox(width: 10),
-              Container(
+              const SizedBox(width: 10),
+              SizedBox(
                 width: 166,
                 child: DesktopThemeCard(
                   primaryColor: desktopAppearanceModel.color,

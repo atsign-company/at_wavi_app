@@ -9,7 +9,7 @@ class DesktopProfileDetailsPage extends StatefulWidget {
   final bool isMyProfile;
   final bool isEditable;
 
-  DesktopProfileDetailsPage({
+  const DesktopProfileDetailsPage({
     Key? key,
     required this.isMyProfile,
     required this.isEditable,
@@ -50,7 +50,7 @@ class _DesktopProfileDetailsPageState extends State<DesktopProfileDetailsPage>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: DesktopDimens.paddingNormal,
               horizontal: DesktopDimens.paddingExtraLarge,
             ),

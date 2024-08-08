@@ -7,22 +7,22 @@ import 'package:at_wavi_app/desktop/widgets/images/desktop_circle_avatar.dart';
 
 class DesktopNewRequestItem extends StatelessWidget {
 
-  DesktopNewRequestItem();
+  const DesktopNewRequestItem({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final appTheme = AppTheme.of(context);
     return Container(
       color: appTheme.backgroundColor,
-      padding: EdgeInsets.only(left: 8, top: 8, bottom: 8),
+      padding: const EdgeInsets.only(left: 8, top: 8, bottom: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          DesktopCircleAvatar(
+          const DesktopCircleAvatar(
             url: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde',
             size: 48,
           ),
-          SizedBox(
+          const SizedBox(
             width: 12,
           ),
           Expanded(
@@ -30,14 +30,14 @@ class DesktopNewRequestItem extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   '@lauren changed her profile picture',
                   style: TextStyle(
                     color: ColorConstants.blackShade2,
                     fontSize: 10,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
                 Text(
@@ -50,7 +50,7 @@ class DesktopNewRequestItem extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 8,
           ),
           DesktopButton(
@@ -63,7 +63,7 @@ class DesktopNewRequestItem extends StatelessWidget {
             title: Strings.desktop_delete,
             onPressed: () async {},
           ),
-          SizedBox(
+          const SizedBox(
             width: 5,
           ),
           DesktopButton(

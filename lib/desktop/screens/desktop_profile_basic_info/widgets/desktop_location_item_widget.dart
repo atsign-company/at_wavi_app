@@ -17,7 +17,7 @@ class DesktopLocationItemWidget extends StatelessWidget {
   final VoidCallback? onDeletePressed;
   final ValueChanged<OsmLocationModel>? onPreviewPressed;
 
-  DesktopLocationItemWidget({
+  const DesktopLocationItemWidget({
     Key? key,
     this.title,
     this.location,
@@ -50,12 +50,12 @@ class DesktopLocationItemWidget extends StatelessWidget {
       },
       child: Container(
         height: isValidData ? 200 : 60,
-        padding: EdgeInsets.symmetric(vertical: DesktopDimens.paddingNormal),
+        padding: const EdgeInsets.symmetric(vertical: DesktopDimens.paddingNormal),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(width: DesktopDimens.paddingNormal),
-            Container(
+            const SizedBox(width: DesktopDimens.paddingNormal),
+            SizedBox(
               width: 100,
               child: Text(
                 title ?? '',
@@ -63,7 +63,7 @@ class DesktopLocationItemWidget extends StatelessWidget {
                     TextStyle(color: appTheme.secondaryTextColor, fontSize: 16),
               ),
             ),
-            SizedBox(width: 20),
+            const SizedBox(width: 20),
             Expanded(
               child: isValidData
                   ? Stack(
@@ -73,7 +73,7 @@ class DesktopLocationItemWidget extends StatelessWidget {
                           child: FlutterMap(
                             options: MapOptions(
                               boundsOptions:
-                                  FitBoundsOptions(padding: EdgeInsets.all(0)),
+                                  const FitBoundsOptions(padding: EdgeInsets.all(0)),
                               center: osmLocationModel!.latLng,
                               zoom: osmLocationModel.zoom ?? 14.0,
                             ),
@@ -104,24 +104,24 @@ class DesktopLocationItemWidget extends StatelessWidget {
                           ),
                         ),
                         Positioned(
+                          top: 0,
+                          right: 0,
                           child: IconButton(
                             color: appTheme.primaryColor,
-                            icon: Icon(Icons.fullscreen),
+                            icon: const Icon(Icons.fullscreen),
                             onPressed: () {
                               if (osmLocationModel != null) {
                                 onPreviewPressed?.call(osmLocationModel);
                               }
                             },
                           ),
-                          top: 0,
-                          right: 0,
                         ),
                       ],
                     )
                   : Container(
                       child: Text(
-                        '${title ?? ''}',
-                        style: TextStyle(
+                        title ?? '',
+                        style: const TextStyle(
                           color: Colors.blue,
                           fontSize: 16,
                           decoration: TextDecoration.underline,
@@ -144,28 +144,28 @@ class DesktopLocationItemWidget extends StatelessWidget {
   Widget _buildMenuWidget(BuildContext context) {
     final appTheme = AppTheme.of(context);
     if (!showMenu) {
-      return SizedBox(width: DesktopDimens.paddingNormal);
+      return const SizedBox(width: DesktopDimens.paddingNormal);
     }
     return PopupMenuButton(
       itemBuilder: (context) => [
         PopupMenuItem(
+          value: 0,
           child: SizedBox(
             child: Text(
               "Edit",
-              style: appTheme.textTheme.bodyText2,
+              style: appTheme.textTheme.bodyMedium,
             ),
           ),
-          value: 0,
         ),
         if (isCustomField)
           PopupMenuItem(
+            value: 1,
             child: SizedBox(
               child: Text(
                 "Delete",
-                style: appTheme.textTheme.bodyText2,
+                style: appTheme.textTheme.bodyMedium,
               ),
             ),
-            value: 1,
           ),
       ],
       tooltip: null,

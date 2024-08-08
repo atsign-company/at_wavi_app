@@ -67,7 +67,7 @@ class _TwitterEmbedWidgetState extends State<TwitterEmbedWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 200.toHeight,
       child: WebViewWidget(
         controller: webViewController,

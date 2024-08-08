@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class DesktopMainTabBar extends StatefulWidget {
   final Function(int?)? onSelected;
 
-  DesktopMainTabBar({
+  const DesktopMainTabBar({
     Key? key,
     required this.onSelected,
   }) : super(key: key);
@@ -56,13 +56,13 @@ class _DesktopMainTabBarState extends State<DesktopMainTabBar> {
                           color: appTheme.borderColor,
                           spreadRadius: 1,
                           blurRadius: 2,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3), // changes position of shadow
                         ),
                       ],
                     )
                   : null,
               padding:
-                  EdgeInsets.only(left: 24, top: 12, bottom: 12, right: 24),
+                  const EdgeInsets.only(left: 24, top: 12, bottom: 12, right: 24),
               child: Text(
                 Strings.desktop_details,
                 style: TextStyle(
@@ -91,13 +91,13 @@ class _DesktopMainTabBarState extends State<DesktopMainTabBar> {
                           color: appTheme.borderColor,
                           spreadRadius: 1,
                           blurRadius: 2,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3), // changes position of shadow
                         ),
                       ],
                     )
                   : null,
               padding:
-                  EdgeInsets.only(left: 24, top: 12, bottom: 12, right: 24),
+                  const EdgeInsets.only(left: 24, top: 12, bottom: 12, right: 24),
               child: Text(
                 Strings.desktop_channels,
                 style: TextStyle(
@@ -126,13 +126,13 @@ class _DesktopMainTabBarState extends State<DesktopMainTabBar> {
                           color: appTheme.borderColor,
                           spreadRadius: 1,
                           blurRadius: 2,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: const Offset(0, 3), // changes position of shadow
                         ),
                       ],
                     )
                   : null,
               padding:
-                  EdgeInsets.only(left: 24, top: 12, bottom: 12, right: 24),
+                  const EdgeInsets.only(left: 24, top: 12, bottom: 12, right: 24),
               child: Text(
                 Strings.desktop_featured,
                 style: TextStyle(

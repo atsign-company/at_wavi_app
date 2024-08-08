@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 class FieldNames {
   FieldNames._();
-  static FieldNames _instance = FieldNames._();
+  static final FieldNames _instance = FieldNames._();
   factory FieldNames() => _instance;
 
   static const _basicDetails = ['firstname', 'lastname', 'phone', 'email'];
@@ -264,13 +264,13 @@ class FieldNames {
 
       if (basicData.accountName == null &&
           basicData.value == null &&
-          predefinedCategoryFields.indexOf(fields[index]) == -1) {
+          !predefinedCategoryFields.contains(fields[index])) {
         fieldsToDelete.add(fields[index]);
       }
     }
 
-    fieldsToDelete.forEach((field) {
+    for (var field in fieldsToDelete) {
       fields.removeWhere((el) => el == field);
-    });
+    }
   }
 }

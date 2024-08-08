@@ -24,7 +24,7 @@ class CustomInputField extends StatelessWidget {
 
   var textController = TextEditingController();
 
-  CustomInputField({
+  CustomInputField({Key? key, 
     this.hintText = '',
     this.height = 50,
     this.width = 300,
@@ -50,12 +50,12 @@ class CustomInputField extends StatelessWidget {
     this.textInputType,
     this.blankSpacesAllowed,
     this.autoCorrectAllowed,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     textController.text = initialValue;
-    if ((baseOffset != null) && (baseOffset != 0)) {
+    if ((baseOffset != 0)) {
       textController = TextEditingController.fromValue(
         TextEditingValue(
           text: initialValue,
@@ -70,7 +70,7 @@ class CustomInputField extends StatelessWidget {
         }
       },
       child: Container(
-        padding: padding ?? EdgeInsets.all(0),
+        padding: padding ?? const EdgeInsets.all(0),
         width: width,
         height: height,
         decoration: BoxDecoration(
@@ -138,12 +138,12 @@ class CustomInputField extends StatelessWidget {
                       color: iconColor ?? ColorConstants.DARK_GREY,
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             secondIcon != null
-                ? SizedBox(
+                ? const SizedBox(
                     width: 7,
                   )
-                : SizedBox(),
+                : const SizedBox(),
             icon != null
                 ? InkWell(
                     onTap: () {
@@ -158,7 +158,7 @@ class CustomInputField extends StatelessWidget {
                       color: iconColor ?? ColorConstants.DARK_GREY,
                     ),
                   )
-                : SizedBox()
+                : const SizedBox()
           ],
         ),
       ),
@@ -167,7 +167,7 @@ class CustomInputField extends StatelessWidget {
 
   OutlineInputBorder _outlineInputBorder({Color? color}) {
     return OutlineInputBorder(
-        borderSide: new BorderSide(
+        borderSide: BorderSide(
             color: color ?? borderColor ?? ColorConstants.MILD_GREY));
   }
 }

@@ -58,10 +58,10 @@ class _CreateCustomLocationState extends State<CreateCustomLocation> {
     super.initState();
   }
 
-  updateIsPrivate(bool _mode) {
+  updateIsPrivate(bool mode) {
     setState(() {
       // _isPrivate = _mode;
-      _data.isPrivate = _mode;
+      _data.isPrivate = mode;
     });
   }
 
@@ -136,15 +136,15 @@ class _CreateCustomLocationState extends State<CreateCustomLocation> {
                     height: 200.toHeight);
               },
               child: Padding(
-                  padding: EdgeInsets.only(right: 15),
+                  padding: const EdgeInsets.only(right: 15),
                   child:
-                      _data.isPrivate ? Icon(Icons.lock) : Icon(Icons.public)),
+                      _data.isPrivate ? const Icon(Icons.lock) : const Icon(Icons.public)),
             )
           ]),
       body: SizedBox(
         height: SizeConfig().screenHeight - 80.toHeight - 55,
         child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -180,7 +180,7 @@ class _CreateCustomLocationState extends State<CreateCustomLocation> {
                   }),
                 ),
               ),
-              Divider(
+              const Divider(
                 thickness: 1,
               ),
               Padding(
@@ -212,25 +212,25 @@ class _CreateCustomLocationState extends State<CreateCustomLocation> {
                     showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
-                        shape: StadiumBorder(),
+                        shape: const StadiumBorder(),
                         builder: (BuildContext context) {
                           return Container(
                             height: SizeConfig().screenHeight * 0.9,
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 20, horizontal: 0),
                             decoration: BoxDecoration(
                               color: Theme.of(context).scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.only(
-                                topLeft: const Radius.circular(12.0),
-                                topRight: const Radius.circular(12.0),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(12.0),
+                                topRight: Radius.circular(12.0),
                               ),
                             ),
                             child: SelectLocation(
-                              callbackFunction: (_finalData) {
+                              callbackFunction: (finalData) {
                                 print(
-                                    '_finalData $_finalData ${_finalData.latLng}');
+                                    '_finalData $finalData ${finalData.latLng}');
                                 setState(() {
-                                  _osmLocationModel = _finalData;
+                                  _osmLocationModel = finalData;
                                 });
                               },
                             ),
@@ -243,7 +243,7 @@ class _CreateCustomLocationState extends State<CreateCustomLocation> {
               ((_osmLocationModel != null) &&
                       (_osmLocationModel!.latLng != null))
                   ? Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       height: 300,
                       width: double.infinity,
                       decoration: BoxDecoration(
@@ -256,7 +256,7 @@ class _CreateCustomLocationState extends State<CreateCustomLocation> {
                             child: FlutterMap(
                               key: _mapKey,
                               options: MapOptions(
-                                boundsOptions: FitBoundsOptions(
+                                boundsOptions: const FitBoundsOptions(
                                     padding: EdgeInsets.all(0)),
                                 center: _osmLocationModel!.latLng!,
                                 zoom: _osmLocationModel!.zoom!,
@@ -307,13 +307,13 @@ class _CreateCustomLocationState extends State<CreateCustomLocation> {
                                               _osmLocationModel!.radius!,
                                         });
                                   },
-                                  icon: Icon(Icons.fullscreen)),
+                                  icon: const Icon(Icons.fullscreen)),
                             ),
                           )
                         ],
                       ),
                     )
-                  : SizedBox(),
+                  : const SizedBox(),
             ],
           ),
         ),
@@ -322,11 +322,11 @@ class _CreateCustomLocationState extends State<CreateCustomLocation> {
     // });
   }
 
-  _updateLocation(OsmLocationModel _osmData) async {
-    if ((_osmData.latitude == null) ||
-        (_osmData.latitude == 'null') ||
-        (_osmData.longitude == null) ||
-        (_osmData.longitude == 'null')) {
+  _updateLocation(OsmLocationModel osmData) async {
+    if ((osmData.latitude == null) ||
+        (osmData.latitude == 'null') ||
+        (osmData.longitude == null) ||
+        (osmData.longitude == 'null')) {
       _showToast('Location is required', isError: true);
       return;
     }
@@ -375,7 +375,7 @@ class _CreateCustomLocationState extends State<CreateCustomLocation> {
   }
 
   addCustomContent() {
-    int? _index;
+    int? index;
     List<BasicData>? customFields =
         Provider.of<UserPreview>(context, listen: false)
             .user()!
@@ -384,18 +384,18 @@ class _CreateCustomLocationState extends State<CreateCustomLocation> {
     if (customFields == null) {
       customFields = [];
     } else if (widget.basicData != null) {
-      _index = customFields.indexWhere(
+      index = customFields.indexWhere(
           (element) => element.accountName == widget.basicData!.accountName);
     }
 
     // setState(() {
-    if (_index != null) {
+    if (index != null) {
       // updates already existing key's value
       if ((widget.basicData != null) &&
           (widget.basicData!.accountName == _data.accountName)) {
-        customFields[_index] = _data;
+        customFields[index] = _data;
       } else {
-        customFields.insert(_index, _data);
+        customFields.insert(index, _data);
       }
     } else {
       customFields.add(_data);
@@ -420,15 +420,15 @@ class _CreateCustomLocationState extends State<CreateCustomLocation> {
     }
   }
 
-  _showToast(String _text, {bool isError = false, Color? bgColor}) {
+  _showToast(String text, {bool isError = false, Color? bgColor}) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       backgroundColor:
           isError ? ColorConstants.RED : bgColor ?? ColorConstants.black,
       content: Text(
-        _text,
+        text,
         textAlign: TextAlign.center,
       ),
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     ));
   }
 }

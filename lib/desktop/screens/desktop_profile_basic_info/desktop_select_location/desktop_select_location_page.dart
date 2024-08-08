@@ -13,10 +13,10 @@ class DesktopSelectLocationPage extends StatefulWidget {
   final LatLng? point;
   final String? displayName;
 
-  DesktopSelectLocationPage({
+  const DesktopSelectLocationPage({Key? key, 
     this.displayName,
     this.point,
-  });
+  }) : super(key: key);
 
   @override
   _DesktopSelectLocationPageState createState() =>
@@ -43,12 +43,10 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
     center = widget.point;
     zoom = 16;
     super.initState();
-    if (center == null) {
-      center = LatLng(
+    center ??= const LatLng(
         21.028511,
         105.804817,
       );
-    }
   }
 
   calculateMarkerDimensions() {
@@ -70,7 +68,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
           MediaQuery.of(context).size.width / 2 + DesktopDimens.sideMenuWidth,
       decoration: BoxDecoration(
         color: appTheme.backgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(8)),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
@@ -78,7 +76,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
         children: [
           Expanded(
             child: Container(
-              padding: EdgeInsets.all(DesktopDimens.paddingNormal),
+              padding: const EdgeInsets.all(DesktopDimens.paddingNormal),
               child: _buildMapWidget(),
             ),
           ),
@@ -87,7 +85,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
             width: DesktopDimens.sideMenuWidth,
             decoration: BoxDecoration(
               color: appTheme.backgroundColor,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
             child: _buildControlWidget(),
           )
@@ -140,17 +138,17 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
     }
     return FlutterMap(
       mapController: mapController,
-      returnPositionTapped: (_latLng, _zoom) {
+      returnPositionTapped: (latLng, zoom) {
         setState(() {
           if (_absorbDoubleTapPointer) {
-            center = _latLng ?? LatLng(0, 0);
+            center = latLng ?? const LatLng(0, 0);
           }
-          zoom = _zoom ?? 16;
+          zoom = zoom ?? 16;
         });
       },
       absorbDoubleTapPointer: _absorbDoubleTapPointer,
       options: MapOptions(
-        boundsOptions: FitBoundsOptions(padding: EdgeInsets.all(0)),
+        boundsOptions: const FitBoundsOptions(padding: EdgeInsets.all(0)),
         center: center,
         zoom: zoom,
       ),
@@ -174,9 +172,9 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(8)),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
-      padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
+      padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
       height: 280,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -191,7 +189,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Checkbox(
-                      fillColor: MaterialStateProperty.all<Color>(
+                      fillColor: WidgetStateProperty.all<Color>(
                           Theme.of(context).primaryColor),
                       checkColor: Theme.of(context).scaffoldBackgroundColor,
                       value: _absorbDoubleTapPointer,
@@ -202,16 +200,16 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
                         });
                       },
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          SizedBox(height: 7),
+                          const SizedBox(height: 7),
                           Text(
                             'Enable double tap to move pointer',
-                            style: appTheme.textTheme.bodyText2,
+                            style: appTheme.textTheme.bodyMedium,
                           ),
                           (_absorbDoubleTapPointer)
                               ? Flexible(
@@ -219,10 +217,10 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
                                     '(Double tap zoom is disabled)',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
-                                    style: appTheme.textTheme.bodyText2,
+                                    style: appTheme.textTheme.bodyMedium,
                                   ),
                                 )
-                              : SizedBox()
+                              : const SizedBox()
                         ],
                       ),
                     )
@@ -243,17 +241,17 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
                     });
                   },
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Flexible(
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(width: 6),
+                      const SizedBox(width: 6),
                       Icon(
                         Icons.location_on,
                         color: Theme.of(context).primaryColor,
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Flexible(
                         child: Text(
                           widget.displayName ?? '',
@@ -267,7 +265,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
                     ],
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Flexible(
                   child: RichText(
                     text: TextSpan(
@@ -276,10 +274,10 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
                         TextSpan(
                           text:
                               'The view you select (Position of the marker, zoom level and radius of the circle), will be shown to other users.',
-                          style: appTheme.textTheme.bodyText2,
+                          style: appTheme.textTheme.bodyMedium,
                         )
                       ],
-                      style: appTheme.textTheme.bodyText2?.copyWith(
+                      style: appTheme.textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -303,12 +301,12 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
           title: 'Confirm',
           onPressed: onConfirmPressed,
         ),
-        SizedBox(height: DesktopDimens.paddingNormal),
+        const SizedBox(height: DesktopDimens.paddingNormal),
         DesktopWhiteButton(
           title: 'Cancel',
           onPressed: onCancelPressed,
         ),
-        SizedBox(height: DesktopDimens.paddingNormal),
+        const SizedBox(height: DesktopDimens.paddingNormal),
       ],
     );
   }
@@ -321,7 +319,7 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
     if (center == null) {
       return;
     }
-    var _finalData = OsmLocationModel(
+    var finalData = OsmLocationModel(
       '',
       diameterOfCircle,
       zoom,
@@ -329,6 +327,6 @@ class _DesktopSelectLocationPageState extends State<DesktopSelectLocationPage> {
       longitude: center?.longitude,
       diameter: diameterOfCircle,
     );
-    Navigator.of(context).pop(_finalData);
+    Navigator.of(context).pop(finalData);
   }
 }

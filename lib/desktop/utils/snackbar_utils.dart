@@ -34,8 +34,8 @@ class SnackBarUtils {
       flushbarStyle: FlushbarStyle.FLOATING,
       backgroundColor: backgroundColor,
       isDismissible: true,
-      duration: Duration(seconds: 3),
-      margin: EdgeInsets.all(8),
+      duration: const Duration(seconds: 3),
+      margin: const EdgeInsets.all(8),
       borderRadius: BorderRadius.circular(8),
     ).show(context);
   }

@@ -43,13 +43,13 @@ class _DesktopSearchAtSignPageState extends State<DesktopSearchAtSignPage> {
       child: Container(
         color: appTheme.backgroundColor,
         width: DesktopDimens.sideMenuWidth + 80,
-        padding: EdgeInsets.symmetric(horizontal: 24),
+        padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: DesktopDimens.paddingLarge),
-            Container(
+            const SizedBox(height: DesktopDimens.paddingLarge),
+            SizedBox(
               width: DesktopDimens.sideMenuWidth + 80,
               child: Row(
                 children: [
@@ -63,7 +63,7 @@ class _DesktopSearchAtSignPageState extends State<DesktopSearchAtSignPage> {
                       contentPadding: 0,
                       prefixIcon: Container(
                         width: 30,
-                        margin: EdgeInsets.only(left: 10, bottom: 1),
+                        margin: const EdgeInsets.only(left: 10, bottom: 1),
                         child: Center(
                           child: RichText(
                             text: TextSpan(
@@ -86,12 +86,12 @@ class _DesktopSearchAtSignPageState extends State<DesktopSearchAtSignPage> {
                     onPressed: () {
                       _model.searchAtSignAccount(keyword: textController.text);
                     },
-                    icon: Icon(Icons.search),
+                    icon: const Icon(Icons.search),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: DesktopDimens.paddingNormal),
+            const SizedBox(height: DesktopDimens.paddingNormal),
             Expanded(
               child: Consumer<DesktopSearchAtSignModel>(
                 builder: (_, model, child) {
@@ -106,7 +106,7 @@ class _DesktopSearchAtSignPageState extends State<DesktopSearchAtSignPage> {
                       return Center(
                         child: Text(
                           Strings.desktop_empty,
-                          style: appTheme.textTheme.bodyText1,
+                          style: appTheme.textTheme.bodyLarge,
                         ),
                       );
                     } else {
@@ -135,7 +135,7 @@ class _DesktopSearchAtSignPageState extends State<DesktopSearchAtSignPage> {
                 },
               ),
             ),
-            SizedBox(height: DesktopDimens.paddingNormal),
+            const SizedBox(height: DesktopDimens.paddingNormal),
           ],
         ),
       ),
@@ -147,7 +147,7 @@ class _DesktopSearchAtSignPageState extends State<DesktopSearchAtSignPage> {
     Provider.of<UserPreview>(context, listen: false).setUser = user;
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => DesktopUserProfilePage(),
+        builder: (context) => const DesktopUserProfilePage(),
       ),
     );
   }

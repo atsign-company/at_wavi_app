@@ -16,27 +16,27 @@ class DesktopColorCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
+      style: ButtonStyle(
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+        backgroundColor: WidgetStateProperty.all(color),
+      ),
       child: Visibility(
         visible: isSelected,
         child: Center(
           child: Container(
             height: 30,
             width: 30,
-            child: Icon(Icons.check_rounded, color: color),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(Radius.circular(15)),
             ),
+            child: Icon(Icons.check_rounded, color: color),
           ),
         ),
-      ),
-      style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-        ),
-        backgroundColor: MaterialStateProperty.all(color),
       ),
     );
   }

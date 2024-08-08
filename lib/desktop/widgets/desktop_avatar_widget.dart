@@ -45,7 +45,7 @@ class DesktopAvatarWidget extends StatelessWidget {
       child: Center(
         child: Text(
           (atSign ?? '').substring((index == 1) ? 0 : 1, index).toUpperCase(),
-          style: TextStyle(color: Colors.white, fontSize: 16),
+          style: const TextStyle(color: Colors.white, fontSize: 16),
         ),
       ),
     );

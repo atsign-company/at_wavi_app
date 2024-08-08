@@ -7,7 +7,7 @@ import 'package:share_plus/share_plus.dart';
 import '../utils/text_styles.dart';
 
 class QrScreen extends StatefulWidget {
-  QrScreen({required this.atSign});
+  QrScreen({Key? key, required this.atSign}) : super(key: key);
 
   String atSign;
 
@@ -19,7 +19,7 @@ class _QrScreenState extends State<QrScreen> {
   ThemeData? _themeData;
   late Color _highlightColor;
 
-  TextEditingController _commentController = new TextEditingController();
+  final TextEditingController _commentController = TextEditingController();
 
   _getThemeData() async {
     _themeData =
@@ -41,7 +41,7 @@ class _QrScreenState extends State<QrScreen> {
   @override
   Widget build(BuildContext context) {
     if (_themeData == null) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     }
     return GestureDetector(
       onTap: () {
@@ -66,19 +66,19 @@ class _QrScreenState extends State<QrScreen> {
             elevation: 0,
           ),
           body: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
+            physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
-                Center(
+                const Center(
                     child: Text(
                   "Scan the QR Code with Wavi App",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                 )),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 QrImageView(
@@ -89,7 +89,7 @@ class _QrScreenState extends State<QrScreen> {
                           ? Colors.white
                           : Colors.black),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 Row(
@@ -105,7 +105,7 @@ class _QrScreenState extends State<QrScreen> {
                             : Colors.black,
                       ),
                     ),
-                    Text(
+                    const Text(
                       "OR",
                       style: TextStyle(fontSize: 16),
                     ),
@@ -121,7 +121,7 @@ class _QrScreenState extends State<QrScreen> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Padding(
@@ -130,7 +130,7 @@ class _QrScreenState extends State<QrScreen> {
                   child: TextField(
                     controller: _commentController,
                     decoration: InputDecoration(
-                      label: Text("Comment"),
+                      label: const Text("Comment"),
                       labelStyle: TextStyle(color: _highlightColor),
                       focusColor: _highlightColor,
                       fillColor: _highlightColor,
@@ -140,14 +140,14 @@ class _QrScreenState extends State<QrScreen> {
                       ),
                       border: const OutlineInputBorder(
                         borderSide:
-                            const BorderSide(color: Colors.white, width: 1.5),
+                            BorderSide(color: Colors.white, width: 1.5),
                       ),
                     ),
                     minLines: 3,
                     maxLines: 3,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 ElevatedButton(
@@ -157,11 +157,11 @@ class _QrScreenState extends State<QrScreen> {
                   ),
                   onPressed: () {
                     // print(_commentController.text.length);
-                    Share.share("https://wavi.ng/" + widget.atSign.toString(),
+                    Share.share("https://wavi.ng/${widget.atSign}",
                         subject: _commentController.text);
                     _commentController.clear();
                   },
-                  child: Text('Share Via App'),
+                  child: const Text('Share Via App'),
                 )
               ],
             ),

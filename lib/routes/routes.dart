@@ -26,8 +26,8 @@ class SetupRoutes {
   // static String initialRoute = Routes.ADD_LINK;
   static Map<String, WidgetBuilder> get routes {
     return {
-      Routes.WELCOME_SCREEN: (context) => Welcome(),
-      Routes.EDIT_PERSONA: (context) => EditPersona(),
+      Routes.WELCOME_SCREEN: (context) => const Welcome(),
+      Routes.EDIT_PERSONA: (context) => const EditPersona(),
       Routes.HOME: (context) {
         if ((ModalRoute.of(context) != null) &&
             (ModalRoute.of(context)!.settings.arguments != null)) {
@@ -40,7 +40,7 @@ class SetupRoutes {
           );
         }
 
-        return HomeScreen();
+        return const HomeScreen();
       },
       Routes.ADD_LINK: (context) {
         if ((ModalRoute.of(context) != null) &&
@@ -49,7 +49,7 @@ class SetupRoutes {
               as Map<String, dynamic>;
           return AddLink(args['url']);
         }
-        return AddLink('');
+        return const AddLink('');
       },
       Routes.FOLLOWING_SCREEN: (context) {
         if ((ModalRoute.of(context) != null) &&
@@ -63,10 +63,10 @@ class SetupRoutes {
             themeData: args['themeData'],
           );
         }
-        return SizedBox();
+        return const SizedBox();
       },
-      Routes.SEARCH_SCREEN: (context) => Search(),
-      Routes.LOCATION_WIDGET: (context) => LocationWidget(),
+      Routes.SEARCH_SCREEN: (context) => const Search(),
+      Routes.LOCATION_WIDGET: (context) => const LocationWidget(),
       Routes.SELECTED_LOCATION: (context) {
         if ((ModalRoute.of(context) != null) &&
             (ModalRoute.of(context)!.settings.arguments != null)) {
@@ -75,7 +75,7 @@ class SetupRoutes {
           return SelectedLocation(args['displayName'], args['point'],
               callbackFunction: args['callbackFunction']);
         }
-        return SelectedLocation('', LatLng(0, 0));
+        return const SelectedLocation('', LatLng(0, 0));
       },
       Routes.CREATE_CUSTOM_ADD_LINK: (context) {
         if ((ModalRoute.of(context) != null) &&
@@ -85,7 +85,7 @@ class SetupRoutes {
           return CreateCustomAddLink(args['value'], category: args['category']);
         }
 
-        return CreateCustomAddLink('', category: AtCategory.DETAILS);
+        return const CreateCustomAddLink('', category: AtCategory.DETAILS);
       },
       Routes.PREVIEW_LOCATION: (context) {
         if ((ModalRoute.of(context) != null) &&
@@ -99,7 +99,7 @@ class SetupRoutes {
               diameterOfCircle: args['diameterOfCircle']);
         }
 
-        return SizedBox();
+        return const SizedBox();
       },
       Routes.CREATE_CUSTOM_LOCATION: (context) {
         if ((ModalRoute.of(context) != null) &&
@@ -110,13 +110,13 @@ class SetupRoutes {
               basicData: args['basicData'], onSave: args['onSave']);
         }
 
-        return CreateCustomLocation();
+        return const CreateCustomLocation();
       },
-      Routes.FAQS: (context) => WebsiteScreen(
+      Routes.FAQS: (context) => const WebsiteScreen(
             title: 'FAQ',
             url: '${MixedConstants.WEBSITE_URL}/faqs',
           ),
-      Routes.TERMS_CONDITIONS_SCREEN: (context) => WebsiteScreen(
+      Routes.TERMS_CONDITIONS_SCREEN: (context) => const WebsiteScreen(
             title: 'Terms and Conditions',
             url: '${MixedConstants.WEBSITE_URL}/terms-conditions',
           ),
@@ -130,8 +130,9 @@ class SetupRoutes {
             title: args['title'],
             url: args['url'],
           );
-        } else
-          return SizedBox();
+        } else {
+          return const SizedBox();
+        }
       },
       Routes.EDIT_CATEGORY_FIELDS: (context) {
         if ((ModalRoute.of(context) != null) &&
@@ -143,8 +144,9 @@ class SetupRoutes {
             category: args['category'],
             filedHeading: args['filedHeading'],
           );
-        } else
-          return SizedBox();
+        } else {
+          return const SizedBox();
+        }
       },
       Routes.ADD_CUSTOM_FIELD: (context) {
         if ((ModalRoute.of(context) != null) &&
@@ -158,8 +160,9 @@ class SetupRoutes {
             basicData: args['basicData'],
             category: args['category'],
           );
-        } else
-          return SizedBox();
+        } else {
+          return const SizedBox();
+        }
       },
       Routes.REORDER_FIELDS: (context) {
         if ((ModalRoute.of(context) != null) &&
@@ -171,8 +174,9 @@ class SetupRoutes {
             category: args['category'],
             onSave: args['onSave'],
           );
-        } else
-          return SizedBox();
+        } else {
+          return const SizedBox();
+        }
       },
       Routes.QR_SCREEN: (context) {
         if ((ModalRoute.of(context) != null) &&
@@ -182,8 +186,9 @@ class SetupRoutes {
           return QrScreen(
             atSign: args['atSign'],
           );
-        } else
-          return SizedBox();
+        } else {
+          return const SizedBox();
+        }
       }
     };
   }

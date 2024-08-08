@@ -29,21 +29,13 @@ class DesktopButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = AppTheme.of(context);
-    return Container(
+    return SizedBox(
       width: width,
       height: height,
       child: ElevatedButton(
         onPressed: onPressed,
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: textSize,
-            color: titleColor ?? Colors.white,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
         style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius),
               side: BorderSide(
@@ -52,9 +44,17 @@ class DesktopButton extends StatelessWidget {
               ),
             ),
           ),
-          elevation: MaterialStateProperty.all(0),
-          backgroundColor: MaterialStateProperty.all(
+          elevation: WidgetStateProperty.all(0),
+          backgroundColor: WidgetStateProperty.all(
               backgroundColor ?? appTheme.secondaryColor),
+        ),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: textSize,
+            color: titleColor ?? Colors.white,
+            fontWeight: FontWeight.normal,
+          ),
         ),
       ),
     );
@@ -85,21 +85,13 @@ class DesktopWhiteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final appTheme = AppTheme.of(context);
     final isDark = appTheme.isDark;
-    return Container(
+    return SizedBox(
       width: width,
       height: height,
       child: ElevatedButton(
         onPressed: onPressed,
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: textSize,
-            color: titleColor ?? appTheme.primaryTextColor,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
         style: ButtonStyle(
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4.0),
               side: BorderSide(
@@ -109,9 +101,17 @@ class DesktopWhiteButton extends StatelessWidget {
               ),
             ),
           ),
-          elevation: MaterialStateProperty.all(0),
-          backgroundColor: MaterialStateProperty.all(
+          elevation: WidgetStateProperty.all(0),
+          backgroundColor: WidgetStateProperty.all(
               isDark ? Colors.transparent : ColorConstants.white),
+        ),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: textSize,
+            color: titleColor ?? appTheme.primaryTextColor,
+            fontWeight: FontWeight.normal,
+          ),
         ),
       ),
     );

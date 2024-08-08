@@ -27,7 +27,7 @@ class AddCustomContentButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            const Icon(
               Icons.add,
               color: ColorConstants.orange,
             ),

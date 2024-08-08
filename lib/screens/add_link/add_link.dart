@@ -16,7 +16,7 @@ class AddLink extends StatefulWidget {
 
 class _AddLinkState extends State<AddLink> {
   late String _linkValue;
-  List<String> _sections = [
+  final List<String> _sections = [
     'Basic Details',
     'Additional Details',
     'Location',
@@ -59,7 +59,7 @@ class _AddLinkState extends State<AddLink> {
       bottomSheet: InkWell(
         onTap: _selectedValue == ''
             ? () {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text(
                     'Select a section',
                     textAlign: TextAlign.center,
@@ -109,21 +109,21 @@ class _AddLinkState extends State<AddLink> {
         elevation: 0,
       ),
       body: ListView.separated(
-          itemBuilder: (context, _index) {
-            return _radioButtons(_sections[_index]);
+          itemBuilder: (context, index) {
+            return _radioButtons(_sections[index]);
           },
-          separatorBuilder: (context, _index) {
-            return Divider();
+          separatorBuilder: (context, index) {
+            return const Divider();
           },
           itemCount: _sections.length),
     );
   }
 
-  Widget _radioButtons(String _value) {
+  Widget _radioButtons(String value) {
     return InkWell(
       onTap: () {
         setState(() {
-          _selectedValue = _value;
+          _selectedValue = value;
         });
       },
       child: Padding(
@@ -133,26 +133,27 @@ class _AddLinkState extends State<AddLink> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              '$_value',
+              value,
               style: CustomTextStyles.customTextStyle(
                   Theme.of(context).primaryColor,
                   size: 16),
             ),
             Transform.scale(
-              scale: 1.4,
-              child: Radio(
-                value: _value,
-                groupValue: _selectedValue,
-                activeColor: Theme.of(context).primaryColor,
-                splashRadius: 5,
-                materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                onChanged: (value) {
-                  setState(() {
-                    _selectedValue = _value;
-                  });
-                },
-              ),
-            ),
+  scale: 1.4,
+  child: Radio<String>(
+    value: value,
+    groupValue: _selectedValue,
+    activeColor: Theme.of(context).primaryColor,
+    splashRadius: 5,
+    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+    onChanged: (String? newValue) {
+      setState(() {
+        _selectedValue = newValue!;
+      });
+    },
+  ),
+),
+
           ],
         ),
       ),

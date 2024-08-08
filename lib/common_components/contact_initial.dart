@@ -6,10 +6,10 @@ class ContactInitial extends StatelessWidget {
   final double? size;
   final String? initials;
 
-  ContactInitial({
+  const ContactInitial({Key? key, 
     this.size = 40,
     @required this.initials,
-  });
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var index = 3;
@@ -29,7 +29,7 @@ class ContactInitial extends StatelessWidget {
       child: Center(
         child: Text(
           initials!.substring((index == 1) ? 0 : 1, index).toUpperCase(),
-          style: TextStyle(color: Colors.white, fontSize: 16),
+          style: const TextStyle(color: Colors.white, fontSize: 16),
         ),
       ),
     );

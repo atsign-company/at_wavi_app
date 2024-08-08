@@ -14,16 +14,16 @@ class DesktopPreviewButton extends StatelessWidget {
       height: 40,
       child: FloatingActionButton(
         onPressed: onPressed,
-        child: Icon(
-          Icons.remove_red_eye_outlined,
-          color: appTheme.primaryColor,
-          size: 22,
-        ),
         elevation: 0,
         backgroundColor: appTheme.primaryLighterColor,
         hoverElevation: 0,
         focusElevation: 0,
         highlightElevation: 0,
+        child: Icon(
+          Icons.remove_red_eye_outlined,
+          color: appTheme.primaryColor,
+          size: 22,
+        ),
       ),
     );
   }

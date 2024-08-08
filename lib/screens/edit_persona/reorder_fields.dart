@@ -16,7 +16,7 @@ class ReorderFields extends StatefulWidget {
   final AtCategory category;
   final Function onSave;
 
-  ReorderFields({required this.category, required this.onSave});
+  const ReorderFields({Key? key, required this.category, required this.onSave}) : super(key: key);
 
   @override
   _ReorderFieldsState createState() => _ReorderFieldsState();
@@ -36,9 +36,9 @@ class _ReorderFieldsState extends State<ReorderFields> {
     }
     // removing pre defined fields for location category.
     if (widget.category == AtCategory.LOCATION) {
-      FieldNames().locationFields.forEach((el) {
+      for (var el in FieldNames().locationFields) {
         fields.removeWhere((element) => element == el);
-      });
+      }
     }
     _getUserData();
     super.initState();
@@ -69,7 +69,7 @@ class _ReorderFieldsState extends State<ReorderFields> {
   @override
   Widget build(BuildContext context) {
     if (_themeData == null) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     }
 
     return Scaffold(
@@ -84,7 +84,7 @@ class _ReorderFieldsState extends State<ReorderFields> {
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(right: 8.0, left: 8.0),
               child: Row(
@@ -94,7 +94,7 @@ class _ReorderFieldsState extends State<ReorderFields> {
                     onTap: () {},
                     child: Row(
                       children: [
-                        SizedBox(width: 5),
+                        const SizedBox(width: 5),
                         Text(
                           'Reorder',
                           style: TextStyles.boldText(_themeData!.primaryColor,
@@ -116,8 +116,8 @@ class _ReorderFieldsState extends State<ReorderFields> {
                 ],
               ),
             ),
-            SizedBox(height: 30),
-            Container(
+            const SizedBox(height: 30),
+            SizedBox(
               height: SizeConfig().screenHeight - 180,
               child: ReorderableListView(
                 children: [
@@ -148,7 +148,7 @@ class _ReorderFieldsState extends State<ReorderFields> {
     for (int index = 0; index < fields.length; index++) {
       if (widget.category == AtCategory.LOCATION) {
         // skipping location predefined fields
-        if (predefinedLocationFields.indexOf(fields[index]) != -1) {
+        if (predefinedLocationFields.contains(fields[index])) {
           continue;
         }
       }
@@ -162,14 +162,12 @@ class _ReorderFieldsState extends State<ReorderFields> {
         if (i != -1) basicData = customFields![i];
       }
 
-      if (basicData.value == null) {
-        basicData.value = '';
-      }
+      basicData.value ??= '';
       if (basicData.accountName != null &&
           basicData.value != null &&
           !basicData.accountName!.contains(AtText.IS_DELETED)) {
         reorderList.add(ListTile(
-          contentPadding: EdgeInsets.all(0),
+          contentPadding: const EdgeInsets.all(0),
           key: Key('$index'),
           title: reorderTitle(fields[index], basicData),
         ));
@@ -179,7 +177,7 @@ class _ReorderFieldsState extends State<ReorderFields> {
   }
 
   Widget reorderTitle(String field, BasicData basicData) {
-    var tile = SizedBox();
+    var tile = const SizedBox();
 
     if (basicData.accountName != null &&
         basicData.value != null &&
@@ -190,7 +188,7 @@ class _ReorderFieldsState extends State<ReorderFields> {
   }
 
   Widget fieldCard(BasicData basicData) {
-    Widget card = SizedBox();
+    Widget card = const SizedBox();
 
     card = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,7 +198,7 @@ class _ReorderFieldsState extends State<ReorderFields> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 10),
                 child: Text(
                   basicData.displayingAccountName ?? '',
                   style: TextStyles.lightText(
@@ -210,12 +208,12 @@ class _ReorderFieldsState extends State<ReorderFields> {
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               // not showing location field values
               widget.category == AtCategory.LOCATION
-                  ? SizedBox()
+                  ? const SizedBox()
                   : Padding(
-                      padding: EdgeInsets.only(left: 10),
+                      padding: const EdgeInsets.only(left: 10),
                       child: basicData.type == CustomContentType.Image.name
                           ? Image.memory(basicData.value)
                           : Text(
@@ -227,7 +225,7 @@ class _ReorderFieldsState extends State<ReorderFields> {
                               overflow: TextOverflow.ellipsis,
                             ),
                     ),
-              Divider()
+              const Divider()
             ],
           ),
         ),

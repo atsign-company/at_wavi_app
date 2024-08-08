@@ -23,7 +23,7 @@ import 'desktop/services/theme/app_theme.dart';
 import 'desktop/services/theme/inherited_app_theme.dart';
 
 class MyApp extends StatefulWidget {
-  MyApp();
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -78,10 +78,10 @@ class MaterialAppClass extends StatelessWidget {
   final String? initialRoute;
   final Map<String, WidgetBuilder> routes;
 
-  MaterialAppClass({
+  const MaterialAppClass({Key? key, 
     required this.initialRoute,
     required this.routes,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +123,7 @@ class MaterialAppClass extends StatelessWidget {
               builder: (BuildContext context, Widget? child) {
                 final data = MediaQuery.of(context);
                 return MediaQuery(
-                  data: data.copyWith(textScaleFactor: 1),
+                  data: data.copyWith(textScaler: const TextScaler.linear(1)),
                   child: child!,
                 );
               },
@@ -149,7 +149,7 @@ class MaterialAppClass extends StatelessWidget {
             if (Platform.isIOS) hideKeyboard(context);
           },
           child: MediaQuery(
-            data: data.copyWith(textScaleFactor: 1),
+            data: data.copyWith(textScaler: const TextScaler.linear(1)),
             child: child!,
           ),
         );

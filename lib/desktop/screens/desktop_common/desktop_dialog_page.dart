@@ -33,21 +33,21 @@ class _DesktopDialogPageState extends State<DesktopDialogPage> {
     final appTheme = AppTheme.of(context);
     return Container(
       width: MediaQuery.of(context).size.width / 2,
-      padding: EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
+      padding: const EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
       decoration: BoxDecoration(
         color: appTheme.backgroundColor,
-        borderRadius: BorderRadius.all(Radius.circular(8)),
+        borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(height: DesktopDimens.paddingNormal),
+          const SizedBox(height: DesktopDimens.paddingNormal),
           Text(
             widget.title,
-            style: appTheme.textTheme.headline6,
+            style: appTheme.textTheme.titleLarge,
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: DesktopDimens.paddingLarge),
+          const SizedBox(height: DesktopDimens.paddingLarge),
           Container(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -61,7 +61,7 @@ class _DesktopDialogPageState extends State<DesktopDialogPage> {
                     },
                   ),
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Container(
                   child: DesktopButton(
                     title: widget.okText,
@@ -74,7 +74,7 @@ class _DesktopDialogPageState extends State<DesktopDialogPage> {
               ],
             ),
           ),
-          SizedBox(height: DesktopDimens.paddingNormal),
+          const SizedBox(height: DesktopDimens.paddingNormal),
         ],
       ),
     );

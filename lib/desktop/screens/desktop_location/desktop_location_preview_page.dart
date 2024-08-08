@@ -26,16 +26,16 @@ class DesktopLocationPreviewPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(
           title,
-          style: appTheme.textTheme.headline6?.copyWith(color: Colors.white),
+          style: appTheme.textTheme.titleLarge?.copyWith(color: Colors.white),
         ),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         centerTitle: false,
         backgroundColor: Colors.black.withOpacity(0.4),
         elevation: 0,
       ),
       body: FlutterMap(
         options: MapOptions(
-          boundsOptions: FitBoundsOptions(padding: EdgeInsets.all(0)),
+          boundsOptions: const FitBoundsOptions(padding: EdgeInsets.all(0)),
           center: latLng,
           zoom: zoom,
         ),

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:at_client_mobile/at_client_mobile.dart';
 import 'package:at_contacts_flutter/utils/init_contacts_service.dart';
 import 'package:at_onboarding_flutter/at_onboarding_flutter.dart';
 import 'package:at_onboarding_flutter/services/onboarding_service.dart';
@@ -24,7 +23,6 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:at_client/src/service/sync_service.dart';
 import 'package:at_sync_ui_flutter/at_sync_ui_flutter.dart';
 
 import '../view_models/internet_connectivity_checker.dart';
@@ -58,11 +56,11 @@ class BackendService {
       await _checkForPermissionStatus();
     }
 
-    final OnboardingService _onboardingService =
+    final OnboardingService onboardingService =
         OnboardingService.getInstance();
-    atClientServiceMap = _onboardingService.atClientServiceMap;
+    atClientServiceMap = onboardingService.atClientServiceMap;
 
-    var atClientPrefernce;
+    AtClientPreference atClientPrefernce=AtClientPreference();
     await getAtClientPreference()
         .then((value) => atClientPrefernce = value)
         .catchError((e) => print(e));
@@ -70,13 +68,13 @@ class BackendService {
 
     ///switch account from avatar
     if (atSign.isNotEmpty) {
-      _onboardingService.setAtsign = atSign;
+      onboardingService.setAtsign = atSign;
     }
 
     result = await AtOnboarding.onboard(
       context: NavService.navKey.currentContext!,
       config: AtOnboardingConfig(
-        atClientPreference: atClientPrefernce!,
+        atClientPreference: atClientPrefernce,
         domain: MixedConstants.ROOT_DOMAIN,
         rootEnvironment: RootEnvironment.Production,
         appAPIKey: MixedConstants.devAPIKey,
@@ -97,7 +95,7 @@ class BackendService {
 
     switch (result.status) {
       case AtOnboardingResultStatus.success:
-        LoadingDialog().show(text: '$atSign', heading: 'Loading');
+        LoadingDialog().show(text: atSign, heading: 'Loading');
         await onSuccessOnboard(atClientServiceMap, result.atsign);
         LoadingDialog().hide();
         if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
@@ -157,7 +155,7 @@ class BackendService {
             listen: false)
         .init();
 
-    var _themeProvider = Provider.of<ThemeProvider>(
+    var themeProvider = Provider.of<ThemeProvider>(
         NavService.navKey.currentContext!,
         listen: false);
 
@@ -165,15 +163,15 @@ class BackendService {
       appNavigator: NavService.navKey,
       onSuccessCallback: _onSuccessCallback,
       onErrorCallback: _onErrorCallback,
-      primaryColor: (_themeProvider.highlightColor ?? ColorConstants.green),
+      primaryColor: (themeProvider.highlightColor ?? ColorConstants.green),
       syncProgressCallback: _syncProgressCallback,
       showRemoveAtsignOption: true,
       onAtSignRemoved: onAtsignRemoved,
     );
     AtSyncUIService().sync(atSyncUIOverlay: AtSyncUIOverlay.dialog);
 
-    _themeProvider.resetThemeData();
-    await _themeProvider.checkThemeFromSecondary();
+    themeProvider.resetThemeData();
+    await themeProvider.checkThemeFromSecondary();
     VersionService.getInstance().init();
 
     AtKeyGetService().init();
@@ -190,18 +188,18 @@ class BackendService {
           await path_provider.getApplicationDocumentsDirectory();
     }
 
-    var _atClientPreference = AtClientPreference()
+    var atClientPreference = AtClientPreference()
       ..isLocalStoreRequired = true
       ..commitLogPath = downloadDirectory!.path
       ..downloadPath = downloadDirectory!.path
       ..namespace = MixedConstants.appNamespace
       ..rootDomain = MixedConstants.ROOT_DOMAIN
       ..syncRegex = MixedConstants.regex
-      ..monitorHeartbeatInterval = Duration(seconds: 30)
+      ..monitorHeartbeatInterval = const Duration(seconds: 30)
       ..outboundConnectionTimeout = MixedConstants.TIME_OUT
       ..hiveStoragePath = downloadDirectory!.path
-      ..monitorHeartbeatInterval = Duration(minutes: 1);
-    return _atClientPreference;
+      ..monitorHeartbeatInterval = const Duration(minutes: 1);
+    return atClientPreference;
   }
 
   _onSuccessCallback(syncStatus) async {
@@ -269,7 +267,7 @@ class BackendService {
         await atClientInstance.getAtKeys(sharedBy: sharedBy, regex: regex);
     scanKeys.retainWhere(
       (scanKey) =>
-          !scanKey.metadata!.isCached &&
+          !scanKey.metadata.isCached &&
           compareAtSign(scanKey.sharedBy, atClientInstance.getCurrentAtSign()),
     );
 
@@ -307,7 +305,7 @@ class BackendService {
       atSignList.removeWhere((element) => element == currentAtSign);
     }
 
-    var nextAtsignToOnboard;
+    String nextAtsignToOnboard;
     if (atSignList == null || atSignList.isEmpty) {
       nextAtsignToOnboard = '';
     } else {
@@ -326,17 +324,17 @@ class BackendService {
     var scanKey = await BackendService()
         .atClientInstance
         .getAtKeys(regex: regex)
-        .timeout(Duration(seconds: MixedConstants.responseTimeLimit),
+        .timeout(const Duration(seconds: MixedConstants.responseTimeLimit),
             onTimeout: () {}());
 
     AtFollowsValue value =
-        scanKey.isNotEmpty ? await this.get(scanKey[0]) : AtFollowsValue();
+        scanKey.isNotEmpty ? await get(scanKey[0]) : AtFollowsValue();
     return value;
   }
 
   Future<AtFollowsValue> get(AtKey atkey) async {
     var response = await BackendService().atClientInstance.get(atkey).timeout(
-        Duration(seconds: MixedConstants.responseTimeLimit), onTimeout: () {
+        const Duration(seconds: MixedConstants.responseTimeLimit), onTimeout: () {
       print('time out');
     }());
 
@@ -355,13 +353,13 @@ class BackendService {
       throw Exception('Invalid Atsign');
     }
     atsign = atsign.trim().toLowerCase().replaceAll(' ', '');
-    atsign = !atsign.startsWith('@') ? '@' + atsign : atsign;
+    atsign = !atsign.startsWith('@') ? '@$atsign' : atsign;
     return atsign;
   }
 
   Future<bool> put(AtKey atKey, String? value) async {
     return await atClientInstance.put(atKey, value).timeout(
-        Duration(seconds: MixedConstants.responseTimeLimit), onTimeout: () {
+        const Duration(seconds: MixedConstants.responseTimeLimit), onTimeout: () {
       print('time out in put service ');
     }());
   }
@@ -373,7 +371,7 @@ class BackendService {
         backgroundColor: ColorConstants.RED,
         content: Text(
           '$error',
-          style: TextStyle(
+          style: const TextStyle(
               color: ColorConstants.white,
               fontSize: 16,
               letterSpacing: 0.1,
@@ -399,7 +397,7 @@ class BackendService {
     snackbarRefreshTimer?.cancel();
 
     AtSyncUI.instance.showSnackBar(message: 'Sync in progress');
-    snackbarRefreshTimer = Timer.periodic(Duration(seconds: 4), (timer) {
+    snackbarRefreshTimer = Timer.periodic(const Duration(seconds: 4), (timer) {
       hideSyncSnackbar();
     });
   }
@@ -412,11 +410,11 @@ class BackendService {
   onboardNextAtsign({bool isCheckDesktop = false}) async {
     var atSignList = await KeychainUtil.getAtsignList();
 
-    if ((atSignList ?? []).length == 0) {
-      final OnboardingService _onboardingService =
+    if ((atSignList ?? []).isEmpty) {
+      final OnboardingService onboardingService =
           OnboardingService.getInstance();
 
-      _onboardingService.setAtsign = null;
+      onboardingService.setAtsign = null;
     }
 
     if (!isCheckDesktop) {

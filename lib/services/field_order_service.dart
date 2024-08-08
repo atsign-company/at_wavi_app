@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 
 class FieldOrderService {
   FieldOrderService._();
-  static FieldOrderService _instance = FieldOrderService._();
+  static final FieldOrderService _instance = FieldOrderService._();
   factory FieldOrderService() => _instance;
 
   Map<String, List<String>> _fieldOrders = {};
@@ -45,8 +45,8 @@ class FieldOrderService {
     AtKey atKey = AtKey()
       ..key = MixedConstants.fieldOrderKey
       ..metadata = Metadata()
-      ..metadata!.isPublic = true
-      ..metadata!.ccd = true;
+      ..metadata.isPublic = true
+      ..metadata.ccd = true;
 
     var atValue = await BackendService().get(atKey);
     if (atValue.value != null && atValue.value != '') {
@@ -67,8 +67,8 @@ class FieldOrderService {
     AtKey atKey = AtKey()
       ..key = MixedConstants.fieldOrderKey
       ..metadata = Metadata()
-      ..metadata!.isPublic = true
-      ..metadata!.ccd = true;
+      ..metadata.isPublic = true
+      ..metadata.ccd = true;
 
     var fieldOrder = {};
     for (var field in FieldOrderService().previewOrders.entries) {

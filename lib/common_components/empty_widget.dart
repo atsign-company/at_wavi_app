@@ -5,7 +5,7 @@ import 'package:at_wavi_app/services/size_config.dart';
 class EmptyWidget extends StatefulWidget {
   final ThemeData themeData;
   final bool limitedContent;
-  EmptyWidget(this.themeData, {this.limitedContent = false});
+  const EmptyWidget(this.themeData, {Key? key, this.limitedContent = false}) : super(key: key);
 
   @override
   _EmptyWidgetState createState() => _EmptyWidgetState();
@@ -20,7 +20,7 @@ class _EmptyWidgetState extends State<EmptyWidget> {
         child: Column(
           children: <Widget>[
             widget.limitedContent
-                ? SizedBox()
+                ? const SizedBox()
                 : Icon(
                     Icons.note_outlined,
                     size: 25,
@@ -37,7 +37,7 @@ class _EmptyWidgetState extends State<EmptyWidget> {
                         size: 18)),
             SizedBox(height: 10.toHeight),
             widget.limitedContent
-                ? SizedBox()
+                ? const SizedBox()
                 : Text(
                     "This user has not added any information.",
                     style: TextStyles.grey15,

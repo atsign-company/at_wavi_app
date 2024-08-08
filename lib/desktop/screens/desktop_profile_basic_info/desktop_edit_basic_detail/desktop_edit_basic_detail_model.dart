@@ -11,7 +11,7 @@ class DesktopEditBasicDetailModel extends ChangeNotifier {
   final UserPreview userPreview;
   final AtCategory atCategory;
 
-  List<BasicDataModel> _basicData = [];
+  final List<BasicDataModel> _basicData = [];
 
   List<BasicDataModel> get basicData => _basicData;
 
@@ -56,8 +56,8 @@ class DesktopEditBasicDetailModel extends ChangeNotifier {
 
       if (userMap.containsKey(fields[i])) {
         basicData = userMap[fields[i]];
-        if (basicData.accountName == null) basicData.accountName = fields[i];
-        if (basicData.value == null) basicData.value = '';
+        basicData.accountName ??= fields[i];
+        basicData.value ??= '';
       } else {
         var index =
             customFields.indexWhere((el) => el.accountName == fields[i]);

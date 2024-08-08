@@ -16,7 +16,6 @@ import 'package:at_wavi_app/view_models/user_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:provider/provider.dart';
-import 'package:html_editor_enhanced/utils/options.dart';
 import 'package:at_wavi_app/common_components/custom_input_field.dart'
     as customInputField;
 
@@ -26,12 +25,12 @@ class AddCustomField extends StatefulWidget {
   final bool isEdit;
   BasicData? basicData;
   final AtCategory? category;
-  AddCustomField({
+  AddCustomField({Key? key, 
     required this.onSave,
     this.isEdit = false,
     required this.basicData,
     this.category,
-  });
+  }) : super(key: key);
 
   @override
   _AddCustomFieldState createState() => _AddCustomFieldState();
@@ -92,7 +91,7 @@ class _AddCustomFieldState extends State<AddCustomField> {
   @override
   Widget build(BuildContext context) {
     if (_themeData == null) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     }
 
     return Scaffold(
@@ -112,8 +111,8 @@ class _AddCustomFieldState extends State<AddCustomField> {
                           onTap: () {
                             Navigator.of(context).pop();
                           },
-                          child: Icon(Icons.arrow_back)),
-                      SizedBox(width: 5),
+                          child: const Icon(Icons.arrow_back)),
+                      const SizedBox(width: 5),
                       Text(
                         'Add Custom Content',
                         style: TextStyles.boldText(_themeData!.primaryColor,
@@ -126,7 +125,7 @@ class _AddCustomFieldState extends State<AddCustomField> {
                           message: 'Use this to paste html content',
                           child: ElevatedButton(
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
+                              backgroundColor: WidgetStateProperty.all(
                                   _themeData!.primaryColor),
                             ),
                             onPressed: () {
@@ -140,7 +139,7 @@ class _AddCustomFieldState extends State<AddCustomField> {
                             ),
                           ),
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                 ],
               ),
             ),
@@ -149,13 +148,13 @@ class _AddCustomFieldState extends State<AddCustomField> {
                 key: _formKey,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 30),
+                      const SizedBox(height: 30),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: Text(
                           'Title',
                           style: TextStyles.lightText(
@@ -177,23 +176,23 @@ class _AddCustomFieldState extends State<AddCustomField> {
                         decoration: InputDecoration(
                             fillColor: _themeData!.scaffoldBackgroundColor,
                             filled: true,
-                            errorStyle: TextStyle(fontSize: 15),
+                            errorStyle: const TextStyle(fontSize: 15),
                             border: InputBorder.none,
-                            focusedBorder: OutlineInputBorder(
+                            focusedBorder: const OutlineInputBorder(
                               borderSide: BorderSide(color: Colors.white),
                             )),
                         keyboardType: TextInputType.multiline,
                         textInputAction: TextInputAction.newline,
                         maxLines: null,
                       ),
-                      Divider(thickness: 1, height: 1),
+                      const Divider(thickness: 1, height: 1),
                       SizedBox(
                           height:
                               _fieldType == CustomContentType.Html ? 0 : 30),
                       _fieldType == CustomContentType.Html
-                          ? SizedBox()
+                          ? const SizedBox()
                           : Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.symmetric(horizontal: 10),
                               child: Text(
                                 'Body',
                                 style: TextStyles.lightText(
@@ -237,7 +236,7 @@ class _AddCustomFieldState extends State<AddCustomField> {
                                           _themeData!.primaryColor,
                                           size: 14),
                                     ),
-                                    Icon(Icons.arrow_forward_sharp)
+                                    const Icon(Icons.arrow_forward_sharp)
                                   ],
                                 ),
                               ),
@@ -282,9 +281,9 @@ class _AddCustomFieldState extends State<AddCustomField> {
                                   fillColor:
                                       _themeData!.scaffoldBackgroundColor,
                                   filled: true,
-                                  errorStyle: TextStyle(fontSize: 15),
+                                  errorStyle: const TextStyle(fontSize: 15),
                                   border: InputBorder.none,
-                                  focusedBorder: OutlineInputBorder(
+                                  focusedBorder: const OutlineInputBorder(
                                     borderSide: BorderSide(color: Colors.white),
                                   )),
                               keyboardType: TextInputType.multiline,
@@ -292,8 +291,8 @@ class _AddCustomFieldState extends State<AddCustomField> {
                               maxLines: null,
                             ),
                       _fieldType == CustomContentType.Html
-                          ? Divider(thickness: 1, height: 1)
-                          : SizedBox(),
+                          ? const Divider(thickness: 1, height: 1)
+                          : const SizedBox(),
                       _fieldType == CustomContentType.Html
                           ? Padding(
                               padding: EdgeInsets.symmetric(
@@ -307,7 +306,7 @@ class _AddCustomFieldState extends State<AddCustomField> {
                                 bgColor: AllColors().INPUT_GREY_BACKGROUND,
                                 textColor: AllColors().Black,
                                 initialValue:
-                                    ('Preview (non editable)' + '\n\n') +
+                                    ('Preview (non editable)' '\n\n') +
                                         (basicData.valueDescription ?? ''),
                                 baseOffset:
                                     (basicData.valueDescription ?? '').length,
@@ -318,10 +317,10 @@ class _AddCustomFieldState extends State<AddCustomField> {
                                 isReadOnly: true,
                               ),
                             )
-                          : SizedBox(),
-                      Divider(thickness: 1, height: 1),
+                          : const SizedBox(),
+                      const Divider(thickness: 1, height: 1),
                       _fieldType == CustomContentType.Html
-                          ? SizedBox()
+                          ? const SizedBox()
                           : (!isImageSelected
                               ? Padding(
                                   padding: const EdgeInsets.symmetric(
@@ -345,8 +344,8 @@ class _AddCustomFieldState extends State<AddCustomField> {
                                               style: TextStyles.lightText(
                                                   _themeData!.primaryColor),
                                             ),
-                                            SizedBox(width: 7),
-                                            Icon(
+                                            const SizedBox(width: 7),
+                                            const Icon(
                                               Icons.add,
                                               // size: 20,
                                             )
@@ -356,9 +355,9 @@ class _AddCustomFieldState extends State<AddCustomField> {
                                     ],
                                   ),
                                 )
-                              : SizedBox()),
-                      Divider(thickness: 1, height: 1),
-                      SizedBox(height: 10),
+                              : const SizedBox()),
+                      const Divider(thickness: 1, height: 1),
+                      const SizedBox(height: 10),
                       isImageSelected
                           ? Padding(
                               padding: const EdgeInsets.all(10.0),
@@ -371,7 +370,7 @@ class _AddCustomFieldState extends State<AddCustomField> {
                                         _themeData!.primaryColor,
                                         size: 14),
                                   ),
-                                  SizedBox(height: 10),
+                                  const SizedBox(height: 10),
                                   Stack(
                                     children: [
                                       Image.memory(basicData.value!),
@@ -398,7 +397,7 @@ class _AddCustomFieldState extends State<AddCustomField> {
                                       ),
                                     ],
                                   ),
-                                  SizedBox(height: 10),
+                                  const SizedBox(height: 10),
                                   InkWell(
                                     onTap: _selectImage,
                                     child: Text('Change Image',
@@ -410,22 +409,22 @@ class _AddCustomFieldState extends State<AddCustomField> {
                                 ],
                               ),
                             )
-                          : SizedBox(),
-                      SizedBox(height: 10),
+                          : const SizedBox(),
+                      const SizedBox(height: 10),
                       Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Text(
                               'View',
                               style: TextStyles.lightText(
                                   _themeData!.primaryColor,
                                   size: 14),
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -452,7 +451,7 @@ class _AddCustomFieldState extends State<AddCustomField> {
                                             : Icons.public,
                                         size: 25.toFont,
                                       ),
-                                      SizedBox(width: 5),
+                                      const SizedBox(width: 5),
                                       Text(
                                         basicData.isPrivate
                                             ? 'Private'
@@ -476,15 +475,15 @@ class _AddCustomFieldState extends State<AddCustomField> {
                                             _themeData!.scaffoldBackgroundColor,
                                         autovalidateMode:
                                             AutovalidateMode.disabled,
-                                        hint: Text('-Select-'),
+                                        hint: const Text('-Select-'),
                                         decoration: InputDecoration(
                                           fillColor: _themeData!
                                               .scaffoldBackgroundColor,
-                                          border: OutlineInputBorder(
+                                          border: const OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: ColorConstants.greyText),
                                           ),
-                                          enabledBorder: OutlineInputBorder(
+                                          enabledBorder: const OutlineInputBorder(
                                             borderSide: BorderSide(
                                                 color: ColorConstants.greyText),
                                           ),
@@ -562,15 +561,15 @@ class _AddCustomFieldState extends State<AddCustomField> {
     }
   }
 
-  _pasteHtml(String _initialText) async {
-    String? _value;
+  _pasteHtml(String initialText) async {
+    String? value;
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return StatefulBuilder(builder: (_context, _setDialogState) {
+        return StatefulBuilder(builder: (context, setDialogState) {
           return AlertDialog(
-            contentPadding: EdgeInsets.fromLTRB(10, 20, 5, 10),
+            contentPadding: const EdgeInsets.fromLTRB(10, 20, 5, 10),
             content: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -586,8 +585,8 @@ class _AddCustomFieldState extends State<AddCustomField> {
                                 size: 16)),
                         InkWell(
                           onTap: () {
-                            _setDialogState(() {
-                              _initialText = '';
+                            setDialogState(() {
+                              initialText = '';
                             });
                           },
                           child: Text(
@@ -610,22 +609,22 @@ class _AddCustomFieldState extends State<AddCustomField> {
                       hintTextColor: AllColors().Black.withOpacity(0.5),
                       bgColor: AllColors().INPUT_GREY_BACKGROUND,
                       textColor: AllColors().Black,
-                      initialValue: _initialText,
-                      baseOffset: _initialText.length,
+                      initialValue: initialText,
+                      baseOffset: initialText.length,
                       height: 250,
                       maxLines: 2,
                       expands: true,
-                      value: (str) => _value = str,
+                      value: (str) => value = str,
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
+                            backgroundColor: WidgetStateProperty.all(
                                 _themeData!.scaffoldBackgroundColor),
                           ),
                           onPressed: () {
@@ -640,14 +639,14 @@ class _AddCustomFieldState extends State<AddCustomField> {
                         ),
                         ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
+                            backgroundColor: WidgetStateProperty.all(
                                 _themeData!.primaryColor),
                           ),
                           onPressed: () {
                             setState(() {
                               _htmlEditorKey =
                                   UniqueKey(); // to re-render the html editor
-                              basicData.valueDescription = _value;
+                              basicData.valueDescription = value;
                             });
                             Navigator.of(context).pop();
                           },
@@ -714,7 +713,7 @@ class _AddCustomFieldState extends State<AddCustomField> {
       return;
     }
 
-    var index;
+    int index=-1;
     // calculating index of current data
     if (widget.isEdit) {
       List<BasicData>? customFields =
@@ -727,7 +726,7 @@ class _AddCustomFieldState extends State<AddCustomField> {
     }
 
     Navigator.of(context).pop();
-    widget.onSave(basicData, widget.isEdit && index != null ? index : -1);
+    widget.onSave(basicData, widget.isEdit ? index : -1);
   }
 
   checkFormValidation() {

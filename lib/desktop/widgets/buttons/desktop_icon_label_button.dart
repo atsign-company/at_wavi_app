@@ -21,7 +21,7 @@ class DesktopIconLabelButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appTheme = AppTheme.of(context);
-    return Container(
+    return SizedBox(
       height: DesktopDimens.buttonHeight,
       child: Directionality(
         textDirection: isPrefixIcon ? TextDirection.ltr : TextDirection.rtl,
@@ -41,9 +41,9 @@ class DesktopIconLabelButton extends StatelessWidget {
           ),
           style: ButtonStyle(
             padding:
-                padding == null ? null : MaterialStateProperty.all(padding),
-            backgroundColor: MaterialStateProperty.all(Colors.transparent),
-            elevation: MaterialStateProperty.all(0),
+                padding == null ? null : WidgetStateProperty.all(padding),
+            backgroundColor: WidgetStateProperty.all(Colors.transparent),
+            elevation: WidgetStateProperty.all(0),
           ),
         ),
       ),

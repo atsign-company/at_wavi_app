@@ -28,19 +28,19 @@ class DesktopShowCaseWidget extends StatelessWidget {
     final appTheme = AppTheme.of(context);
     return Showcase.withWidget(
       key: globalKey,
-      targetShapeBorder: CircleBorder(),
+      targetShapeBorder: const CircleBorder(),
       disableMovingAnimation: true,
       container: container,
-      targetPadding: EdgeInsets.all(6),
+      targetPadding: const EdgeInsets.all(6),
       overlayOpacity: overlayOpacity,
       overlayColor: overlayColor,
       height: childSize * 1.5,
       width: childSize * 1.5,
-      child: Container(
+      child: SizedBox(
         height: childSize,
         width: childSize,
         child: RawMaterialButton(
-          shape: new CircleBorder(),
+          shape: const CircleBorder(),
           elevation: 0.0,
           fillColor: appTheme.borderColor,
           child: Icon(

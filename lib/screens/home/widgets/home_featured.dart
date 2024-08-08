@@ -1,8 +1,6 @@
 import 'package:at_wavi_app/common_components/empty_widget.dart';
 import 'package:at_wavi_app/screens/home/widgets/twitter_embed_widget.dart';
 import 'package:at_wavi_app/screens/website_webview/website_webview.dart';
-import 'package:at_wavi_app/services/common_functions.dart';
-import 'package:at_wavi_app/utils/colors.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
 import 'package:at_wavi_app/utils/theme.dart';
 import 'package:at_wavi_app/view_models/theme_view_model.dart';
@@ -16,13 +14,13 @@ class HomeFeatured extends StatefulWidget {
   final bool isPrivateInstagram;
   final ThemeData? themeData;
 
-  HomeFeatured({
+  const HomeFeatured({Key? key, 
     this.twitterUsername,
     this.instagramUsername,
     this.isPrivateTwitter = true,
     this.isPrivateInstagram = true,
     this.themeData,
-  });
+  }) : super(key: key);
 
   @override
   _HomeFeaturedState createState() => _HomeFeaturedState();
@@ -59,7 +57,7 @@ class _HomeFeaturedState extends State<HomeFeatured> {
   @override
   Widget build(BuildContext context) {
     if (_themeData == null) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     } else {
       return Container(
         child: Column(
@@ -153,7 +151,7 @@ class _HomeFeaturedState extends State<HomeFeatured> {
                       style: TextStyles.linkText(),
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ],
         ),
         SizedBox(height: 15.toHeight),

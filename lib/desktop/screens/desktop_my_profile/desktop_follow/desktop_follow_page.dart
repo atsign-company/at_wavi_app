@@ -9,7 +9,7 @@ import 'desktop_followers_page.dart';
 class DesktopFollowPage extends StatefulWidget {
   final bool isFollower;
 
-  DesktopFollowPage({
+  const DesktopFollowPage({
     Key? key,
     this.isFollower = true,
   }) : super(key: key);
@@ -47,14 +47,14 @@ class _DesktopFollowPageState extends State<DesktopFollowPage>
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: DesktopDimens.paddingLarge,
           ),
           Container(
-            padding: EdgeInsets.all(DesktopDimens.paddingNormal),
+            padding: const EdgeInsets.all(DesktopDimens.paddingNormal),
             child: DesktopTabBar(
               controller: _tabController,
-              tabTitles: [
+              tabTitles: const [
                 Strings.desktop_followers,
                 Strings.desktop_following,
               ],
@@ -63,7 +63,7 @@ class _DesktopFollowPageState extends State<DesktopFollowPage>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children: [
+              children: const [
                 DesktopFollowersPage(followListType: FollowListType.followers),
                 DesktopFollowersPage(followListType: FollowListType.following),
               ],

@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:at_client_mobile/at_client_mobile.dart';
@@ -56,7 +55,7 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
       color: appTheme.backgroundColor,
       child: Column(
         children: [
-          SizedBox(height: DesktopDimens.paddingLarge),
+          const SizedBox(height: DesktopDimens.paddingLarge),
           DesktopSettingSwitchWidget(
             prefixIcon: Icons.lock_rounded,
             title: "Make all information private",
@@ -174,7 +173,7 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
                 alignment: Alignment.center,
                 child: Container(
                   width: 400,
-                  padding: EdgeInsets.all(DesktopDimens.paddingNormal),
+                  padding: const EdgeInsets.all(DesktopDimens.paddingNormal),
                   decoration: BoxDecoration(
                     color: appTheme.backgroundColor,
                     borderRadius: BorderRadius.circular(8),
@@ -184,7 +183,7 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(left: 16),
+                        padding: const EdgeInsets.only(left: 16),
                         child: Text(
                           'Delete atSign',
                           style: TextStyle(
@@ -194,7 +193,7 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       ListView.builder(
                         shrinkWrap: true,
                         itemCount: atSignList?.length ?? 0,
@@ -215,7 +214,7 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
                               );
                             },
                             child: Padding(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               child: Row(
                                 children: [
                                   image != null
@@ -228,7 +227,7 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
                                           initials: atSignList[index],
                                           size: 40,
                                         ),
-                                  SizedBox(width: 10),
+                                  const SizedBox(width: 10),
                                   Text(
                                     atSignList[index],
                                     style: TextStyle(
@@ -236,8 +235,8 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
                                       color: Theme.of(context).primaryColor,
                                     ),
                                   ),
-                                  Spacer(),
-                                  Icon(
+                                  const Spacer(),
+                                  const Icon(
                                     Icons.delete,
                                     color: Colors.grey,
                                   ),

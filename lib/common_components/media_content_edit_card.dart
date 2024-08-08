@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class MediaContentEditCard extends StatefulWidget {
   final BasicData basicData;
-  MediaContentEditCard({required this.basicData});
+  const MediaContentEditCard({Key? key, required this.basicData}) : super(key: key);
   @override
   _MediaContentEditCardState createState() => _MediaContentEditCardState();
 }
@@ -47,10 +47,10 @@ class _MediaContentEditCardState extends State<MediaContentEditCard> {
                 ),
               ),
             ),
-            !widget.basicData.isPrivate ? Icon(Icons.public) : Icon(Icons.lock)
+            !widget.basicData.isPrivate ? const Icon(Icons.public) : const Icon(Icons.lock)
           ],
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
         customImage != null
             ? Image.memory(
                 customImage as Uint8List,
@@ -58,7 +58,7 @@ class _MediaContentEditCardState extends State<MediaContentEditCard> {
                 height: 200,
                 fit: BoxFit.fill,
               )
-            : SizedBox(),
+            : const SizedBox(),
       ],
     );
   }

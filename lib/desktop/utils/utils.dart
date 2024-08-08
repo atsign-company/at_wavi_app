@@ -5,17 +5,17 @@ void showSnackBar(BuildContext context, String message, Color color) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Container(
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Text(
           message,
-          style: TextStyle(
+          style: const TextStyle(
             color: ColorConstants.white,
             fontSize: 14,
           ),
         ),
       ),
       backgroundColor: color,
-      duration: Duration(
+      duration: const Duration(
         seconds: 2,
       ),
     ),
@@ -27,7 +27,7 @@ String? toAccountNameWithAtsign(String? atsign) {
     if (atsign.startsWith("@")) {
       return atsign;
     } else {
-      return "@" + atsign;
+      return "@$atsign";
     }
   } else {
     return null;

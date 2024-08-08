@@ -57,10 +57,6 @@ class _DesktopProfileBasicInfoPageState
   @override
   bool get wantKeepAlive => true;
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +99,8 @@ class _DesktopProfileBasicInfoPageState
 
       if (userMap.containsKey(fields[i])) {
         basicData = userMap[fields[i]];
-        if (basicData.accountName == null) basicData.accountName = fields[i];
-        if (basicData.value == null) basicData.value = '';
+        basicData.accountName ??= fields[i];
+        basicData.value ??= '';
       } else {
         var index =
             customFields.indexWhere((el) => el.accountName == fields[i]);
@@ -137,7 +133,7 @@ class _DesktopProfileBasicInfoPageState
     if (widget.atCategory == AtCategory.LOCATION) {
       isEmptyData = (locationData?.value.toString() ?? '').isEmpty;
     }
-    basicDataList.forEach((element) {
+    for (var element in basicDataList) {
       final value = element.data.value;
       if (value is String) {
         if (value.isNotEmpty && !element.data.isPrivate) {
@@ -146,7 +142,7 @@ class _DesktopProfileBasicInfoPageState
       } else if (value != null && !element.data.isPrivate) {
         isEmptyData = false;
       }
-    });
+    }
 
     if (isEmptyData) {
       return _buildEmptyWidget();
@@ -178,7 +174,7 @@ class _DesktopProfileBasicInfoPageState
       children: [
         if (widget.showWelcome)
           Container(
-            padding: EdgeInsets.only(top: DesktopDimens.paddingLarge),
+            padding: const EdgeInsets.only(top: DesktopDimens.paddingLarge),
             child: DesktopWelcomeWidget(
               titlePage: widget.atCategory.titlePage,
             ),
@@ -207,12 +203,12 @@ class _DesktopProfileBasicInfoPageState
   }) {
     final appTheme = AppTheme.of(context);
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: DesktopDimens.paddingExtraLarge),
+      margin: const EdgeInsets.symmetric(horizontal: DesktopDimens.paddingExtraLarge),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (widget.hideMenu == false)
-            SizedBox(height: DesktopDimens.paddingLarge),
+            const SizedBox(height: DesktopDimens.paddingLarge),
           if (widget.hideMenu == false)
             Container(
               child: Row(
@@ -225,7 +221,7 @@ class _DesktopProfileBasicInfoPageState
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   if (widget.atCategory != AtCategory.LOCATION)
                     DesktopIconLabelButton(
                       iconData: Icons.add_circle_outline_sharp,
@@ -245,7 +241,7 @@ class _DesktopProfileBasicInfoPageState
                       iconData: Icons.edit_rounded,
                       onPressed: _showAddDetailPopup,
                     ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   DesktopPreviewButton(
                     onPressed: _showUserPreview,
                   ),
@@ -253,7 +249,7 @@ class _DesktopProfileBasicInfoPageState
               ),
             ),
           if (widget.hideMenu == false)
-            SizedBox(height: DesktopDimens.paddingLarge),
+            const SizedBox(height: DesktopDimens.paddingLarge),
           Expanded(
             child: SingleChildScrollView(
               child: _buildFieldsWidget(
@@ -263,7 +259,7 @@ class _DesktopProfileBasicInfoPageState
               ),
             ),
           ),
-          SizedBox(height: DesktopDimens.paddingNormal),
+          const SizedBox(height: DesktopDimens.paddingNormal),
           if (widget.isEditable)
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -273,14 +269,14 @@ class _DesktopProfileBasicInfoPageState
                     title: 'Reorder',
                     onPressed: _showReorderDetailPopup,
                   ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 DesktopButton(
                   title: 'Save',
                   onPressed: _handleSaveAndNext,
                 ),
               ],
             ),
-          if (widget.isEditable) SizedBox(height: DesktopDimens.paddingLarge),
+          if (widget.isEditable) const SizedBox(height: DesktopDimens.paddingLarge),
         ],
       ),
     );
@@ -348,7 +344,7 @@ class _DesktopProfileBasicInfoPageState
         separatorBuilder: (context, index) {
           return Container(
             padding:
-                EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
+                const EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
             color: appTheme.secondaryBackgroundColor,
             child: Container(
               color: appTheme.separatorColor,
@@ -373,15 +369,15 @@ class _DesktopProfileBasicInfoPageState
       itemBuilder: (context, index) {
         BorderRadius? borderRadius;
         if (basicDataList.length == 1) {
-          borderRadius = BorderRadius.all(Radius.circular(10));
+          borderRadius = const BorderRadius.all(Radius.circular(10));
         } else {
           if (index == 1) {
-            borderRadius = BorderRadius.only(
+            borderRadius = const BorderRadius.only(
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10),
             );
           } else if (index == basicDataList.length) {
-            borderRadius = BorderRadius.only(
+            borderRadius = const BorderRadius.only(
               bottomLeft: Radius.circular(10),
               bottomRight: Radius.circular(10),
             );
@@ -391,7 +387,7 @@ class _DesktopProfileBasicInfoPageState
           return Container(
             decoration: BoxDecoration(
               color: appTheme.secondaryBackgroundColor,
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
             child: DesktopLocationItemWidget(
               title: locationNicknameData?.value ?? '',
@@ -444,7 +440,7 @@ class _DesktopProfileBasicInfoPageState
       separatorBuilder: (context, index) {
         if (index == 0) {
           return Container(
-            padding: EdgeInsets.only(top: 40, bottom: 20),
+            padding: const EdgeInsets.only(top: 40, bottom: 20),
             child: Text(
               'More Locations',
               style: TextStyle(
@@ -455,7 +451,7 @@ class _DesktopProfileBasicInfoPageState
           );
         }
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: 24),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
           color: appTheme.secondaryBackgroundColor,
           child: Container(
             color: appTheme.separatorColor,
@@ -482,7 +478,7 @@ class _DesktopProfileBasicInfoPageState
   void _showUserPreview() async {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => DesktopUserProfilePage(),
+        builder: (context) => const DesktopUserProfilePage(),
       ),
     );
   }
