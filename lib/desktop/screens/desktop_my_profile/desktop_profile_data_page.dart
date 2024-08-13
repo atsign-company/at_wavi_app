@@ -35,10 +35,12 @@ class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
     duration: const Duration(seconds: 2),
     vsync: this,
   );
-  late final Animation<double> _animation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.elasticOut,
-  );
+
+  // commented out since its not used
+  // late final Animation<double> _animation = CurvedAnimation(
+  //   parent: _controller,
+  //   curve: Curves.elasticOut,
+  // );
 
   @override
   void initState() {
@@ -168,6 +170,7 @@ class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
     );
   }
 
+  // ignore: unused_element
   void _syncData() async {
     _controller.reset();
     _controller.forward();

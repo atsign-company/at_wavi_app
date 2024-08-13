@@ -21,9 +21,9 @@ import 'package:at_wavi_app/common_components/custom_input_field.dart'
 
 class AddCustomField extends StatefulWidget {
   // ValueChanged<BasicData> onSave;
-  Function onSave;
+  final Function onSave;
   final bool isEdit;
-  BasicData? basicData;
+  final BasicData? basicData;
   final AtCategory? category;
   AddCustomField({Key? key, 
     required this.onSave,
@@ -54,7 +54,9 @@ class _AddCustomFieldState extends State<AddCustomField> {
   CustomContentType _fieldType = CustomContentType.Text;
   final _formKey = GlobalKey<FormState>();
 
-  Key _htmlEditorKey = UniqueKey(); // to re-render the html editor
+
+  // commenting out since its not being used
+  // Key _htmlEditorKey = UniqueKey(); // to re-render the html editor
 
   @override
   void initState() {
@@ -221,8 +223,8 @@ class _AddCustomFieldState extends State<AddCustomField> {
                                             )),
                                   );
                                   setState(() {
-                                    _htmlEditorKey =
-                                        UniqueKey(); // to re-render the html editor
+                                    // _htmlEditorKey =
+                                    //     UniqueKey(); // to re-render the html editor
                                     basicData.valueDescription = value;
                                   });
                                 },
@@ -644,8 +646,8 @@ class _AddCustomFieldState extends State<AddCustomField> {
                           ),
                           onPressed: () {
                             setState(() {
-                              _htmlEditorKey =
-                                  UniqueKey(); // to re-render the html editor
+                              // _htmlEditorKey =
+                              //     UniqueKey(); // to re-render the html editor
                               basicData.valueDescription = value;
                             });
                             Navigator.of(context).pop();

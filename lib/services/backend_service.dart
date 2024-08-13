@@ -61,9 +61,11 @@ class BackendService {
     atClientServiceMap = onboardingService.atClientServiceMap;
 
     AtClientPreference atClientPrefernce=AtClientPreference();
-    await getAtClientPreference()
-        .then((value) => atClientPrefernce = value)
-        .catchError((e) => print(e));
+    atClientPrefernce = await getAtClientPreference()
+        .catchError((e) {
+      print(e);
+      return Future.value(AtClientPreference());
+    });
     AtOnboardingResult result;
 
     ///switch account from avatar
@@ -142,7 +144,7 @@ class BackendService {
     atClientInstance =
         atClientServiceMap[onboardedAtsign]!.atClientManager.atClient;
     atClientServiceMap = atClientServiceMap;
-    syncService = AtClientManager.getInstance().syncService;
+    syncService = AtClientManager.getInstance().atClient.syncService;
     currentAtSign = atSign;
     KeychainUtil.makeAtSignPrimary(atSign!);
     atClientServiceInstance = atClientServiceMap[onboardedAtsign]!;
@@ -168,7 +170,6 @@ class BackendService {
       showRemoveAtsignOption: true,
       onAtSignRemoved: onAtsignRemoved,
     );
-    AtSyncUIService().sync(atSyncUIOverlay: AtSyncUIOverlay.dialog);
 
     themeProvider.resetThemeData();
     await themeProvider.checkThemeFromSecondary();

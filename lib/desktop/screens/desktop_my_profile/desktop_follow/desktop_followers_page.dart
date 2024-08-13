@@ -33,6 +33,7 @@ class _DesktopFollowersPageState extends State<DesktopFollowersPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final appTheme = AppTheme.of(context);
     SizeConfig().init(context);
     return Consumer<FollowService>(builder: (context, provider, _) {

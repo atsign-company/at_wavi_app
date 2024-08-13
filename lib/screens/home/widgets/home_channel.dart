@@ -1,7 +1,8 @@
 import 'package:at_wavi_app/services/common_functions.dart';
 import 'package:at_wavi_app/utils/at_enum.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
-import 'package:at_wavi_app/utils/theme.dart';
+// commented out as it is not used
+// import 'package:at_wavi_app/utils/theme.dart';
 import 'package:at_wavi_app/view_models/theme_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:at_wavi_app/services/size_config.dart';
@@ -17,7 +18,9 @@ class HomeChannels extends StatefulWidget {
 }
 
 class _HomeChannelsState extends State<HomeChannels> {
-  late bool _isDark = false;
+
+// commented out as it is not used
+  // late bool _isDark = false;
   ThemeData? _themeData;
 
   @override
@@ -37,10 +40,11 @@ class _HomeChannelsState extends State<HomeChannels> {
           await Provider.of<ThemeProvider>(context, listen: false).getTheme();
     }
 
-    if (_themeData!.scaffoldBackgroundColor ==
-        Themes.darkTheme().scaffoldBackgroundColor) {
-      _isDark = true;
-    }
+// commented out as it is not used
+    // if (_themeData!.scaffoldBackgroundColor ==
+    //     Themes.darkTheme().scaffoldBackgroundColor) {
+    //   _isDark = true;
+    // }
 
     if (mounted) {
       setState(() {});

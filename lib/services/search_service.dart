@@ -81,6 +81,7 @@ class SearchInstance {
   }
 
   _updateHighlightColor(String color) {
+    // ignore: unnecessary_null_comparison
     highlightColor = (color != null)
         ? ThemeProvider().convertToHighlightColor(color)
         : ColorConstants.green;

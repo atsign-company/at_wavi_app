@@ -98,27 +98,29 @@ class _EditPersonaState extends State<EditPersona>
 
     _themeColor = Provider.of<ThemeProvider>(context, listen: false).themeColor;
 
-    return WillPopScope(
-      onWillPop: () async {
-        var changes = _calculateChanges();
-        if (changes) {
-          var res = await _confirmationDialog();
-          if (res == null) {
-            return false;
-          }
+    return PopScope(
+  canPop: false,
+  onPopInvoked: (didPop) async {
+    if (didPop) {
+      return;
+    }
+    
+    var changes = _calculateChanges();
+    if (changes) {
+      var res = await _confirmationDialog();
+      if (res == null) {
+        return;
+      }
 
-          if (res == true) {
-            await _saveButtonCall();
-            return false;
-          } else {
-            Navigator.of(context).pop();
-            return true;
-          }
-        } else {
-          Navigator.of(context).pop();
-          return true;
-        }
-      },
+      if (res == true) {
+        await _saveButtonCall();
+      } else {
+        Navigator.of(context).pop();
+      }
+    } else {
+      Navigator.of(context).pop();
+    }
+  },
       child: Scaffold(
           key: scaffoldKey,
           bottomSheet: _bottomSheet(),

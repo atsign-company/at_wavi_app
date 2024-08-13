@@ -32,7 +32,10 @@ class DesktopReorderBasicDetailModel extends ChangeNotifier {
 
     for (int i = 0; i < fields.length; i++) {
       BasicData basicData = BasicData();
-      bool isCustomField = false;
+
+      // commenting out as this is not being used anywhere else
+      
+      // bool isCustomField = false;
 
       if (userMap.containsKey(fields[i])) {
         basicData = userMap[fields[i]];
@@ -43,7 +46,7 @@ class DesktopReorderBasicDetailModel extends ChangeNotifier {
         customFields.indexWhere((el) => el.accountName == fields[i]);
         if (index != -1) {
           basicData = customFields[index];
-          isCustomField = true;
+          // isCustomField = true;
         }
       }
 

@@ -1,7 +1,8 @@
 import 'package:at_wavi_app/services/common_functions.dart';
 import 'package:at_wavi_app/utils/at_enum.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
-import 'package:at_wavi_app/utils/theme.dart';
+// commenting out since its not being used
+// import 'package:at_wavi_app/utils/theme.dart';
 import 'package:at_wavi_app/view_models/theme_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:at_wavi_app/services/size_config.dart';
@@ -16,7 +17,8 @@ class HomeDetails extends StatefulWidget {
 }
 
 class _HomeDetailsState extends State<HomeDetails> {
-  late bool _isDark = false;
+  // Removed the unused field since its not being used 
+  //  late bool _isDark = false;
   ThemeData? _themeData;
 
   @override
@@ -36,10 +38,12 @@ class _HomeDetailsState extends State<HomeDetails> {
           await Provider.of<ThemeProvider>(context, listen: false).getTheme();
     }
 
-    if (_themeData!.scaffoldBackgroundColor ==
-        Themes.darkTheme().scaffoldBackgroundColor) {
-      _isDark = true;
-    }
+
+// commenting out since its not being used
+    // if (_themeData!.scaffoldBackgroundColor ==
+    //     Themes.darkTheme().scaffoldBackgroundColor) {
+    //   _isDark = true;
+    // }
 
     if (mounted) {
       setState(() {});

@@ -18,6 +18,7 @@ class _DesktopThemeSettingPageState extends State<DesktopThemeSettingPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final desktopAppearanceModel = Provider.of<DesktopAppearanceModel>(
       context,
     );

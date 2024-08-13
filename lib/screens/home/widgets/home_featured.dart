@@ -2,7 +2,8 @@ import 'package:at_wavi_app/common_components/empty_widget.dart';
 import 'package:at_wavi_app/screens/home/widgets/twitter_embed_widget.dart';
 import 'package:at_wavi_app/screens/website_webview/website_webview.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
-import 'package:at_wavi_app/utils/theme.dart';
+// commented out as it is not used
+// import 'package:at_wavi_app/utils/theme.dart';
 import 'package:at_wavi_app/view_models/theme_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:at_wavi_app/services/size_config.dart';
@@ -27,7 +28,8 @@ class HomeFeatured extends StatefulWidget {
 }
 
 class _HomeFeaturedState extends State<HomeFeatured> {
-  late bool _isDark = false;
+// commented out as it is not used
+  // late bool _isDark = false;
   ThemeData? _themeData;
 
   @override
@@ -44,10 +46,11 @@ class _HomeFeaturedState extends State<HomeFeatured> {
           await Provider.of<ThemeProvider>(context, listen: false).getTheme();
     }
 
-    if (_themeData!.scaffoldBackgroundColor ==
-        Themes.darkTheme().scaffoldBackgroundColor) {
-      _isDark = true;
-    }
+// commented out as it is not used
+    // if (_themeData!.scaffoldBackgroundColor ==
+    //     Themes.darkTheme().scaffoldBackgroundColor) {
+    //   _isDark = true;
+    // }
 
     if (mounted) {
       setState(() {});

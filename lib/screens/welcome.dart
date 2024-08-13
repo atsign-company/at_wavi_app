@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:at_client_mobile/at_client_mobile.dart';
 import 'package:at_wavi_app/services/backend_service.dart';
 import 'package:at_wavi_app/utils/colors.dart';
@@ -17,7 +15,9 @@ class Welcome extends StatefulWidget {
 
 class _WelcomeState extends State<Welcome> {
   var atClientPrefernce;
-  late StreamSubscription<dynamic> _intentDataStreamSubscription;
+
+  // commenting out since its not being used
+  // late StreamSubscription<dynamic> _intentDataStreamSubscription;
 
   @override
   void initState() {
@@ -31,7 +31,7 @@ class _WelcomeState extends State<Welcome> {
     await BackendService()
         .getAtClientPreference()
         .then((value) => atClientPrefernce = value)
-        .catchError((e) => print(e));
+        .catchError((e){print(e); return e;});
 
     if (currentatSign != null && currentatSign != '') {
       await BackendService()

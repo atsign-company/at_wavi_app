@@ -183,11 +183,10 @@ class VersionService {
       url = MixedConstants.LINUX_STORE_LINK;
     }
 
-    if (await canLaunch(url)) {
-      await launch(
-        url,
-        forceSafariVC: false,
-        forceWebView: false,
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(
+        Uri.parse(url),
+        mode: LaunchMode.externalApplication,
       );
     }
   }

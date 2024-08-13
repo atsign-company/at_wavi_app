@@ -36,7 +36,8 @@ class _LocationWidgetState extends State<LocationWidget> {
 
   BasicData? _data;
   late bool _isPrivate;
-  String _locationString = '', _locationNickname = '';
+  // removed locationString as it is not used
+  String _locationNickname = '';
   late Key _mapKey; // in order to update map when needed
   List<String> fieldOrder = [];
 
@@ -141,35 +142,36 @@ class _LocationWidgetState extends State<LocationWidget> {
       return const CircularProgressIndicator();
     }
 
-    _locationString =
-        (_data != null && (_data!.value != null) && (_data!.value != ''))
-            ? jsonDecode(_data!.value)['location']
-            : '';
+    // commented 
+    // _locationString =
+    //     (_data != null && (_data!.value != null) && (_data!.value != ''))
+    //         ? jsonDecode(_data!.value)['location']
+    //         : '';
 
-    return WillPopScope(
-      onWillPop: () async {
-        if (_locationNickname.isNotEmpty &&
-            ((LocationWidgetData().osmLocationModelNotifier == null) ||
-                (LocationWidgetData().osmLocationModelNotifier!.value ==
-                    null) ||
-                (LocationWidgetData().osmLocationModelNotifier!.value!.latLng ==
-                    null))) {
-          Provider.of<UserPreview>(context, listen: false)
-              .user()!
-              .locationNickName
-              .value = '';
-        }
+    return PopScope(
+  canPop: true,
+  onPopInvoked: (didPop) async {
+    if (!didPop) {
+      if (_locationNickname.isNotEmpty &&
+          ((LocationWidgetData().osmLocationModelNotifier == null) ||
+              (LocationWidgetData().osmLocationModelNotifier!.value == null) ||
+              (LocationWidgetData().osmLocationModelNotifier!.value!.latLng == null))) {
+        Provider.of<UserPreview>(context, listen: false)
+            .user()!
+            .locationNickName
+            .value = '';
+      }
 
-        if (_locationNickname.isEmpty) {
-          Provider.of<UserPreview>(context, listen: false)
-              .user()!
-              .location
-              .value = '';
-        }
+      if (_locationNickname.isEmpty) {
+        Provider.of<UserPreview>(context, listen: false)
+            .user()!
+            .location
+            .value = '';
+      }
 
-        Navigator.of(context).pop();
-        return true;
-      },
+      Navigator.of(context).pop();
+    }
+  },
       child: ValueListenableBuilder(
           valueListenable: LocationWidgetData().osmLocationModelNotifier!,
           builder: (BuildContext context, OsmLocationModel? osmLocationModel,

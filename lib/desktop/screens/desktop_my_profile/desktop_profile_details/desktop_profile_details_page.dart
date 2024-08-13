@@ -44,6 +44,7 @@ class _DesktopProfileDetailsPageState extends State<DesktopProfileDetailsPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
       child: Column(
         mainAxisSize: MainAxisSize.min,

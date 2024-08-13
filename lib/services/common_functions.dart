@@ -538,7 +538,11 @@ class CommonFunctions {
       var checkPresence = await AtClientManager.getInstance()
           .secondaryAddressFinder!
           .findSecondary(receiver);
-      return checkPresence != null;
+      // ignore: unnecessary_null_comparison
+      if (checkPresence != null) {
+        return false;
+      }
+        return true;
     } catch (e) {
       print("Error ======> $e");
       return false;
@@ -668,14 +672,14 @@ class CommonFunctions {
     String urlAppleMaps = '';
     if (Platform.isAndroid) {
       url = 'https://www.google.com/maps/search/?api=1&query=$lat,$lang';
-      await launch(url);
+      await launchUrl(Uri.parse(url));
     } else if (Platform.isIOS) {
       urlAppleMaps = 'https://maps.apple.com/?q=$lat,$lang';
       url = 'comgooglemaps://?saddr=&daddr=$lat,$lang&directionsmode=driving';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else if (await canLaunch(urlAppleMaps)) {
-        await launch(urlAppleMaps);
+      if (await canLaunchUrl(Uri.parse(url))) {
+        await launchUrl(Uri.parse(url));
+      } else if (await canLaunchUrl(Uri.parse(urlAppleMaps))) {
+        await launchUrl(Uri.parse(urlAppleMaps));
       } else {
         throw 'Could not launch $url';
       }

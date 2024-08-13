@@ -49,6 +49,7 @@ class _DesktopProfileMediaPageState extends State<DesktopProfileMediaPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     AppTheme appTheme = AppTheme.of(context);
     return Scaffold(
       key: _scaffoldKey,

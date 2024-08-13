@@ -11,7 +11,7 @@ class SizeConfig {
   late double screenHeight;
   late double blockSizeHorizontal;
   late double blockSizeVertical;
-  late double deviceTextFactor;
+  late TextScaler deviceTextFactor;
 
   late double _safeAreaHorizontal;
   late double _safeAreaVertical;
@@ -40,7 +40,7 @@ class SizeConfig {
     refHeight = 812;
     refWidth = 375;
 
-    deviceTextFactor = _mediaQueryData.textScaleFactor;
+    deviceTextFactor = TextScaler.linear(1);
 
     if (screenHeight < 1200) {
       blockSizeHorizontal = screenWidth / 100;

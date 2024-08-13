@@ -9,7 +9,7 @@ import '../utils/text_styles.dart';
 class QrScreen extends StatefulWidget {
   QrScreen({Key? key, required this.atSign}) : super(key: key);
 
-  String atSign;
+  final String atSign;
 
   @override
   State<QrScreen> createState() => _QrScreenState();

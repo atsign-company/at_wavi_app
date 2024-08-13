@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class DesktopShowCaseWidget extends StatelessWidget {
-  GlobalKey globalKey;
-  Widget container;
-  IconData iconData;
-  double iconSize;
-  double childSize;
-  double overlayOpacity;
-  Color overlayColor;
+  final GlobalKey globalKey;
+  final Widget container;
+  final IconData iconData;
+  final double iconSize;
+  final double childSize;
+  final double overlayOpacity;
+  final Color overlayColor;
 
   DesktopShowCaseWidget({
     Key? key,

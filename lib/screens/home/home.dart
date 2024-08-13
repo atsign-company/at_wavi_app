@@ -96,9 +96,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     initPackages();
     _getThemeData();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
-      var followsProvider = Provider.of<FollowService>(
-          NavService.navKey.currentContext!,
-          listen: false);
+
+      //commenting out since its not being used
+
+      // var followsProvider = Provider.of<FollowService>(
+      //     NavService.navKey.currentContext!,
+      //     listen: false);
       // TODO: we have to optimize fetching contact details
       // await followsProvider.fetchAtsignDetails(followsProvider.followers.list!);
       // await followsProvider.fetchAtsignDetails(followsProvider.following.list!,
@@ -121,7 +124,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Future<void> checkForUpdate() async {
     final newVersion = NewVersion();
-    final status = await newVersion.getVersionStatus();
+
+    // commenting out since its not being used
+    // final status = await newVersion.getVersionStatus();
 
     //// for forced version update
     // newVersion.showUpdateDialog(

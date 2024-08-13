@@ -15,7 +15,6 @@ import 'package:at_wavi_app/view_models/theme_view_model.dart';
 import 'package:at_wavi_app/view_models/user_preview.dart';
 import 'package:at_wavi_app/view_models/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 import 'desktop/routes/desktop_routes.dart';
@@ -85,8 +84,7 @@ class MaterialAppClass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var brightness = SchedulerBinding.instance.window.platformBrightness;
-
+    var brightness = MediaQuery.platformBrightnessOf(context);
     /// MaterialApp for desktop
     if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
       /// Mock data

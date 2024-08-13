@@ -126,13 +126,16 @@ class _DesktopOnBoardingPageState extends State<DesktopOnBoardingPage>
     );
   }
 
-  void _jumpToPrevPage() {
-    final currentPage = (_pageController.page ?? 0).toInt();
-    final nextPage = currentPage == 0 ? numOfPage - 1 : currentPage - 1;
-    _pageController.animateToPage(
-      nextPage,
-      duration: const Duration(milliseconds: 400),
-      curve: Curves.easeOut,
-    );
-  }
+
+  // commenting out as it is not being used
+  
+  // void _jumpToPrevPage() {
+  //   final currentPage = (_pageController.page ?? 0).toInt();
+  //   final nextPage = currentPage == 0 ? numOfPage - 1 : currentPage - 1;
+  //   _pageController.animateToPage(
+  //     nextPage,
+  //     duration: const Duration(milliseconds: 400),
+  //     curve: Curves.easeOut,
+  //   );
+  // }
 }

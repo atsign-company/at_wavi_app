@@ -103,7 +103,8 @@ class AtKeyGetService {
 
       var successValue =
           await BackendService().atClientInstance.get(atKey).catchError((e) {
-        print('error in getitng value : ${atKey.key}');
+          print('error in getitng value : ${atKey.key}');
+            return AtValue();
       });
       
 

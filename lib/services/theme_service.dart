@@ -76,6 +76,7 @@ class ThemeService {
       var result =
           await BackendService().atClientInstance.get(key).catchError((e) {
         print('error in get ${e.errorCode} ${e.errorMessage}');
+        return AtValue();
       });
 
       // print('getThemePreference result $result');

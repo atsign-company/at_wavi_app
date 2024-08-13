@@ -60,6 +60,7 @@ class _DesktopProfileBasicInfoPageState
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     AppTheme appTheme = AppTheme.of(context);
     return Scaffold(
       backgroundColor: appTheme.backgroundColor,

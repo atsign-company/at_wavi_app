@@ -18,6 +18,7 @@ class _DesktopColorSettingPageState extends State<DesktopColorSettingPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     // final appTheme = AppTheme.of(context);
     final desktopAppearanceModel = Provider.of<DesktopAppearanceModel>(
       context,

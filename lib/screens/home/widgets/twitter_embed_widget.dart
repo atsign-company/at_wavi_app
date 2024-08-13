@@ -60,7 +60,7 @@ class _TwitterEmbedWidgetState extends State<TwitterEmbedWidget> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(url ?? ''));
+      ..loadRequest(Uri.parse(url));
 
     isLoading = true;
   }

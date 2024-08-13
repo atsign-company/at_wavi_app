@@ -124,11 +124,11 @@ class _DesktopSettingsPageState extends State<DesktopSettingsPage> {
   }
 
   void onTOSTapped() {
-    launch('${MixedConstants.WEBSITE_URL}/terms-conditions');
+    launchUrl(Uri.parse('${MixedConstants.WEBSITE_URL}/terms-conditions'));
   }
 
   void onFAQTapped() {
-    launch('${MixedConstants.WEBSITE_URL}/faqs');
+    launchUrl(Uri.parse('${MixedConstants.WEBSITE_URL}/faqs'));
   }
 
   void onSwitchAccountTapped() async {

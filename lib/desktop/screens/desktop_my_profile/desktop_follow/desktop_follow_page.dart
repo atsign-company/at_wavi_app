@@ -39,6 +39,7 @@ class _DesktopFollowPageState extends State<DesktopFollowPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final appTheme = AppTheme.of(context);
     return Container(
       width: 360,

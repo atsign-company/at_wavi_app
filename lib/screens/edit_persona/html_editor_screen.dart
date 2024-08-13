@@ -30,6 +30,8 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
 
   @override
   void initState() {
+    super.initState();
+    _value = widget.initialText;
     if (Provider.of<UserProvider>(context, listen: false)
             .user
             ?.htmlToastView
@@ -43,15 +45,15 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
           ? false
           : true;
     }
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        if (didPop) return;
         Navigator.pop(context, _value);
-        return true;
       },
       child: Scaffold(
         key: _scaffoldKey,
@@ -113,7 +115,9 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                 callbacks: Callbacks(
                     onBeforeCommand: (String? currentHtml) {},
                     onChangeContent: (String? changed) {
-                      _value = changed;
+                      setState(() {
+                        _value = changed;
+                      });
                     },
                     onPaste: () {
                       if (_showHtmlToast) {
@@ -125,7 +129,6 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                // "Paste not allowed here. Use the 'Paste html' button in the previous page.",
                                 "Use the 'Paste html' button in the previous page to paste html content.",
                                 style: CustomTextStyles.customTextStyle(
                                   ColorConstants.white,
@@ -160,7 +163,9 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                                       ScaffoldMessenger.of(context)
                                           .clearSnackBars();
 
-                                      _showHtmlToast = false;
+                                      setState(() {
+                                        _showHtmlToast = false;
+                                      });
                                       Provider.of<UserProvider>(context,
                                               listen: false)
                                           .user

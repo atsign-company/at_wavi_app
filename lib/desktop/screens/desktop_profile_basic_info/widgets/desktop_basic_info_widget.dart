@@ -135,7 +135,7 @@ class DesktopBasicInfoWidget extends StatelessWidget {
             child: GestureDetector(
               onTap: () async {
                 try {
-                  await launch(data.value ?? '');
+                  await launchUrl(data.value ?? '');
                 } catch (e) {}
               },
               child: Container(
