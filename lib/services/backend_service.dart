@@ -61,11 +61,17 @@ class BackendService {
     atClientServiceMap = onboardingService.atClientServiceMap;
 
     AtClientPreference atClientPrefernce=AtClientPreference();
+<<<<<<< HEAD
     atClientPrefernce = await getAtClientPreference()
         .catchError((e) {
       print(e);
       return Future.value(AtClientPreference());
     });
+=======
+    await getAtClientPreference()
+        .then((value) => atClientPrefernce = value)
+        .catchError((e) => print(e));
+>>>>>>> be86b97 (fixed issues from dart analyze)
     AtOnboardingResult result;
 
     ///switch account from avatar

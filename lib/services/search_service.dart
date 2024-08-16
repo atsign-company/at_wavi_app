@@ -81,7 +81,10 @@ class SearchInstance {
   }
 
   _updateHighlightColor(String color) {
+<<<<<<< HEAD
     // ignore: unnecessary_null_comparison
+=======
+>>>>>>> be86b97 (fixed issues from dart analyze)
     highlightColor = (color != null)
         ? ThemeProvider().convertToHighlightColor(color)
         : ColorConstants.green;

@@ -50,6 +50,7 @@ class CustomInputField extends StatefulWidget {
     this.blankSpacesAllowed,
     this.autoCorrectAllowed,
   }) : super(key: key);
+<<<<<<< HEAD
 
   @override
   State<CustomInputField> createState() => _CustomInputFieldState();
@@ -62,6 +63,13 @@ class _CustomInputFieldState extends State<CustomInputField> {
   Widget build(BuildContext context) {
     textController.text = widget.initialValue;
     if ((widget.baseOffset != 0)) {
+=======
+
+  @override
+  Widget build(BuildContext context) {
+    textController.text = initialValue;
+    if ((baseOffset != 0)) {
+>>>>>>> be86b97 (fixed issues from dart analyze)
       textController = TextEditingController.fromValue(
         TextEditingValue(
           text: widget.initialValue,
@@ -76,9 +84,15 @@ class _CustomInputFieldState extends State<CustomInputField> {
         }
       },
       child: Container(
+<<<<<<< HEAD
         padding: widget.padding ?? const EdgeInsets.all(0),
         width: widget.width,
         height: widget.height,
+=======
+        padding: padding ?? const EdgeInsets.all(0),
+        width: width,
+        height: height,
+>>>>>>> be86b97 (fixed issues from dart analyze)
         decoration: BoxDecoration(
           color: widget.bgColor ?? ColorConstants.DARK_GREY,
           borderRadius: BorderRadius.circular(5),
@@ -145,12 +159,20 @@ class _CustomInputFieldState extends State<CustomInputField> {
                     ),
                   )
                 : const SizedBox(),
+<<<<<<< HEAD
             widget.secondIcon != null
+=======
+            secondIcon != null
+>>>>>>> be86b97 (fixed issues from dart analyze)
                 ? const SizedBox(
                     width: 7,
                   )
                 : const SizedBox(),
+<<<<<<< HEAD
             widget.icon != null
+=======
+            icon != null
+>>>>>>> be86b97 (fixed issues from dart analyze)
                 ? InkWell(
                     onTap: () {
                       if (widget.onIconTap != null) {
@@ -174,6 +196,10 @@ class _CustomInputFieldState extends State<CustomInputField> {
   OutlineInputBorder _outlineInputBorder({Color? color}) {
     return OutlineInputBorder(
         borderSide: BorderSide(
+<<<<<<< HEAD
             color: color ?? widget.borderColor ?? ColorConstants.MILD_GREY));
+=======
+            color: color ?? borderColor ?? ColorConstants.MILD_GREY));
+>>>>>>> be86b97 (fixed issues from dart analyze)
   }
 }
