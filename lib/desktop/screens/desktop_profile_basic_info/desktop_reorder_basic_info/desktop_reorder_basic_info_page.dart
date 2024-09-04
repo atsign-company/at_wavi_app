@@ -41,10 +41,10 @@ class _DesktopReorderBasicDetailPageState
       },
       child: Container(
         width: DesktopDimens.dialogWidth,
-        padding: EdgeInsets.all(DesktopDimens.paddingNormal),
+        padding: const EdgeInsets.all(DesktopDimens.paddingNormal),
         decoration: BoxDecoration(
           color: appTheme.backgroundColor,
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -58,9 +58,9 @@ class _DesktopReorderBasicDetailPageState
                 color: appTheme.primaryTextColor,
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             _buildContentWidget(),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Row(
               children: [
                 Expanded(
@@ -71,7 +71,7 @@ class _DesktopReorderBasicDetailPageState
                     onPressed: _onSaveData,
                   ),
                 ),
-                SizedBox(width: 12),
+                const SizedBox(width: 12),
                 Expanded(
                   child: DesktopWhiteButton(
                     title: 'Cancel',
@@ -98,19 +98,19 @@ class _DesktopReorderBasicDetailPageState
             key: Key(model.fields[i]),
             index: i,
             title: getTitle(model.fields[i]),
-            margin: EdgeInsets.symmetric(vertical: 4),
+            margin: const EdgeInsets.symmetric(vertical: 4),
           ));
         }
         return ConstrainedBox(
-          constraints: new BoxConstraints(
+          constraints: const BoxConstraints(
             maxHeight: 360.0,
           ),
           child: ReorderableListView(
             onReorder: _model.reorder,
-            children: itemWidgets,
             shrinkWrap: true,
             buildDefaultDragHandles: false,
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
+            children: itemWidgets,
           ),
           // shrinkWrap: true,
           // physics: ClampingScrollPhysics(),

@@ -9,8 +9,8 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class CustomMediaCard extends StatefulWidget {
   final BasicData basicData;
-  late final ThemeData themeData;
-  CustomMediaCard({required this.basicData, required this.themeData});
+  final ThemeData themeData;
+  const CustomMediaCard({Key? key, required this.basicData, required this.themeData}) : super(key: key);
 
   @override
   _CustomMediaCardState createState() => _CustomMediaCardState();
@@ -39,7 +39,7 @@ class _CustomMediaCardState extends State<CustomMediaCard> {
       /// initializing [_controller]
       _controller = YoutubePlayerController(
         initialVideoId: videoId ?? '',
-        flags: YoutubePlayerFlags(
+        flags: const YoutubePlayerFlags(
           autoPlay: false,
           mute: false,
         ),
@@ -51,7 +51,7 @@ class _CustomMediaCardState extends State<CustomMediaCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: widget.themeData.backgroundColor,
+      color: widget.themeData.colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -63,7 +63,7 @@ class _CustomMediaCardState extends State<CustomMediaCard> {
                   widget.themeData.primaryColor.withOpacity(0.5),
                   size: 16),
             ),
-            SizedBox(height: 6),
+            const SizedBox(height: 6),
             ((widget.basicData.valueDescription != null) &&
                     (widget.basicData.valueDescription != 'null'))
                 ? Text(
@@ -71,18 +71,18 @@ class _CustomMediaCardState extends State<CustomMediaCard> {
                     style: TextStyles.lightText(widget.themeData.primaryColor,
                         size: 18),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             (widget.basicData.valueDescription != null) &&
                     (widget.basicData.valueDescription != 'null')
-                ? SizedBox(height: 6)
-                : SizedBox(),
+                ? const SizedBox(height: 6)
+                : const SizedBox(),
             _isImage && customImage != null
                 ? Image.memory(
                     customImage as Uint8List,
                     width: double.infinity,
                     fit: BoxFit.fill,
                   )
-                : SizedBox(),
+                : const SizedBox(),
             _isVideo
                 ? YoutubePlayer(
                     controller: _controller,
@@ -91,7 +91,7 @@ class _CustomMediaCardState extends State<CustomMediaCard> {
                       ProgressBar(isExpanded: true),
                     ],
                   )
-                : SizedBox()
+                : const SizedBox()
           ],
         ),
       ),

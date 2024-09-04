@@ -27,16 +27,13 @@ class _DesktopFollowersPageState extends State<DesktopFollowersPage>
     with AutomaticKeepAliveClientMixin<DesktopFollowersPage> {
   final textEditingController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     final appTheme = AppTheme.of(context);
     SizeConfig().init(context);
     return Consumer<FollowService>(builder: (context, provider, _) {
@@ -56,7 +53,7 @@ class _DesktopFollowersPageState extends State<DesktopFollowersPage>
 
       return Container(
         color: appTheme.backgroundColor,
-        padding: EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
+        padding: const EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,7 +70,7 @@ class _DesktopFollowersPageState extends State<DesktopFollowersPage>
               },
               prefixIcon: Container(
                 width: 30,
-                margin: EdgeInsets.only(left: 10, bottom: 1),
+                margin: const EdgeInsets.only(left: 10, bottom: 1),
                 child: Center(
                   child: RichText(
                     text: TextSpan(
@@ -91,7 +88,7 @@ class _DesktopFollowersPageState extends State<DesktopFollowersPage>
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Expanded(

@@ -72,37 +72,37 @@ class User {
     switchField,
     epic,
     customFields,
-  })  : this.allPrivate = allPrivate,
-        this.atsign = atsign,
-        this.image = image ?? BasicData(),
-        this.firstname = firstname ?? BasicData(),
-        this.lastname = lastname ?? BasicData(),
-        this.location = location ?? BasicData(),
-        this.locationNickName = locationNickName ?? BasicData(),
-        this.pronoun = pronoun ?? BasicData(),
-        this.phone = phone ?? BasicData(),
-        this.email = email ?? BasicData(),
-        this.about = about ?? BasicData(),
-        this.twitter = twitter ?? BasicData(),
-        this.facebook = facebook ?? BasicData(),
-        this.linkedin = linkedin ?? BasicData(),
-        this.instagram = instagram ?? BasicData(),
-        this.youtube = youtube ?? BasicData(),
-        this.tumbler = tumbler ?? BasicData(),
-        this.medium = medium ?? BasicData(),
-        this.tiktok = tiktok ?? BasicData(),
-        this.github = github ?? BasicData(),
-        this.snapchat = snapchat ?? BasicData(),
-        this.pinterest = pinterest ?? BasicData(),
-        this.ps4 = ps4 ?? BasicData(),
-        this.xbox = xbox ?? BasicData(),
-        this.steam = steam ?? BasicData(),
-        this.discord = discord ?? BasicData(),
-        this.twitch = twitch ?? BasicData(),
-        this.htmlToastView = htmlToastView ?? BasicData(),
-        this.switchField = switchField ?? BasicData(),
-        this.epic = epic ?? BasicData(),
-        this.customFields = customFields ?? {};
+  })  : allPrivate = allPrivate,
+        atsign = atsign,
+        image = image ?? BasicData(),
+        firstname = firstname ?? BasicData(),
+        lastname = lastname ?? BasicData(),
+        location = location ?? BasicData(),
+        locationNickName = locationNickName ?? BasicData(),
+        pronoun = pronoun ?? BasicData(),
+        phone = phone ?? BasicData(),
+        email = email ?? BasicData(),
+        about = about ?? BasicData(),
+        twitter = twitter ?? BasicData(),
+        facebook = facebook ?? BasicData(),
+        linkedin = linkedin ?? BasicData(),
+        instagram = instagram ?? BasicData(),
+        youtube = youtube ?? BasicData(),
+        tumbler = tumbler ?? BasicData(),
+        medium = medium ?? BasicData(),
+        tiktok = tiktok ?? BasicData(),
+        github = github ?? BasicData(),
+        snapchat = snapchat ?? BasicData(),
+        pinterest = pinterest ?? BasicData(),
+        ps4 = ps4 ?? BasicData(),
+        xbox = xbox ?? BasicData(),
+        steam = steam ?? BasicData(),
+        discord = discord ?? BasicData(),
+        twitch = twitch ?? BasicData(),
+        htmlToastView = htmlToastView ?? BasicData(),
+        switchField = switchField ?? BasicData(),
+        epic = epic ?? BasicData(),
+        customFields = customFields ?? {};
 
   static Map<dynamic, dynamic> toJson(User? user) {
     return {
@@ -145,10 +145,10 @@ class User {
     var u1 = User.toJson(user1);
     var u2 = User.toJson(user2);
 
-    var _result = true;
+    var result = true;
 
     // to remove empty customfields, for eg sometimes, we have empty 'IMAGE: []' in userPreview data
-    CustomContentType.values.forEach((_value) {
+    for (var _value in CustomContentType.values) {
       if (u1['customFields'][_value.name.toUpperCase()] == null ||
           (u1['customFields'][_value.name.toUpperCase()]).length == 0) {
         (u1['customFields'] as Map).remove(_value.name.toUpperCase());
@@ -158,34 +158,34 @@ class User {
           (u2['customFields'][_value.name.toUpperCase()]).length == 0) {
         (u2['customFields'] as Map).remove(_value.name.toUpperCase());
       }
-    });
+    }
 
     u1.forEach((key, value) {
-      if (_result) {
+      if (result) {
         if (key == FieldsEnum.IMAGE.name) {
           Function eq = const ListEquality().equals;
           if (!eq(u1[key].value, u2[key].value)) {
-            _result = false;
+            result = false;
           }
         }
 
         if (key != FieldsEnum.IMAGE.name) {
           if (key == 'customFields') {
             if (u1[key].length != u2[key].length) {
-              _result = false;
+              result = false;
             } else {
-              var _key1 = u1[key];
-              var _key2 = u2[key];
+              var key1 = u1[key];
+              var key2 = u2[key];
 
-              if (_key1.toString() != _key2.toString()) {
-                _result = false;
+              if (key1.toString() != key2.toString()) {
+                result = false;
               }
             }
           } else {
             if ((u1[key] is BasicData) &&
                 (u2[key] is BasicData) &&
                 (u2[key].value != u1[key].value)) {
-              _result = false;
+              result = false;
 
               /// sometimes, values dont match because we have null in some and empty string
               if ((u1[key].value == null ||
@@ -194,7 +194,7 @@ class User {
                   (u2[key].value == null ||
                       u2[key].value == '' ||
                       u2[key].value == 'null')) {
-                _result = true;
+                result = true;
               }
             }
           }
@@ -202,7 +202,7 @@ class User {
       }
     });
 
-    return _result;
+    return result;
   }
 
   static fromJson(Map<dynamic, dynamic> userMap) {
@@ -338,7 +338,7 @@ class BasicData {
           value: json['value'],
           isPrivate: json['isPrivate'] == 'false' ? false : true,
           accountName: json['accountName'],
-          valueDescription: json['valueDescription'] ?? null,
+          valueDescription: json['valueDescription'],
           type: json['type']);
     } else {
       return BasicData();
@@ -418,5 +418,5 @@ BasicData formData(name, value, {private, type, valueDescription}) {
 // }
 extension StringCasingExtension on String {
   String toCapitalized() =>
-      this.length > 0 ? '${this[0].toUpperCase()}${this.substring(1)}' : '';
+      isNotEmpty ? '${this[0].toUpperCase()}${substring(1)}' : '';
 }

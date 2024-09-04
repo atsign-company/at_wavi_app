@@ -30,7 +30,7 @@ class Options extends StatefulWidget {
   final String? name;
   final Uint8List? image;
 
-  Options({this.name, this.image});
+  const Options({Key? key, this.name, this.image}) : super(key: key);
   @override
   _OptionsState createState() => _OptionsState();
 }
@@ -46,7 +46,7 @@ class _OptionsState extends State<Options> {
   void initState() {
     // for follows package
     follows_color_constants.ColorConstants.appColor =
-        Color.fromARGB(255, 0, 183, 184);
+        const Color.fromARGB(255, 0, 183, 184);
     follows_color_constants.ColorConstants.darkTheme = false;
     //
     getShareAtSign();
@@ -83,7 +83,7 @@ class _OptionsState extends State<Options> {
     SizeConfig().init(context); // for follows package
 
     if (_themeData == null) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     }
 
     return Container(
@@ -146,16 +146,16 @@ class _OptionsState extends State<Options> {
             //   ),
             // ),
             SizedBox(height: 15.toHeight),
-            Divider(height: 1),
+            const Divider(height: 1),
             SizedBox(height: 15.toHeight),
             InkWell(
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => QRScanner()));
+                    MaterialPageRoute(builder: (context) => const QRScanner()));
               },
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.qr_code_scanner, size: 25),
+                  const Icon(Icons.qr_code_scanner, size: 25),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -169,7 +169,7 @@ class _OptionsState extends State<Options> {
               ),
             ),
             SizedBox(height: 15.toHeight),
-            Divider(height: 1),
+            const Divider(height: 1),
             SizedBox(height: 15.toHeight),
             InkWell(
               onTap: () async {
@@ -181,7 +181,7 @@ class _OptionsState extends State<Options> {
               },
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.file_copy, size: 23),
+                  const Icon(Icons.file_copy, size: 23),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
@@ -195,20 +195,20 @@ class _OptionsState extends State<Options> {
               ),
             ),
             SizedBox(height: 15.toHeight),
-            Divider(height: 1),
+            const Divider(height: 1),
             SizedBox(
               height: 38,
               width: SizeConfig().screenWidth,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.fromLTRB(0.0, 13.0, 0.0, 0.0),
                     child: Icon(Icons.lock, size: 25),
                   ),
                   Expanded(
                     child: Padding(
-                      padding: EdgeInsets.fromLTRB(8.0, 15.0, 0.0, 0.0),
+                      padding: const EdgeInsets.fromLTRB(8.0, 15.0, 0.0, 0.0),
                       child: Text(
                         'Private Account',
                         style: TextStyles.lightText(_themeData!.primaryColor),
@@ -216,7 +216,7 @@ class _OptionsState extends State<Options> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.fromLTRB(8.0, 15.0, 0.0, 0.0),
+                    padding: const EdgeInsets.fromLTRB(8.0, 15.0, 0.0, 0.0),
                     child: Provider.of<SetPrivateState>(context).isLoading
                         ? LoadingDialog().onlyText(
                             'Updating',
@@ -244,7 +244,7 @@ class _OptionsState extends State<Options> {
               ),
             ),
             SizedBox(height: 15.toHeight),
-            Divider(height: 1),
+            const Divider(height: 1),
             SizedBox(height: 15.toHeight),
             InkWell(
               onTap: () {
@@ -273,7 +273,7 @@ class _OptionsState extends State<Options> {
               ),
             ),
             SizedBox(height: 15.toHeight),
-            Divider(height: 1),
+            const Divider(height: 1),
             SizedBox(height: 14.toHeight),
             InkWell(
               onTap: () {
@@ -302,7 +302,7 @@ class _OptionsState extends State<Options> {
               ),
             ),
             SizedBox(height: 14.toHeight),
-            Divider(height: 1),
+            const Divider(height: 1),
             SizedBox(height: 14.toHeight),
             InkWell(
               onTap: () {
@@ -310,7 +310,7 @@ class _OptionsState extends State<Options> {
               },
               child: Row(
                 children: <Widget>[
-                  SizedBox(
+                  const SizedBox(
                     width: 25,
                     height: 25,
                     child: Icon(Icons.delete),
@@ -328,7 +328,7 @@ class _OptionsState extends State<Options> {
               ),
             ),
             SizedBox(height: 14.toHeight),
-            Divider(height: 1),
+            const Divider(height: 1),
             SizedBox(height: 14.toHeight),
             InkWell(
               onTap: () async {
@@ -386,7 +386,7 @@ class _OptionsState extends State<Options> {
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, stateSet) {
             return AlertDialog(
-                title: Column(
+                title: const Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(Strings.resetDescription,
@@ -402,7 +402,7 @@ class _OptionsState extends State<Options> {
                 ),
                 content: atsignsList!.isEmpty
                     ? Column(mainAxisSize: MainAxisSize.min, children: [
-                        Text(Strings.noAtsignToReset,
+                        const Text(Strings.noAtsignToReset,
                             style: TextStyle(fontSize: 15)),
                         Align(
                           alignment: Alignment.bottomRight,
@@ -410,7 +410,7 @@ class _OptionsState extends State<Options> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text(
+                            child: const Text(
                               Strings.close,
                               style: TextStyle(
                                 fontSize: 15,
@@ -433,7 +433,7 @@ class _OptionsState extends State<Options> {
                               },
                               value: isSelectAll,
                               checkColor: Colors.white,
-                              title: Text(Strings.selectAll,
+                              title: const Text(Strings.selectAll,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   )),
@@ -446,19 +446,19 @@ class _OptionsState extends State<Options> {
                                 },
                                 value: atsignMap[atsign],
                                 checkColor: Colors.white,
-                                title: Text('$atsign'),
+                                title: Text(atsign),
                               ),
-                            Divider(thickness: 0.8),
+                            const Divider(thickness: 0.8),
                             if (isSelectAtsign)
-                              Text(Strings.resetErrorText,
+                              const Text(Strings.resetErrorText,
                                   style: TextStyle(
                                       color: Colors.red, fontSize: 14)),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            Text(Strings.resetWarningText,
+                            const Text(Strings.resetWarningText,
                                 style: TextStyle(fontSize: 14)),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(children: [
@@ -478,18 +478,18 @@ class _OptionsState extends State<Options> {
                                     await BackendService().onboardNextAtsign();
                                   }
                                 },
-                                child: Text(Strings.remove,
+                                child: const Text(Strings.remove,
                                     style: TextStyle(
                                       color: ColorConstants.FONT_PRIMARY,
                                       fontSize: 15,
                                     )),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text(Strings.cancel,
+                                  child: const Text(Strings.cancel,
                                       style: TextStyle(
                                           fontSize: 15, color: Colors.black)))
                             ])

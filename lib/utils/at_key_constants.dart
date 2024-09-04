@@ -1,9 +1,9 @@
 import 'package:at_wavi_app/utils/constants.dart';
 
 class AtKeyConstants {
-  static final String keyExtension = '';
-  static final String themePreference = 'THEME' + keyExtension;
-  static final String highlightColorPreference = 'THEME_COLOR' + keyExtension;
+  static const String keyExtension = '';
+  static const String themePreference = 'THEME$keyExtension';
+  static const String highlightColorPreference = 'THEME_COLOR$keyExtension';
 }
 
 ///Texts used across [@me].
@@ -37,7 +37,7 @@ class AtText {
   static const PRIVATE_KEY_CAUTION =
       "Please save your private key. For security reasons, it's highly recommended to save it in GDrive/iCloudDrive.";
   static const APP_REGEX = '.*persona@';
-  static const APP_KEY_SPLIT_REGEX = '(\w*\.)*persona@';
+  static const APP_KEY_SPLIT_REGEX = '(w*.)*persona@';
   static const TITLE_ERROR_DIALOG = 'Error';
   static const ADD_AT_SIGN = 'ADD ANOTHER @SIGN';
   static const VISIT_DASHBOARD = 'Visit Dashboard';

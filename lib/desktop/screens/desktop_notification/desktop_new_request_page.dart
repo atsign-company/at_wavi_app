@@ -1,4 +1,3 @@
-import 'package:at_wavi_app/desktop/services/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'item/desktop_new_request_item.dart';
@@ -17,13 +16,13 @@ class _DesktopNewRequestPageState extends State<DesktopNewRequestPage> {
       itemCount: 5,
       shrinkWrap: true,
       separatorBuilder: (context, index) {
-        return Divider(
+        return const Divider(
           color: Colors.transparent,
           height: 0.5,
         );
       },
       itemBuilder: (context, i) {
-        return DesktopNewRequestItem();
+        return const DesktopNewRequestItem();
       },
     );
   }

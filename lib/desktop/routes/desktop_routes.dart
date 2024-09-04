@@ -11,10 +11,10 @@ class DesktopSetupRoutes {
 
   static Map<String, WidgetBuilder> get routes {
     return {
-      DesktopRoutes.DESKTOP_LOGIN: (context) => DesktopLoginLandingPage(),
-      DesktopRoutes.DESKTOP_EDIT_PROFILE: (context) => DesktopEditProfilePage(),
-      DesktopRoutes.DESKTOP_USER_PROFILE: (context) => DesktopUserProfilePage(),
-      DesktopRoutes.DESKTOP_MY_PROFILE: (context) => DesktopMyProfilePage(),
+      DesktopRoutes.DESKTOP_LOGIN: (context) => const DesktopLoginLandingPage(),
+      DesktopRoutes.DESKTOP_EDIT_PROFILE: (context) => const DesktopEditProfilePage(),
+      DesktopRoutes.DESKTOP_USER_PROFILE: (context) => const DesktopUserProfilePage(),
+      DesktopRoutes.DESKTOP_MY_PROFILE: (context) => const DesktopMyProfilePage(),
     };
   }
 

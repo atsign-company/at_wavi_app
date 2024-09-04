@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:at_wavi_app/model/user.dart';
 import 'package:at_wavi_app/services/field_order_service.dart';
@@ -9,17 +8,17 @@ import 'package:validators/validators.dart';
 
 class UserPreview extends BaseModel {
   UserPreview._();
-  static UserPreview _instance = UserPreview._();
+  static final UserPreview _instance = UserPreview._();
   factory UserPreview() => _instance;
 
   User? _user;
 
   set setUser(User? user) {
-    this._user = user;
+    _user = user;
   }
 
   setSearchedUser(User? user) {
-    this._user = user;
+    _user = user;
   }
 
   User? user() {
@@ -110,8 +109,8 @@ class UserPreview extends BaseModel {
       }
     }
 
-    var _mapRep = User.toJson(_user!);
-    response = _mapRep.containsKey(fieldName);
+    var mapRep = User.toJson(_user!);
+    response = mapRep.containsKey(fieldName);
 
     return response;
   }

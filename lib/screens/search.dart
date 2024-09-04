@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:at_wavi_app/services/size_config.dart';
 
 class Search extends StatefulWidget {
+  const Search({Key? key}) : super(key: key);
+
   @override
   _SearchState createState() => _SearchState();
 }
@@ -32,14 +34,14 @@ class _SearchState extends State<Search> {
                         onTap: () {
                           Navigator.of(context).pop();
                         },
-                        child: Icon(Icons.arrow_back),
+                        child: const Icon(Icons.arrow_back),
                       ),
-                      SizedBox(width: 5),
-                      Text('Search'),
+                      const SizedBox(width: 5),
+                      const Text('Search'),
                     ],
                   ),
                 ),
-                SizedBox(height: 25),
+                const SizedBox(height: 25),
                 Align(
                   alignment: Alignment.center,
                   child: CustomInputField(
@@ -55,12 +57,12 @@ class _SearchState extends State<Search> {
                     },
                   ),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Text(
                   'Recent Search',
                   style: TextStyles.boldText(ColorConstants.black),
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Expanded(
                   child: SingleChildScrollView(
                     child: Wrap(

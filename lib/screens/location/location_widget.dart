@@ -5,14 +5,12 @@ import 'package:at_location_flutter/utils/constants/constants.dart';
 import 'package:at_wavi_app/common_components/add_custom_content_button.dart';
 import 'package:at_wavi_app/common_components/create_marker.dart';
 import 'package:at_wavi_app/common_components/custom_input_field.dart';
-import 'package:at_wavi_app/common_components/loading_widget.dart';
 import 'package:at_wavi_app/common_components/public_private_bottomsheet.dart';
 import 'package:at_wavi_app/model/osm_location_model.dart';
 import 'package:at_wavi_app/model/user.dart';
 import 'package:at_wavi_app/routes/route_names.dart';
 import 'package:at_wavi_app/routes/routes.dart';
 import 'package:at_wavi_app/screens/location/widgets/select_location.dart';
-import 'package:at_wavi_app/services/at_key_set_service.dart';
 import 'package:at_wavi_app/services/field_order_service.dart';
 import 'package:at_wavi_app/services/size_config.dart';
 import 'package:at_wavi_app/utils/at_enum.dart';
@@ -22,7 +20,6 @@ import 'package:at_wavi_app/utils/field_names.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
 import 'package:at_wavi_app/view_models/theme_view_model.dart';
 import 'package:at_wavi_app/view_models/user_preview.dart';
-import 'package:at_wavi_app/view_models/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +36,8 @@ class _LocationWidgetState extends State<LocationWidget> {
 
   BasicData? _data;
   late bool _isPrivate;
-  String _locationString = '', _locationNickname = '';
+  // removed locationString as it is not used
+  String _locationNickname = '';
   late Key _mapKey; // in order to update map when needed
   List<String> fieldOrder = [];
 
@@ -92,7 +90,7 @@ class _LocationWidgetState extends State<LocationWidget> {
     }
   }
 
-  updateIsPrivate(bool _mode) {
+  updateIsPrivate(bool mode) {
     List<BasicData>? customFields =
         Provider.of<UserPreview>(context, listen: false)
             .user()!
@@ -100,7 +98,7 @@ class _LocationWidgetState extends State<LocationWidget> {
 
     if (customFields != null) {
       for (var basicData in customFields) {
-        basicData.isPrivate = _mode;
+        basicData.isPrivate = mode;
       }
     }
 
@@ -113,7 +111,7 @@ class _LocationWidgetState extends State<LocationWidget> {
       Provider.of<UserPreview>(context, listen: false)
           .user()!
           .location
-          .isPrivate = _mode;
+          .isPrivate = mode;
     }
 
     if (Provider.of<UserPreview>(context, listen: false)
@@ -124,11 +122,11 @@ class _LocationWidgetState extends State<LocationWidget> {
       Provider.of<UserPreview>(context, listen: false)
           .user()!
           .locationNickName
-          .isPrivate = _mode;
+          .isPrivate = mode;
     }
 
     setState(() {
-      _isPrivate = _mode;
+      _isPrivate = mode;
     });
   }
 
@@ -141,47 +139,48 @@ class _LocationWidgetState extends State<LocationWidget> {
   @override
   Widget build(BuildContext context) {
     if (_themeData == null) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     }
 
-    _locationString =
-        (_data != null && (_data!.value != null) && (_data!.value != ''))
-            ? jsonDecode(_data!.value)['location']
-            : '';
+    // commented 
+    // _locationString =
+    //     (_data != null && (_data!.value != null) && (_data!.value != ''))
+    //         ? jsonDecode(_data!.value)['location']
+    //         : '';
 
-    return WillPopScope(
-      onWillPop: () async {
-        if (_locationNickname.isNotEmpty &&
-            ((LocationWidgetData().osmLocationModelNotifier == null) ||
-                (LocationWidgetData().osmLocationModelNotifier!.value ==
-                    null) ||
-                (LocationWidgetData().osmLocationModelNotifier!.value!.latLng ==
-                    null))) {
-          Provider.of<UserPreview>(context, listen: false)
-              .user()!
-              .locationNickName
-              .value = '';
-        }
+    return PopScope(
+  canPop: true,
+  onPopInvoked: (didPop) async {
+    if (!didPop) {
+      if (_locationNickname.isNotEmpty &&
+          ((LocationWidgetData().osmLocationModelNotifier == null) ||
+              (LocationWidgetData().osmLocationModelNotifier!.value == null) ||
+              (LocationWidgetData().osmLocationModelNotifier!.value!.latLng == null))) {
+        Provider.of<UserPreview>(context, listen: false)
+            .user()!
+            .locationNickName
+            .value = '';
+      }
 
-        if (_locationNickname.isEmpty) {
-          Provider.of<UserPreview>(context, listen: false)
-              .user()!
-              .location
-              .value = '';
-        }
+      if (_locationNickname.isEmpty) {
+        Provider.of<UserPreview>(context, listen: false)
+            .user()!
+            .location
+            .value = '';
+      }
 
-        Navigator.of(context).pop();
-        return true;
-      },
+      Navigator.of(context).pop();
+    }
+  },
       child: ValueListenableBuilder(
           valueListenable: LocationWidgetData().osmLocationModelNotifier!,
-          builder: (BuildContext context, OsmLocationModel? _osmLocationModel,
+          builder: (BuildContext context, OsmLocationModel? osmLocationModel,
               Widget? child) {
             // store location
             Provider.of<UserPreview>(context, listen: false).user()!.location =
                 BasicData(
               value:
-                  _osmLocationModel != null ? _osmLocationModel.toJson() : null,
+                  osmLocationModel?.toJson(),
               accountName: FieldsEnum.LOCATION.name,
               isPrivate: _isPrivate,
             );
@@ -254,16 +253,16 @@ class _LocationWidgetState extends State<LocationWidget> {
                                 },
                               );
                             },
-                            child: Padding(
+                            child: const Padding(
                               padding: EdgeInsets.only(right: 10),
                               child: Icon(Icons.reorder),
                             ),
                           ),
                           Padding(
-                              padding: EdgeInsets.only(right: 15),
+                              padding: const EdgeInsets.only(right: 15),
                               child: _isPrivate
-                                  ? Icon(Icons.lock)
-                                  : Icon(Icons.public)),
+                                  ? const Icon(Icons.lock)
+                                  : const Icon(Icons.public)),
                         ],
                       ),
                     )
@@ -271,7 +270,7 @@ class _LocationWidgetState extends State<LocationWidget> {
               body: SizedBox(
                 height: SizeConfig().screenHeight - 80.toHeight - 55,
                 child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -315,7 +314,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                           }),
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         thickness: 1,
                       ),
                       Padding(
@@ -347,25 +346,25 @@ class _LocationWidgetState extends State<LocationWidget> {
                             showModalBottomSheet(
                                 context: context,
                                 isScrollControlled: true,
-                                shape: StadiumBorder(),
+                                shape: const StadiumBorder(),
                                 builder: (BuildContext context) {
                                   return Container(
                                     height: SizeConfig().screenHeight * 0.9,
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 20, horizontal: 0),
                                     decoration: BoxDecoration(
                                       color:
                                           _themeData!.scaffoldBackgroundColor,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: const Radius.circular(12.0),
-                                        topRight: const Radius.circular(12.0),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(12.0),
+                                        topRight: Radius.circular(12.0),
                                       ),
                                     ),
                                     child: SelectLocation(
-                                      callbackFunction: (_finalData) {
+                                      callbackFunction: (finalData) {
                                         print(
-                                            '_finalData $_finalData ${_finalData.latLng}');
-                                        LocationWidgetData().update(_finalData);
+                                            '_finalData $finalData ${finalData.latLng}');
+                                        LocationWidgetData().update(finalData);
                                       },
                                     ),
                                   );
@@ -376,10 +375,10 @@ class _LocationWidgetState extends State<LocationWidget> {
                           }),
                         ),
                       ),
-                      ((_osmLocationModel != null) &&
-                              (_osmLocationModel.latLng != null))
+                      ((osmLocationModel != null) &&
+                              (osmLocationModel.latLng != null))
                           ? Container(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
                               height: 300,
                               width: double.infinity,
                               decoration: BoxDecoration(
@@ -392,10 +391,10 @@ class _LocationWidgetState extends State<LocationWidget> {
                                     child: FlutterMap(
                                       key: _mapKey,
                                       options: MapOptions(
-                                        boundsOptions: FitBoundsOptions(
+                                        boundsOptions: const FitBoundsOptions(
                                             padding: EdgeInsets.all(0)),
-                                        center: _osmLocationModel.latLng!,
-                                        zoom: _osmLocationModel.zoom!,
+                                        center: osmLocationModel.latLng!,
+                                        zoom: osmLocationModel.zoom!,
                                       ),
                                       layers: [
                                         TileLayerOptions(
@@ -412,11 +411,11 @@ class _LocationWidgetState extends State<LocationWidget> {
                                           Marker(
                                             width: 40,
                                             height: 50,
-                                            point: _osmLocationModel.latLng!,
+                                            point: osmLocationModel.latLng!,
                                             builder: (ctx) => Container(
                                                 child: createMarker(
                                                     diameterOfCircle:
-                                                        _osmLocationModel
+                                                        osmLocationModel
                                                             .radius!)),
                                           )
                                         ])
@@ -440,14 +439,14 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                 arguments: {
                                                   'title': _locationNickname,
                                                   'latLng':
-                                                      _osmLocationModel.latLng!,
+                                                      osmLocationModel.latLng!,
                                                   'zoom':
-                                                      _osmLocationModel.zoom!,
+                                                      osmLocationModel.zoom!,
                                                   'diameterOfCircle':
-                                                      _osmLocationModel.radius!,
+                                                      osmLocationModel.radius!,
                                                 });
                                           },
-                                          icon: Icon(Icons.fullscreen)),
+                                          icon: const Icon(Icons.fullscreen)),
                                     ),
                                   ),
                                   Positioned(
@@ -464,22 +463,20 @@ class _LocationWidgetState extends State<LocationWidget> {
                                           onPressed: () {
                                             _confirmationDialog();
                                           },
-                                          icon: Icon(Icons.delete)),
+                                          icon: const Icon(Icons.delete)),
                                     ),
                                   )
                                 ],
                               ),
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                       ((Provider.of<UserPreview>(context, listen: false)
                                       .user()!
                                       .customFields['LOCATION'] !=
                                   null) &&
                               (Provider.of<UserPreview>(context, listen: false)
                                       .user()!
-                                      .customFields['LOCATION']!
-                                      .length !=
-                                  0))
+                                      .customFields['LOCATION']!.isNotEmpty))
                           ? Padding(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 16.toWidth,
@@ -489,35 +486,33 @@ class _LocationWidgetState extends State<LocationWidget> {
                                       _themeData!.primaryColor.withOpacity(0.5),
                                       size: 16)),
                             )
-                          : SizedBox(),
+                          : const SizedBox(),
                       Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 16.toWidth, vertical: 12.toHeight),
                         child: ListView.separated(
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: fieldOrder.length,
-                          itemBuilder: (_context, _int) {
+                          itemBuilder: (context, int) {
                             var customFields =
                                 Provider.of<UserPreview>(context, listen: false)
                                     .user()!
                                     .customFields[AtCategory.LOCATION.name];
 
-                            if (customFields == null) {
-                              customFields = [];
-                            }
+                            customFields ??= [];
 
                             var index = customFields.indexWhere((element) =>
-                                element.accountName == fieldOrder[_int]);
+                                element.accountName == fieldOrder[int]);
 
                             if (index == -1) {
-                              return SizedBox();
+                              return const SizedBox();
                             }
 
                             if (customFields[index]
                                 .accountName!
                                 .contains(AtText.IS_DELETED)) {
-                              return SizedBox();
+                              return const SizedBox();
                             }
 
                             return InkWell(
@@ -539,7 +534,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                               },
                               child: Slidable(
                                 endActionPane: ActionPane(
-                                  motion: ScrollMotion(),
+                                  motion: const ScrollMotion(),
                                   extentRatio: 0.15,
                                   children: [
                                     SlidableAction(
@@ -564,13 +559,12 @@ class _LocationWidgetState extends State<LocationWidget> {
                                     Flexible(
                                       child: Text(
                                           // '${(_int + 1).toString()}. ' +
-                                          '-  ' +
-                                              (Provider.of<UserPreview>(context)
+                                          '-  ${Provider.of<UserPreview>(context)
                                                       .user()!
                                                       .customFields['LOCATION']
                                                           ?[index]
                                                       .accountName ??
-                                                  ''),
+                                                  ''}',
                                           style: TextStyles.lightText(
                                               _themeData!.primaryColor,
                                               size: 16)),
@@ -581,40 +575,38 @@ class _LocationWidgetState extends State<LocationWidget> {
                                                     ?[index]
                                                 .isPrivate ??
                                             false
-                                        ? Icon(Icons.lock)
-                                        : Icon(Icons.public)
+                                        ? const Icon(Icons.lock)
+                                        : const Icon(Icons.public)
                                   ],
                                 ),
                               ),
                             );
                           },
-                          separatorBuilder: (_context, _int) {
+                          separatorBuilder: (context, int) {
                             var customFields =
                                 Provider.of<UserPreview>(context, listen: false)
                                     .user()!
                                     .customFields[AtCategory.LOCATION.name];
-                            if (customFields == null) {
-                              customFields = [];
-                            }
+                            customFields ??= [];
 
                             var index = customFields.indexWhere((element) =>
-                                element.accountName == fieldOrder[_int]);
+                                element.accountName == fieldOrder[int]);
 
                             if (index == -1) {
-                              return SizedBox();
+                              return const SizedBox();
                             }
 
                             if (customFields[index]
                                 .accountName!
                                 .contains(AtText.IS_DELETED)) {
-                              return SizedBox();
+                              return const SizedBox();
                             }
 
-                            return Divider();
+                            return const Divider();
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
                       Padding(
@@ -643,9 +635,9 @@ class _LocationWidgetState extends State<LocationWidget> {
     );
   }
 
-  _deleteKey(BasicData _basicData) async {
+  _deleteKey(BasicData basicData) async {
     Provider.of<UserPreview>(context, listen: false)
-        .deletCustomField(AtCategory.LOCATION, _basicData);
+        .deletCustomField(AtCategory.LOCATION, basicData);
     setState(() {});
 
     // LoadingDialog().show(text: 'Deleting $key');
@@ -659,10 +651,10 @@ class _LocationWidgetState extends State<LocationWidget> {
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return Container(
+        return SizedBox(
           width: SizeConfig().screenWidth * 0.8,
           child: AlertDialog(
-            contentPadding: EdgeInsets.fromLTRB(15, 30, 15, 20),
+            contentPadding: const EdgeInsets.fromLTRB(15, 30, 15, 20),
             content: SingleChildScrollView(
               child: Container(
                 child: Column(
@@ -673,15 +665,15 @@ class _LocationWidgetState extends State<LocationWidget> {
                           _themeData!.primaryColor),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ElevatedButton(
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
+                              backgroundColor: WidgetStateProperty.all(
                                   _themeData!.scaffoldBackgroundColor),
                             ),
                             onPressed: () {
@@ -696,7 +688,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                           ),
                           ElevatedButton(
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
+                              backgroundColor: WidgetStateProperty.all(
                                   _themeData!.primaryColor),
                             ),
                             onPressed: () {
@@ -734,6 +726,7 @@ class _LocationWidgetState extends State<LocationWidget> {
         );
       },
     );
+    return null;
   }
 }
 
@@ -749,9 +742,9 @@ class LocationWidgetData {
   init({OsmLocationModel? initialData, dynamic jsonData}) {
     osmLocationModelNotifier = ValueNotifier(initialData);
     if (jsonData != null && jsonData != 'null' && jsonData != '') {
-      var _decodedData = jsonDecode(jsonData);
+      var decodedData = jsonDecode(jsonData);
       osmLocationModelNotifier =
-          ValueNotifier(OsmLocationModel.fromJson(_decodedData));
+          ValueNotifier(OsmLocationModel.fromJson(decodedData));
     }
   }
 
@@ -759,8 +752,8 @@ class LocationWidgetData {
     osmLocationModelNotifier = null;
   }
 
-  update(OsmLocationModel _data) {
-    osmLocationModelNotifier!.value = _data;
+  update(OsmLocationModel data) {
+    osmLocationModelNotifier!.value = data;
   }
 
   removeData() {

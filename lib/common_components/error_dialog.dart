@@ -2,7 +2,6 @@ import 'package:at_common_flutter/at_common_flutter.dart';
 import 'package:at_wavi_app/services/nav_service.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:at_common_flutter/services/size_config.dart';
 
 import 'custom_popup_route.dart';
 
@@ -11,12 +10,12 @@ class ErrorDialogWidget extends StatelessWidget {
   final Function? onButtonPress;
   final bool? includeCancel;
 
-  ErrorDialogWidget({
+  const ErrorDialogWidget({Key? key, 
     @required this.text,
     this.buttonText,
     this.onButtonPress,
     this.includeCancel,
-  });
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Material(

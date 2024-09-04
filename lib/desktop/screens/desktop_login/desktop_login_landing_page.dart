@@ -42,7 +42,7 @@ class _DesktopLoginLandingPageState extends State<DesktopLoginLandingPage> {
     return Scaffold(
       backgroundColor: appTheme.backgroundColor,
       body: Container(
-        child: Row(
+        child: const Row(
           children: [
             Expanded(
               flex: 1,

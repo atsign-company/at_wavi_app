@@ -60,14 +60,14 @@ class _TwitterEmbedWidgetState extends State<TwitterEmbedWidget> {
           },
         ),
       )
-      ..loadRequest(Uri.parse(url ?? ''));
+      ..loadRequest(Uri.parse(url));
 
     isLoading = true;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 200.toHeight,
       child: WebViewWidget(
         controller: webViewController,

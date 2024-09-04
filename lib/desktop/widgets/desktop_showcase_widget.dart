@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class DesktopShowCaseWidget extends StatelessWidget {
-  GlobalKey globalKey;
-  Widget container;
-  IconData iconData;
-  double iconSize;
-  double childSize;
-  double overlayOpacity;
-  Color overlayColor;
+  final GlobalKey globalKey;
+  final Widget container;
+  final IconData iconData;
+  final double iconSize;
+  final double childSize;
+  final double overlayOpacity;
+  final Color overlayColor;
 
   DesktopShowCaseWidget({
     Key? key,
@@ -28,19 +28,19 @@ class DesktopShowCaseWidget extends StatelessWidget {
     final appTheme = AppTheme.of(context);
     return Showcase.withWidget(
       key: globalKey,
-      targetShapeBorder: CircleBorder(),
+      targetShapeBorder: const CircleBorder(),
       disableMovingAnimation: true,
       container: container,
-      targetPadding: EdgeInsets.all(6),
+      targetPadding: const EdgeInsets.all(6),
       overlayOpacity: overlayOpacity,
       overlayColor: overlayColor,
       height: childSize * 1.5,
       width: childSize * 1.5,
-      child: Container(
+      child: SizedBox(
         height: childSize,
         width: childSize,
         child: RawMaterialButton(
-          shape: new CircleBorder(),
+          shape: const CircleBorder(),
           elevation: 0.0,
           fillColor: appTheme.borderColor,
           child: Icon(

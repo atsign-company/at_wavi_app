@@ -53,7 +53,7 @@ Widget createMarker({
           height: diameterOfCircle,
           child: CustomPaint(
             painter: CircleMarkerPainter(
-                color: Color(0xFFF47B5D).withOpacity(0.2),
+                color: const Color(0xFFF47B5D).withOpacity(0.2),
                 paintingStyle: PaintingStyle.fill),
           ),
         ),

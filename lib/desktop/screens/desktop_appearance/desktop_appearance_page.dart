@@ -59,17 +59,17 @@ class _DesktopAppearancePageState extends State<DesktopAppearancePage>
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: DesktopDimens.paddingLarge),
+              const SizedBox(height: DesktopDimens.paddingLarge),
               Container(
-                child: Center(
+                child: const Center(
                   child: DesktopWelcomeWidget(),
                 ),
               ),
-              SizedBox(height: DesktopDimens.paddingLarge),
+              const SizedBox(height: DesktopDimens.paddingLarge),
               _buildTabBar(),
               Expanded(child: _buildPageView()),
               Container(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   right: DesktopDimens.paddingLarge,
                   bottom: DesktopDimens.paddingLarge,
                 ),
@@ -77,7 +77,7 @@ class _DesktopAppearancePageState extends State<DesktopAppearancePage>
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     _buildReorderButton(),
-                    SizedBox(width: DesktopDimens.paddingNormal),
+                    const SizedBox(width: DesktopDimens.paddingNormal),
                     _buildSaveButton(),
                   ],
                 ),
@@ -92,9 +92,9 @@ class _DesktopAppearancePageState extends State<DesktopAppearancePage>
   Widget _buildTabBar() {
     return Container(
       width: 200,
-      margin: EdgeInsets.only(left: 80),
+      margin: const EdgeInsets.only(left: 80),
       child: DesktopTabBar(
-        tabTitles: [
+        tabTitles: const [
           'Themes',
           'Colors',
         ],
@@ -119,7 +119,7 @@ class _DesktopAppearancePageState extends State<DesktopAppearancePage>
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => InheritedAppTheme(
-                theme: appTheme, child: DesktopUserProfilePage()),
+                theme: appTheme, child: const DesktopUserProfilePage()),
           ),
         );
       },
@@ -186,8 +186,8 @@ class _DesktopAppearancePageState extends State<DesktopAppearancePage>
   Widget _buildPageView() {
     return PageView(
       controller: _pageController,
-      physics: NeverScrollableScrollPhysics(),
-      children: [
+      physics: const NeverScrollableScrollPhysics(),
+      children: const [
         DesktopThemeSettingPage(),
         DesktopColorSettingPage(),
       ],

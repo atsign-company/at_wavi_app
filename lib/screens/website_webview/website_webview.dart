@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:at_wavi_app/utils/colors.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +46,7 @@ class _WebsiteScreenState extends State<WebsiteScreen> {
               isLoading = false;
             });
             if (widget.isShareProfileScreen) {
-              await Future.delayed(Duration(milliseconds: 1000));
+              await Future.delayed(const Duration(milliseconds: 1000));
 
               webViewController.runJavaScriptReturningResult(
                 "(document.getElementsByClassName('share-btn')[3]).click()",
@@ -126,13 +125,13 @@ class _WebsiteScreenState extends State<WebsiteScreen> {
         ),*/
 
         isLoading
-            ? Center(
+            ? const Center(
                 child: CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(
                   ColorConstants.black,
                 )),
               )
-            : SizedBox()
+            : const SizedBox()
       ]),
     );
   }

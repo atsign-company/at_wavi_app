@@ -16,7 +16,7 @@ import 'desktop_profile_data_page.dart';
 import 'desktop_search_atsign/desktop_search_atsign_page.dart';
 
 class DesktopMyProfilePage extends StatefulWidget {
-  DesktopMyProfilePage({
+  const DesktopMyProfilePage({
     Key? key,
   }) : super(key: key);
 
@@ -44,15 +44,15 @@ class _DesktopMyProfilePageState extends State<DesktopMyProfilePage> {
     final appTheme = AppTheme.of(context);
     return Scaffold(
       key: _parentScaffoldKey,
-      endDrawer: DesktopSettingsPage(),
+      endDrawer: const DesktopSettingsPage(),
       body: Scaffold(
         key: _globalKey,
         backgroundColor: ColorConstants.white,
-        endDrawer: DesktopSearchAtSignPage(),
-        drawer: DesktopFollowPage(),
+        endDrawer: const DesktopSearchAtSignPage(),
+        drawer: const DesktopFollowPage(),
         body: Row(
           children: [
-            Container(
+            SizedBox(
               width: DesktopDimens.sideMenuWidth,
               child: DesktopProfileInfoPage(
                 atSign: '',

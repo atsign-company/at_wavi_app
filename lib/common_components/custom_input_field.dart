@@ -2,7 +2,7 @@ import 'package:at_wavi_app/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:at_wavi_app/services/size_config.dart';
 
-class CustomInputField extends StatelessWidget {
+class CustomInputField extends StatefulWidget {
   final String hintText, initialValue;
   final double width, height;
   final IconData? icon, secondIcon;
@@ -22,9 +22,8 @@ class CustomInputField extends StatelessWidget {
   final TextInputType? textInputType;
   final bool? blankSpacesAllowed, autoCorrectAllowed;
 
-  var textController = TextEditingController();
 
-  CustomInputField({
+  CustomInputField({Key? key, 
     this.hintText = '',
     this.height = 50,
     this.width = 300,
@@ -50,31 +49,38 @@ class CustomInputField extends StatelessWidget {
     this.textInputType,
     this.blankSpacesAllowed,
     this.autoCorrectAllowed,
-  });
+  }) : super(key: key);
+
+  @override
+  State<CustomInputField> createState() => _CustomInputFieldState();
+}
+
+class _CustomInputFieldState extends State<CustomInputField> {
+  var textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    textController.text = initialValue;
-    if ((baseOffset != null) && (baseOffset != 0)) {
+    textController.text = widget.initialValue;
+    if ((widget.baseOffset != 0)) {
       textController = TextEditingController.fromValue(
         TextEditingValue(
-          text: initialValue,
-          selection: TextSelection.collapsed(offset: baseOffset),
+          text: widget.initialValue,
+          selection: TextSelection.collapsed(offset: widget.baseOffset),
         ),
       );
     }
     return InkWell(
       onTap: () {
-        if (onTap != null) {
-          onTap!();
+        if (widget.onTap != null) {
+          widget.onTap!();
         }
       },
       child: Container(
-        padding: padding ?? EdgeInsets.all(0),
-        width: width,
-        height: height,
+        padding: widget.padding ?? const EdgeInsets.all(0),
+        width: widget.width,
+        height: widget.height,
         decoration: BoxDecoration(
-          color: bgColor ?? ColorConstants.DARK_GREY,
+          color: widget.bgColor ?? ColorConstants.DARK_GREY,
           borderRadius: BorderRadius.circular(5),
         ),
         // padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -83,82 +89,82 @@ class CustomInputField extends StatelessWidget {
             Expanded(
               child: TextField(
                 autocorrect:
-                    autoCorrectAllowed ?? true, // textfield autocorrect off
-                keyboardType: textInputType ??
+                    widget.autoCorrectAllowed ?? true, // textfield autocorrect off
+                keyboardType: widget.textInputType ??
                     TextInputType
                         .text, // Tweak, if the device's keyboard's autocorrect is on
-                readOnly: isReadOnly,
+                readOnly: widget.isReadOnly,
                 style: TextStyle(
-                    fontSize: 15.toFont, color: textColor ?? Colors.white),
+                    fontSize: 15.toFont, color: widget.textColor ?? Colors.white),
                 textAlignVertical: TextAlignVertical.top,
                 decoration: InputDecoration(
-                  hintText: hintText,
+                  hintText: widget.hintText,
                   enabledBorder: _outlineInputBorder(),
                   focusedBorder: _outlineInputBorder(
-                      color: focusedBorderColor ?? ColorConstants.LIGHT_GREY),
+                      color: widget.focusedBorderColor ?? ColorConstants.LIGHT_GREY),
                   // InputBorder.none,
                   border: _outlineInputBorder(),
                   // InputBorder.none,
                   hintStyle: TextStyle(
-                      color: hintTextColor ?? ColorConstants.LIGHT_GREY,
+                      color: widget.hintTextColor ?? ColorConstants.LIGHT_GREY,
                       fontSize: 15.toFont),
                 ),
                 onTap: () {
-                  if (onTap != null) {
-                    onTap!();
+                  if (widget.onTap != null) {
+                    widget.onTap!();
                   }
                 },
-                minLines: expands ? null : 1,
-                maxLines: expands ? null : maxLines,
-                expands: expands,
+                minLines: widget.expands ? null : 1,
+                maxLines: widget.expands ? null : widget.maxLines,
+                expands: widget.expands,
                 onChanged: (val) {
-                  if (value != null) {
-                    value!((blankSpacesAllowed ?? true)
+                  if (widget.value != null) {
+                    widget.value!((widget.blankSpacesAllowed ?? true)
                         ? val
                         : val.replaceAll(' ', ''));
                   }
                 },
                 controller: textController,
                 onSubmitted: (str) {
-                  if (onSubmitted != null) {
-                    onSubmitted!(str);
+                  if (widget.onSubmitted != null) {
+                    widget.onSubmitted!(str);
                   }
                 },
               ),
             ),
-            secondIcon != null
+            widget.secondIcon != null
                 ? InkWell(
                     onTap: () {
-                      if (onSecondIconTap != null) {
-                        onSecondIconTap!();
+                      if (widget.onSecondIconTap != null) {
+                        widget.onSecondIconTap!();
                       }
                     },
                     child: Icon(
-                      secondIcon,
-                      color: iconColor ?? ColorConstants.DARK_GREY,
+                      widget.secondIcon,
+                      color: widget.iconColor ?? ColorConstants.DARK_GREY,
                     ),
                   )
-                : SizedBox(),
-            secondIcon != null
-                ? SizedBox(
+                : const SizedBox(),
+            widget.secondIcon != null
+                ? const SizedBox(
                     width: 7,
                   )
-                : SizedBox(),
-            icon != null
+                : const SizedBox(),
+            widget.icon != null
                 ? InkWell(
                     onTap: () {
-                      if (onIconTap != null) {
-                        onIconTap!();
-                      } else if (onTap != null) {
-                        onTap!();
+                      if (widget.onIconTap != null) {
+                        widget.onIconTap!();
+                      } else if (widget.onTap != null) {
+                        widget.onTap!();
                       }
                     },
                     child: Icon(
-                      icon,
-                      color: iconColor ?? ColorConstants.DARK_GREY,
+                      widget.icon,
+                      color: widget.iconColor ?? ColorConstants.DARK_GREY,
                     ),
                   )
-                : SizedBox()
+                : const SizedBox()
           ],
         ),
       ),
@@ -167,7 +173,7 @@ class CustomInputField extends StatelessWidget {
 
   OutlineInputBorder _outlineInputBorder({Color? color}) {
     return OutlineInputBorder(
-        borderSide: new BorderSide(
-            color: color ?? borderColor ?? ColorConstants.MILD_GREY));
+        borderSide: BorderSide(
+            color: color ?? widget.borderColor ?? ColorConstants.MILD_GREY));
   }
 }

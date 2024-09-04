@@ -8,11 +8,11 @@ class DesktopEmptyCategoryWidget extends StatelessWidget {
   final bool showAddButton;
   final VoidCallback onAddDetailsPressed;
 
-  DesktopEmptyCategoryWidget({
+  const DesktopEmptyCategoryWidget({Key? key, 
     required this.atCategory,
     required this.showAddButton,
     required this.onAddDetailsPressed,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

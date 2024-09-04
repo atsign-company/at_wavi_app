@@ -9,7 +9,7 @@ class DesktopTutorialInfoWidget extends StatefulWidget {
   final Function onNext;
   final Function onCancel;
 
-  DesktopTutorialInfoWidget({
+  const DesktopTutorialInfoWidget({
     Key? key,
     required this.atSign,
     required this.icon,
@@ -46,7 +46,7 @@ class _DesktopTutorialInfoWidgetState extends State<DesktopTutorialInfoWidget> {
             height: 120,
             decoration: BoxDecoration(
               color: appTheme.primaryColor.withOpacity(0.2),
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(4),
                 topRight: Radius.circular(4),
               ),
@@ -70,7 +70,7 @@ class _DesktopTutorialInfoWidgetState extends State<DesktopTutorialInfoWidget> {
                       widget.onCancel();
                     },
                     child: Padding(
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       child: Icon(
                         Icons.cancel,
                         size: 24,
@@ -85,7 +85,7 @@ class _DesktopTutorialInfoWidgetState extends State<DesktopTutorialInfoWidget> {
             ),
           ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,13 +98,13 @@ class _DesktopTutorialInfoWidgetState extends State<DesktopTutorialInfoWidget> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 8,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 8,
                     ),
                     GestureDetector(

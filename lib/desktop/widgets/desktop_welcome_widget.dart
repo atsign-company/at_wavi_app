@@ -22,22 +22,22 @@ class DesktopWelcomeWidget extends StatelessWidget {
             children: [
               Text(
                 'Welcome to',
-                style: appTheme.textTheme.headline4?.copyWith(
+                style: appTheme.textTheme.headlineMedium?.copyWith(
                   fontSize: 32,
                 ),
               ),
               //note
-              SizedBox(width: DesktopDimens.paddingSmall),
+              const SizedBox(width: DesktopDimens.paddingSmall),
               Container(
-                padding: EdgeInsets.only(bottom: 7),
-                child: DesktopLogo(),
+                padding: const EdgeInsets.only(bottom: 7),
+                child: const DesktopLogo(),
               ),
             ],
           ),
-          SizedBox(height: DesktopDimens.paddingSmall),
+          const SizedBox(height: DesktopDimens.paddingSmall),
           Text(
             titlePage ?? 'Please fill-in the necessary details to start using.',
-            style: appTheme.textTheme.subtitle2?.copyWith(
+            style: appTheme.textTheme.titleSmall?.copyWith(
               fontWeight: FontWeight.w500,
               color: appTheme.secondaryTextColor,
             ),

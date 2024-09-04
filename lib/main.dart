@@ -14,18 +14,18 @@ void main() {
   runZoned<Future<void>>(() async {
     print(await path_provider.getApplicationDocumentsDirectory());
     if (Platform.isLinux || Platform.isMacOS) {
-      await DesktopWindow.setWindowSize(Size(1024, 576));
-      await DesktopWindow.setMinWindowSize(Size(1024, 576));
+      await DesktopWindow.setWindowSize(const Size(1024, 576));
+      await DesktopWindow.setMinWindowSize(const Size(1024, 576));
       // DartVLC.initialize();
     } else if (Platform.isWindows) {
-      await DesktopWindow.setMinWindowSize(Size(1024, 576));
+      await DesktopWindow.setMinWindowSize(const Size(1024, 576));
     }
     await MixedConstants.load();
     // ignore: unawaited_futures
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]).then((_) {
-      runApp(MyApp());
+      runApp(const MyApp());
     });
   });
 }

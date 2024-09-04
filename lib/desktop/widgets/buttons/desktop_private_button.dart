@@ -9,9 +9,9 @@ class DesktopPublicController extends ValueNotifier<bool> {
 class DesktopPublicButton extends StatelessWidget {
   final DesktopPublicController controller;
 
-  DesktopPublicButton({
+  const DesktopPublicButton({Key? key, 
     required this.controller,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +19,7 @@ class DesktopPublicButton extends StatelessWidget {
     return PopupMenuButton(
       itemBuilder: (context) => [
         PopupMenuItem(
+          value: 1,
           child: SizedBox(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,17 +29,17 @@ class DesktopPublicButton extends StatelessWidget {
                   size: 18,
                   color: appTheme.primaryTextColor,
                 ),
-                SizedBox(width: DesktopDimens.paddingSmall),
+                const SizedBox(width: DesktopDimens.paddingSmall),
                 Text(
                   "Public",
-                  style: appTheme.textTheme.bodyText1,
+                  style: appTheme.textTheme.bodyLarge,
                 ),
               ],
             ),
           ),
-          value: 1,
         ),
         PopupMenuItem(
+          value: 2,
           child: SizedBox(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,15 +49,14 @@ class DesktopPublicButton extends StatelessWidget {
                   size: 18,
                   color: appTheme.primaryTextColor,
                 ),
-                SizedBox(width: DesktopDimens.paddingSmall),
+                const SizedBox(width: DesktopDimens.paddingSmall),
                 Text(
                   "Private",
-                  style: appTheme.textTheme.bodyText1,
+                  style: appTheme.textTheme.bodyLarge,
                 ),
               ],
             ),
           ),
-          value: 2,
         )
       ],
       tooltip: null,

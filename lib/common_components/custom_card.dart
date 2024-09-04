@@ -13,18 +13,18 @@ class CustomCard extends StatelessWidget {
   final String? url;
   final bool isEmail;
   final ThemeData themeData;
-  CustomCard(
-      {this.title,
+  const CustomCard(
+      {Key? key, this.title,
       this.isEmail = false,
       this.url,
       required this.subtitle,
       this.isUrl = false,
-      required this.themeData});
+      required this.themeData}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: themeData.backgroundColor,
+      color: themeData.colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
@@ -37,8 +37,8 @@ class CustomCard extends StatelessWidget {
                         themeData.primaryColor.withOpacity(0.5),
                         size: 16),
                   )
-                : SizedBox(),
-            SizedBox(height: 6),
+                : const SizedBox(),
+            const SizedBox(height: 6),
             subtitle != null
                 ? GestureDetector(
                     onTap: () async {
@@ -77,7 +77,7 @@ class CustomCard extends StatelessWidget {
                       ),
                     ),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ],
         ),
       ),

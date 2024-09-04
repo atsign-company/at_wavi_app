@@ -24,18 +24,18 @@ class DesktopIconButton extends StatelessWidget {
       width: size,
       height: size,
       child: RawMaterialButton(
-        shape: new CircleBorder(),
+        shape: const CircleBorder(),
         onPressed: onPressed,
-        child: Icon(
-          iconData,
-          color: iconColor ?? appTheme.primaryColor,
-          size: size / 2,
-        ),
         elevation: 0,
         fillColor: backgroundColor ?? appTheme.primaryLighterColor,
         hoverElevation: 0,
         focusElevation: 0,
         highlightElevation: 0,
+        child: Icon(
+          iconData,
+          color: iconColor ?? appTheme.primaryColor,
+          size: size / 2,
+        ),
       ),
     );
   }

@@ -51,13 +51,13 @@ class _DesktopLoginPageState extends State<DesktopLoginPage> {
     final appTheme = AppTheme.of(context);
     return Container(
       padding:
-          EdgeInsets.symmetric(horizontal: DesktopDimens.paddingExtraLarge),
+          const EdgeInsets.symmetric(horizontal: DesktopDimens.paddingExtraLarge),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
-            margin: EdgeInsets.only(top: DesktopDimens.paddingLarge),
+            margin: const EdgeInsets.only(top: DesktopDimens.paddingLarge),
             child: Image.asset(
               appTheme.isDark ? Images.logoLight : Images.logoDark,
               width: 90,
@@ -71,19 +71,19 @@ class _DesktopLoginPageState extends State<DesktopLoginPage> {
               children: [
                 Text(
                   Strings.desktop_all_links_in_one,
-                  style: appTheme.textTheme.headline4?.copyWith(
+                  style: appTheme.textTheme.headlineMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     fontFamily: 'PlayfairDisplay',
                   ),
                 ),
-                SizedBox(height: DesktopDimens.paddingSmall),
+                const SizedBox(height: DesktopDimens.paddingSmall),
                 Text(
                   Strings.desktop_create_persona,
-                  style: appTheme.textTheme.bodyText2?.copyWith(
+                  style: appTheme.textTheme.bodyMedium?.copyWith(
                     color: appTheme.secondaryTextColor,
                   ),
                 ),
-                SizedBox(height: DesktopDimens.paddingLarge),
+                const SizedBox(height: DesktopDimens.paddingLarge),
                 DesktopButton(
                   width: double.infinity,
                   backgroundColor: appTheme.primaryColor,
@@ -92,7 +92,7 @@ class _DesktopLoginPageState extends State<DesktopLoginPage> {
                   height: 54,
                   onPressed: _showOnBoardScreen,
                 ),
-                SizedBox(height: DesktopDimens.paddingNormal),
+                const SizedBox(height: DesktopDimens.paddingNormal),
                 Container(
                   alignment: Alignment.center,
                   child: GestureDetector(
@@ -102,11 +102,11 @@ class _DesktopLoginPageState extends State<DesktopLoginPage> {
                     },
                     child: Text(
                       'Reset',
-                      style: appTheme.textTheme.bodyText2,
+                      style: appTheme.textTheme.bodyMedium,
                     ),
                   ),
                 ),
-                SizedBox(height: DesktopDimens.paddingNormal),
+                const SizedBox(height: DesktopDimens.paddingNormal),
               ],
             ),
           ),
@@ -125,11 +125,11 @@ class _DesktopLoginPageState extends State<DesktopLoginPage> {
       children: [
         Text(
           Strings.desktop_company_copyrights,
-          style: appTheme.textTheme.caption?.copyWith(
+          style: appTheme.textTheme.bodySmall?.copyWith(
             color: appTheme.secondaryTextColor,
           ),
         ),
-        SizedBox(height: DesktopDimens.paddingNormal),
+        const SizedBox(height: DesktopDimens.paddingNormal),
       ],
     );
   }
@@ -146,9 +146,7 @@ class _DesktopLoginPageState extends State<DesktopLoginPage> {
     bool isSelectAtSign = false;
     bool isSelectAll = false;
     var atSignsList = await KeychainUtil.getAtsignList();
-    if (atSignsList == null) {
-      atSignsList = [];
-    }
+    atSignsList ??= [];
     Map atSignMap = {};
     for (String atSign in atSignsList) {
       atSignMap[atSign] = false;
@@ -159,7 +157,7 @@ class _DesktopLoginPageState extends State<DesktopLoginPage> {
         builder: (BuildContext context) {
           return StatefulBuilder(builder: (context, stateSet) {
             return AlertDialog(
-                title: Column(
+                title: const Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
@@ -176,7 +174,7 @@ class _DesktopLoginPageState extends State<DesktopLoginPage> {
                 ),
                 content: (atSignsList ?? []).isEmpty
                     ? Column(mainAxisSize: MainAxisSize.min, children: [
-                        Text('No atSigns are paired to reset.',
+                        const Text('No atSigns are paired to reset.',
                             style: TextStyle(fontSize: 15)),
                         Align(
                           alignment: Alignment.bottomRight,
@@ -184,7 +182,7 @@ class _DesktopLoginPageState extends State<DesktopLoginPage> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text(
+                            child: const Text(
                               'Close',
                               style: TextStyle(
                                 fontSize: 15,
@@ -208,7 +206,7 @@ class _DesktopLoginPageState extends State<DesktopLoginPage> {
                               },
                               value: isSelectAll,
                               checkColor: Colors.white,
-                              title: Text('Select All',
+                              title: const Text('Select All',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                   )),
@@ -223,17 +221,17 @@ class _DesktopLoginPageState extends State<DesktopLoginPage> {
                                 checkColor: Colors.white,
                                 title: Text('$atsign'),
                               ),
-                            Divider(thickness: 0.8),
+                            const Divider(thickness: 0.8),
                             if (isSelectAtSign)
-                              Text('Please select at least one atSign to reset',
+                              const Text('Please select at least one atSign to reset',
                                   style: TextStyle(
                                       color: Colors.red, fontSize: 14)),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            Text('Warning: This action cannot be undone',
+                            const Text('Warning: This action cannot be undone',
                                 style: TextStyle(fontSize: 14)),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Row(children: [
@@ -253,18 +251,18 @@ class _DesktopLoginPageState extends State<DesktopLoginPage> {
                                     // await _onboardNextAtsign();
                                   }
                                 },
-                                child: Text('Remove',
+                                child: const Text('Remove',
                                     style: TextStyle(
                                       color: Colors.black,
                                       fontSize: 15,
                                     )),
                               ),
-                              Spacer(),
+                              const Spacer(),
                               TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text('Cancel',
+                                  child: const Text('Cancel',
                                       style: TextStyle(
                                           fontSize: 15, color: Colors.black)))
                             ])

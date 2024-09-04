@@ -9,7 +9,7 @@ class DesktopAtSignWidget extends StatelessWidget {
   final VoidCallback? onPressed;
   final VoidCallback? onFollowPressed;
 
-  DesktopAtSignWidget({
+  const DesktopAtSignWidget({
     Key? key,
     required this.atSign,
     required this.isFollowing,
@@ -23,12 +23,12 @@ class DesktopAtSignWidget extends StatelessWidget {
     return InkWell(
       onTap: onPressed,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             DesktopAvatarWidget(atSign: atSign),
-            SizedBox(width: DesktopDimens.paddingSmall),
+            const SizedBox(width: DesktopDimens.paddingSmall),
             Expanded(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -36,7 +36,7 @@ class DesktopAtSignWidget extends StatelessWidget {
                 children: [
                   Text(
                     atSign,
-                    style: appTheme.textTheme.subtitle1,
+                    style: appTheme.textTheme.titleMedium,
                   ),
                 ],
               ),
@@ -48,7 +48,7 @@ class DesktopAtSignWidget extends StatelessWidget {
                 child: Center(
                   child: Text(
                     isFollowing ? 'Unfollow' : 'Follow',
-                    style: appTheme.textTheme.subtitle2,
+                    style: appTheme.textTheme.titleSmall,
                   ),
                 ),
               ),

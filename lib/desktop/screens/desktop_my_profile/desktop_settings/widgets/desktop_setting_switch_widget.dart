@@ -22,24 +22,24 @@ class DesktopSettingSwitchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final appTheme = AppTheme.of(context);
     return Container(
-      padding: EdgeInsets.symmetric(vertical: DesktopDimens.paddingSmall),
+      padding: const EdgeInsets.symmetric(vertical: DesktopDimens.paddingSmall),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(width: DesktopDimens.paddingNormal),
+          const SizedBox(width: DesktopDimens.paddingNormal),
           Icon(
             prefixIcon,
             color: appTheme.primaryTextColor,
           ),
-          SizedBox(width: DesktopDimens.paddingNormal),
+          const SizedBox(width: DesktopDimens.paddingNormal),
           Expanded(
             child: Text(
               title,
-              style: appTheme.textTheme.subtitle1,
+              style: appTheme.textTheme.titleMedium,
             ),
           ),
-          SizedBox(width: DesktopDimens.paddingSmall),
-          Container(
+          const SizedBox(width: DesktopDimens.paddingSmall),
+          SizedBox(
             width: 48,
             child: Center(
               child: isUpdating
@@ -57,7 +57,7 @@ class DesktopSettingSwitchWidget extends StatelessWidget {
                     ),
             ),
           ),
-          SizedBox(width: DesktopDimens.paddingNormal),
+          const SizedBox(width: DesktopDimens.paddingNormal),
         ],
       ),
     );

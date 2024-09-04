@@ -28,7 +28,7 @@ class DesktopHtmlEditorPage extends StatelessWidget {
           ),
           decoration: InputDecoration(
             isDense: true,
-            contentPadding: EdgeInsets.all(10),
+            contentPadding: const EdgeInsets.all(10),
             border: OutlineInputBorder(
               borderSide: BorderSide(color: appTheme.borderColor, width: 1),
             ),

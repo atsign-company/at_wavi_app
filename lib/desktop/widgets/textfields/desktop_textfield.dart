@@ -1,5 +1,4 @@
 import 'package:at_wavi_app/desktop/services/theme/app_theme.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DesktopTextField extends StatelessWidget {
@@ -20,7 +19,7 @@ class DesktopTextField extends StatelessWidget {
   final bool enabled;
   final FormFieldValidator<String>? validator;
 
-  DesktopTextField({
+  const DesktopTextField({Key? key, 
     required this.controller,
     this.title = '',
     this.hint = '',
@@ -37,7 +36,7 @@ class DesktopTextField extends StatelessWidget {
     this.enabled = true,
     this.borderColor = Colors.transparent,
     this.validator,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +48,7 @@ class DesktopTextField extends StatelessWidget {
         if (title.isNotEmpty)
           Text(
             title,
-            style: appTheme.textTheme.bodyText2?.copyWith(
+            style: appTheme.textTheme.bodyMedium?.copyWith(
               color: appTheme.secondaryTextColor,
             ),
           ),
@@ -59,7 +58,7 @@ class DesktopTextField extends StatelessWidget {
           readOnly: readOnly,
           enabled: enabled,
           style: style ??
-              appTheme.textTheme.bodyText2?.copyWith(
+              appTheme.textTheme.bodyMedium?.copyWith(
                 color: appTheme.primaryTextColor,
               ),
           onChanged: onChanged,
@@ -77,7 +76,7 @@ class DesktopTextField extends StatelessWidget {
                 style?.copyWith(
                   color: appTheme.secondaryTextColor,
                 ) ??
-                appTheme.textTheme.bodyText2?.copyWith(
+                appTheme.textTheme.bodyMedium?.copyWith(
                   color: appTheme.secondaryTextColor,
                 ),
             filled: backgroundColor != null,

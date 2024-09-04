@@ -22,7 +22,7 @@ class _DesktopUserProfilePageState extends State<DesktopUserProfilePage> {
       body: Container(
         child: Row(
           children: [
-            Container(
+            const SizedBox(
               width: DesktopDimens.sideMenuWidth,
               child: DesktopProfileInfoPage(
                 atSign: '',

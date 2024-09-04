@@ -11,8 +11,6 @@ import 'package:at_wavi_app/services/search_service.dart';
 import 'package:at_wavi_app/utils/colors.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
 import 'package:at_wavi_app/view_models/user_preview.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -51,12 +49,12 @@ class _QRScannerState extends State<QRScanner> {
   Future<void> scanQR(Barcode? result) async {
     if (flag) {
       flag = false;
-      bool _atSignValid = await CommonFunctions().checkAtsign(result?.code);
-      if (_atSignValid) {
+      bool atSignValid = await CommonFunctions().checkAtsign(result?.code);
+      if (atSignValid) {
         _controller?.stopCamera();
         await onScan(result?.code, context);
       } else {
-        await ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           backgroundColor: ColorConstants.RED,
           content: Text(
             'QR code is invalid.',
@@ -89,10 +87,10 @@ class _QRScannerState extends State<QRScanner> {
 
   askPermissions(Permission type) async {
     if (type == Permission.camera) {
-      var _res = await Permission.camera.request();
+      var res = await Permission.camera.request();
 
-      if (_res == PermissionStatus.granted ||
-          _res == PermissionStatus.limited) {
+      if (res == PermissionStatus.granted ||
+          res == PermissionStatus.limited) {
         setState(() {});
       }
     }
@@ -100,25 +98,25 @@ class _QRScannerState extends State<QRScanner> {
 
   Future<void> onScan(String? searchedAtsign, context) async {
     if (searchedAtsign != null) {
-      LoadingDialog().show(text: '$searchedAtsign', heading: 'Fetching');
+      LoadingDialog().show(text: searchedAtsign, heading: 'Fetching');
 
-      var _searchedAtsignData =
+      var searchedAtsignData =
           SearchService().getAlreadySearchedAtsignDetails(searchedAtsign);
-      late bool _isPresent;
-      if (_searchedAtsignData != null) {
-        _isPresent = true;
+      late bool isPresent;
+      if (searchedAtsignData != null) {
+        isPresent = true;
       } else {
-        _isPresent = await CommonFunctions().checkAtsign(searchedAtsign);
+        isPresent = await CommonFunctions().checkAtsign(searchedAtsign);
       }
-      if (_isPresent) {
-        SearchInstance? _searchService =
+      if (isPresent) {
+        SearchInstance? searchService =
             await SearchService().getAtsignDetails(searchedAtsign);
-        User? _res = _searchService?.user;
+        User? res = searchService?.user;
 
         LoadingDialog().hide();
 
         /// in case the search is cancelled, dont do anything
-        if (_searchService == null) {
+        if (searchService == null) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: ColorConstants.RED,
             content: Text(
@@ -131,12 +129,12 @@ class _QRScannerState extends State<QRScanner> {
           return;
         }
 
-        Provider.of<UserPreview>(context, listen: false).setUser = _res;
-        FieldOrderService().setPreviewOrder = _searchService.fieldOrders;
+        Provider.of<UserPreview>(context, listen: false).setUser = res;
+        FieldOrderService().setPreviewOrder = searchService.fieldOrders;
 
         await SetupRoutes.replace(context, Routes.HOME, arguments: {
           'key': Key(searchedAtsign),
-          'themeData': _searchService.currentAtsignThemeData,
+          'themeData': searchService.currentAtsignThemeData,
           'isPreview': true,
         });
       } else {
@@ -170,7 +168,7 @@ class _QRScannerState extends State<QRScanner> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Scan a QR code'),
+        title: const Text('Scan a QR code'),
       ),
       body: Container(
         color: Colors.white,
@@ -187,7 +185,7 @@ class _QRScannerState extends State<QRScanner> {
               flex: 1,
               child: Center(
                 child:
-                    (result != null) ? Text('Scanned') : Text('Scan a QR code'),
+                    (result != null) ? const Text('Scanned') : const Text('Scan a QR code'),
               ),
             )
           ],
@@ -197,16 +195,16 @@ class _QRScannerState extends State<QRScanner> {
   }
 
   void _onQRViewCreated(QRViewController controller) {
-    this._controller = controller;
-    this._controller?.scannedDataStream.listen(onScanned);
-    this._controller?.pauseCamera();
-    this._controller?.resumeCamera();
+    _controller = controller;
+    _controller?.scannedDataStream.listen(onScanned);
+    _controller?.pauseCamera();
+    _controller?.resumeCamera();
   }
 
   void onScanned(scanData) {
     setState(() {
       result = scanData;
-      this._controller?.pauseCamera();
+      _controller?.pauseCamera();
       scanQR(result);
     });
   }

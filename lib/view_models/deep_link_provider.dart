@@ -13,6 +13,7 @@ class DeepLinkProvider extends BaseModel {
 
   final String NEW_DATA = 'new_data';
   final String INITIAL_DATA = 'initial_data';
+  // ignore: unused_field
   late StreamSubscription<dynamic> _intentDataStreamSubscription;
   bool _receiveIntentStarted = false, _deepLinkStarted = false;
   String searchedAtsign = '';
@@ -57,8 +58,7 @@ class DeepLinkProvider extends BaseModel {
     // For sharing images coming from outside the app while the app is in the memory
     _intentDataStreamSubscription = ReceiveSharingIntent.getMediaStream()
         .listen((List<SharedMediaFile> value) {
-      print("Incoming Shared file in home :" +
-          (value.map((f) => f.path).join(",")));
+      print("Incoming Shared file in home :${value.map((f) => f.path).join(",")}");
     }, onError: (err) {
       print("getIntentDataStream error: $err");
     });
@@ -72,6 +72,7 @@ class DeepLinkProvider extends BaseModel {
     _intentDataStreamSubscription =
         ReceiveSharingIntent.getTextStream().listen((String value) {
       print('Incoming text Value in home  is $value');
+      // ignore: unnecessary_null_comparison
       if ((value != null) && (!value.contains('atprotocol://persona'))) {
         SetupRoutes.push(NavService.navKey.currentContext!, Routes.ADD_LINK,
             arguments: {'url': value});

@@ -41,10 +41,10 @@ class _DesktopSearchLocationPageState extends State<DesktopSearchLocationPage> {
       value: _model,
       child: Container(
         width: MediaQuery.of(context).size.width / 2,
-        padding: EdgeInsets.all(DesktopDimens.paddingNormal),
+        padding: const EdgeInsets.all(DesktopDimens.paddingNormal),
         decoration: BoxDecoration(
           color: appTheme.backgroundColor,
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         child: Column(
           children: [
@@ -53,13 +53,13 @@ class _DesktopSearchLocationPageState extends State<DesktopSearchLocationPage> {
                 Expanded(
                   child: TextFormField(
                     controller: keywordTextController,
-                    decoration: InputDecoration(hintText: 'Search'),
+                    decoration: const InputDecoration(hintText: 'Search'),
                     onChanged: (text) {
                       _searchLocation();
                     },
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: DesktopDimens.paddingNormal,
                 ),
                 DesktopIconButton(
@@ -70,7 +70,7 @@ class _DesktopSearchLocationPageState extends State<DesktopSearchLocationPage> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: DesktopDimens.paddingNormal,
             ),
             Row(
@@ -96,9 +96,9 @@ class _DesktopSearchLocationPageState extends State<DesktopSearchLocationPage> {
                 ),
                 Text(
                   'Near me',
-                  style: appTheme.textTheme.bodyText2,
+                  style: appTheme.textTheme.bodyMedium,
                 ),
-                Spacer(),
+                const Spacer(),
                 DesktopButton(
                   title: 'Using GPS',
                   width: 120,
@@ -113,7 +113,7 @@ class _DesktopSearchLocationPageState extends State<DesktopSearchLocationPage> {
                 )
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: DesktopDimens.paddingNormal,
             ),
             Expanded(
@@ -129,7 +129,7 @@ class _DesktopSearchLocationPageState extends State<DesktopSearchLocationPage> {
                           _onSelectLocation(item);
                         },
                         child: Container(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                             vertical: DesktopDimens.paddingSmall,
                           ),
                           child: Row(
@@ -158,7 +158,7 @@ class _DesktopSearchLocationPageState extends State<DesktopSearchLocationPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Spacer(),
+                const Spacer(),
                 DesktopWhiteButton(
                   title: 'Cancel',
                   width: 180,

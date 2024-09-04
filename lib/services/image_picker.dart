@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:at_location_flutter/utils/constants/colors.dart';
 import 'package:at_wavi_app/desktop/screens/desktop_common/desktop_crop_image_page.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -25,9 +24,9 @@ class ImagePicker {
         // var path = pickedFile.path;
         // var file = File(path);
 
-        var _cropped = await ImageCropper().cropImage(
+        var cropped = await ImageCropper().cropImage(
           sourcePath: pickedFile.path!,
-          aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+          aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
           compressQuality: 100,
           maxHeight: 700,
           maxWidth: 700,
@@ -41,12 +40,12 @@ class ImagePicker {
           ],
         );
 
-        if (_cropped == null) {
+        if (cropped == null) {
           return null;
         }
 
         var compressedFile = await FlutterImageCompress.compressWithFile(
-          _cropped.path,
+          cropped.path,
           minWidth: 400,
           minHeight: 200,
         );
@@ -61,7 +60,7 @@ class ImagePicker {
       type: FileType.media,
     );
     if (result?.files.single.path != null) {
-      var _file = File(result!.files.single.path!);
+      var file = File(result!.files.single.path!);
       // Navigator.push(buildContext, MaterialPageRoute(builder: (context) {
       //   return DesktopCropImagePage(file: _file);
       // }));
@@ -69,7 +68,7 @@ class ImagePicker {
         context: buildContext,
         builder: (BuildContext context) => Dialog(
           backgroundColor: Colors.transparent,
-          child: DesktopCropImagePage(file: _file),
+          child: DesktopCropImagePage(file: file),
         ),
       );
       if (image is Uint8List) {

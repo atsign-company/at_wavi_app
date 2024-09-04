@@ -7,12 +7,12 @@ class DesktopTabBar extends StatelessWidget {
   final ValueChanged<int>? onTap;
   final double spacer;
 
-  DesktopTabBar({
+  const DesktopTabBar({Key? key, 
     this.tabTitles = const [],
     this.controller,
     this.onTap,
     this.spacer = 20,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,15 +24,15 @@ class DesktopTabBar extends StatelessWidget {
         tabs: tabTitles
             .map(
               (e) => Container(
+                margin: const EdgeInsets.only(bottom: 4),
                 child: Text(e),
-                margin: EdgeInsets.only(bottom: 4),
               ),
             )
             .toList(),
-        labelStyle: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        labelStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         labelColor: appTheme.primaryTextColor,
         unselectedLabelStyle:
-            TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         unselectedLabelColor: appTheme.secondaryTextColor,
         indicatorSize: TabBarIndicatorSize.tab,
         indicator: UnderlineTabIndicator(
@@ -44,7 +44,7 @@ class DesktopTabBar extends StatelessWidget {
         labelPadding: EdgeInsets.only(right: spacer),
         enableFeedback: false,
         automaticIndicatorColorAdjustment: false,
-        overlayColor: MaterialStateProperty.all(Colors.transparent),
+        overlayColor: WidgetStateProperty.all(Colors.transparent),
         onTap: onTap,
       ),
     );

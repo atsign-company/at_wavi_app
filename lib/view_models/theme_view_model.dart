@@ -23,10 +23,10 @@ class ThemeProvider extends BaseModel {
     highlightColor = null;
   }
 
-  setHighlightColor(Color _color) {
-    darktheme = Themes.darkTheme(highlightColor: _color);
-    lighttheme = Themes.lightTheme(highlightColor: _color);
-    highlightColor = _color;
+  setHighlightColor(Color color) {
+    darktheme = Themes.darkTheme(highlightColor: color);
+    lighttheme = Themes.lightTheme(highlightColor: color);
+    highlightColor = color;
     currentAtsignThemeData =
         (themeColor == ThemeColor.Light) ? lighttheme : darktheme;
   }
@@ -39,10 +39,10 @@ class ThemeProvider extends BaseModel {
   // ignore: always_declare_return_types
   checkThemeFromSecondary({bool notifyListener = true}) async {
     if (currentAtsignThemeData == null) {
-      var _themePreference = await ThemeService().getThemePreference(
+      var themePreference = await ThemeService().getThemePreference(
           BackendService().atClientInstance.getCurrentAtSign()!);
 
-      if ((_themePreference ?? '').toLowerCase() == 'dark') {
+      if ((themePreference ?? '').toLowerCase() == 'dark') {
         currentAtsignThemeData = darktheme;
         themeColor = ThemeColor.Dark;
       } else {
@@ -52,12 +52,12 @@ class ThemeProvider extends BaseModel {
     }
 
     if (highlightColor == null) {
-      var _highlightColorPreference = await ThemeService().getThemePreference(
+      var highlightColorPreference = await ThemeService().getThemePreference(
           BackendService().atClientInstance.getCurrentAtSign()!,
           returnHighlightColorPreference: true);
 
-      highlightColor = (_highlightColorPreference != null)
-          ? convertToHighlightColor(_highlightColorPreference)
+      highlightColor = (highlightColorPreference != null)
+          ? convertToHighlightColor(highlightColorPreference)
           : ColorConstants.green;
 
       // theme.highlightColor = highlightColor!;
@@ -79,9 +79,9 @@ class ThemeProvider extends BaseModel {
           ? convertHighlightColorForDarktheme(highlightColor)
           : convertHighlightColorForLighttheme(highlightColor);
 
-      var _res =
+      var res =
           await ThemeService().updateProfile(highlightColor: highlightColor);
-      if (_res) {
+      if (res) {
         setHighlightColor(highlightColor);
         setStatus(SET_THEME, Status.Done);
       } else {
@@ -90,9 +90,9 @@ class ThemeProvider extends BaseModel {
     }
 
     if (themeColor != null) {
-      var _res =
+      var res =
           await ThemeService().updateProfile(themePreference: themeColor);
-      if (_res) {
+      if (res) {
         if (themeColor == ThemeColor.Dark) {
           currentAtsignThemeData = darktheme;
           this.themeColor = ThemeColor.Dark;
@@ -173,8 +173,8 @@ class ThemeProvider extends BaseModel {
     }
   }
 
-  convertToHighlightColor(String _color) {
-    switch (_color.toUpperCase()) {
+  convertToHighlightColor(String color) {
+    switch (color.toUpperCase()) {
       case '58419C':
         return ColorConstants.purple;
       case '6EBCB7':

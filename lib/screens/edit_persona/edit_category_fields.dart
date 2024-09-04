@@ -21,7 +21,7 @@ class EditCategoryFields extends StatefulWidget {
   final AtCategory category;
   final String filedHeading;
 
-  EditCategoryFields({required this.category, required this.filedHeading});
+  const EditCategoryFields({Key? key, required this.category, required this.filedHeading}) : super(key: key);
 
   @override
   _EditCategoryFieldsState createState() => _EditCategoryFieldsState();
@@ -53,12 +53,12 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
   @override
   Widget build(BuildContext context) {
     if (_themeData == null) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     }
 
     return Container(
       color: _themeData!.scaffoldBackgroundColor,
-      padding: EdgeInsets.only(top: 20, bottom: 10),
+      padding: const EdgeInsets.only(top: 20, bottom: 10),
       child: Scaffold(
         backgroundColor: _themeData!.scaffoldBackgroundColor,
         body: SafeArea(
@@ -127,9 +127,9 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
                                 },
                               );
                             },
-                            child: Icon(Icons.reorder),
+                            child: const Icon(Icons.reorder),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Icon(
                               isAllFieldsPrivate() ? Icons.lock : Icons.public),
                         ],
@@ -138,21 +138,21 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
                   ],
                 ),
               ),
-              SizedBox(height: 35),
+              const SizedBox(height: 35),
               Form(
                 key: _formKey,
                 child: Expanded(
                     child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: getAllInputFields(),
                   ),
                 )),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: AddCustomContentButton(
                   text: 'Add Custom Content',
                   onTap: () {
@@ -163,9 +163,7 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
                                 .user()!
                                 .customFields[widget.category.name];
 
-                            if (customFields == null) {
-                              customFields = [];
-                            }
+                            customFields ??= [];
 
                             setState(() {
                               customFields!.add(data);
@@ -219,7 +217,7 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               basicData.accountName!,
               style: TextStyles.lightText(
@@ -228,8 +226,8 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
             ),
           ),
           inputField(basicData),
-          Divider(thickness: 1, height: 1),
-          SizedBox(height: 20)
+          const Divider(thickness: 1, height: 1),
+          const SizedBox(height: 20)
         ],
       );
 
@@ -257,8 +255,8 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
 
       if (userMap.containsKey(fields[i])) {
         basicData = userMap[fields[i]];
-        if (basicData.accountName == null) basicData.accountName = fields[i];
-        if (basicData.value == null) basicData.value = '';
+        basicData.accountName ??= fields[i];
+        basicData.value ??= '';
       } else {
         var index =
             customFields!.indexWhere((el) => el.accountName == fields[i]);
@@ -278,7 +276,7 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Text(
                 basicData.displayingAccountName ?? '',
                 style: TextStyles.lightText(
@@ -287,8 +285,8 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
               ),
             ),
             inputField(basicData),
-            Divider(thickness: 1, height: 1),
-            SizedBox(height: 20)
+            const Divider(thickness: 1, height: 1),
+            const SizedBox(height: 20)
           ],
         );
       } else {
@@ -345,7 +343,7 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Text(
               basicData.accountName!,
               style: TextStyles.lightText(
@@ -354,8 +352,8 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
             ),
           ),
           inputField(basicData, isCustomField: true),
-          Divider(thickness: 1, height: 1),
-          SizedBox(height: 20)
+          const Divider(thickness: 1, height: 1),
+          const SizedBox(height: 20)
         ],
       );
 
@@ -368,7 +366,7 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 10),
+                padding: const EdgeInsets.only(left: 10),
                 child: Text(
                   basicData.accountName!,
                   style: TextStyles.lightText(
@@ -395,12 +393,12 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
             ],
           ),
           imageField(basicData),
-          Divider(thickness: 1, height: 1),
-          SizedBox(height: 20)
+          const Divider(thickness: 1, height: 1),
+          const SizedBox(height: 20)
         ],
       );
     }
-    return SizedBox();
+    return const SizedBox();
   }
 
   bool matchRegex(String value, BasicData basicData) {
@@ -416,7 +414,7 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
   Widget inputField(BasicData basicData, {bool isCustomField = false}) {
     return Slidable(
       key: UniqueKey(),
-      startActionPane: ActionPane(
+      startActionPane: const ActionPane(
         motion: ScrollMotion(),
         extentRatio: 0.15,
         children: [],
@@ -521,9 +519,9 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
                 decoration: InputDecoration(
                     fillColor: _themeData!.scaffoldBackgroundColor,
                     filled: true,
-                    errorStyle: TextStyle(fontSize: 15),
+                    errorStyle: const TextStyle(fontSize: 15),
                     border: InputBorder.none,
-                    focusedBorder: OutlineInputBorder(
+                    focusedBorder: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
                     )),
                 keyboardType: TextInputType.multiline,
@@ -544,7 +542,7 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
                     padding: const EdgeInsets.only(left: 5.0),
                     child: toolTipMenu(basicData),
                   )
-                : SizedBox(),
+                : const SizedBox(),
           ],
         ),
       ),
@@ -562,11 +560,11 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
         children: [
           basicData.valueDescription != null
               ? Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Text(basicData.valueDescription!))
-              : SizedBox(),
+              : const SizedBox(),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             height: 200,
             child: Image.memory(
               customImage,
@@ -671,8 +669,8 @@ class _EditCategoryFieldsState extends State<EditCategoryFields> {
   Widget toolTipMenu(BasicData basicData) {
     return PopupMenuButton(
         padding: EdgeInsets.zero,
-        child: Padding(
-          padding: const EdgeInsets.only(right: 5.0),
+        child: const Padding(
+          padding: EdgeInsets.only(right: 5.0),
           child: Icon(Icons.edit),
         ),
         onSelected: (value) {

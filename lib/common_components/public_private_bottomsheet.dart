@@ -13,13 +13,13 @@ showPublicPrivateBottomSheet(
           Theme.of(NavService.navKey.currentContext!).scaffoldBackgroundColor,
       builder: (context) {
         return Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           height: height,
           decoration: BoxDecoration(
             color: Theme.of(context).scaffoldBackgroundColor,
-            borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(12.0),
-              topRight: const Radius.circular(12.0),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(12.0),
+              topRight: Radius.circular(12.0),
             ),
           ),
           child: Column(
@@ -35,7 +35,7 @@ showPublicPrivateBottomSheet(
                   child: publicRow(),
                 ),
               ),
-              Divider(),
+              const Divider(),
               SizedBox(
                 height: 50,
                 child: InkWell(

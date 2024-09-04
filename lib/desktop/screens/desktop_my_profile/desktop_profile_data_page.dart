@@ -15,7 +15,7 @@ class DesktopProfileDataPage extends StatefulWidget {
   final bool isMyProfile;
   final bool isEditable;
 
-  DesktopProfileDataPage({
+  const DesktopProfileDataPage({
     Key? key,
     this.onSearchPressed,
     this.onSettingPressed,
@@ -35,10 +35,12 @@ class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
     duration: const Duration(seconds: 2),
     vsync: this,
   );
-  late final Animation<double> _animation = CurvedAnimation(
-    parent: _controller,
-    curve: Curves.elasticOut,
-  );
+
+  // commented out since its not used
+  // late final Animation<double> _animation = CurvedAnimation(
+  //   parent: _controller,
+  //   curve: Curves.elasticOut,
+  // );
 
   @override
   void initState() {
@@ -71,15 +73,15 @@ class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(height: DesktopDimens.paddingLarge),
+          const SizedBox(height: DesktopDimens.paddingLarge),
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: DesktopDimens.paddingLarge,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(child: Container(), flex: 1),
+                Expanded(flex: 1, child: Container()),
                 DesktopProfileTabBar(
                   onTap: (index) {
                     _pageController.jumpToPage(index);
@@ -102,7 +104,7 @@ class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
                                 widget.onSearchPressed?.call();
                               },
                             ),
-                            SizedBox(width: DesktopDimens.paddingSmall),
+                            const SizedBox(width: DesktopDimens.paddingSmall),
                             // if (widget.isMyProfile &&
                             //     widget.isEditable == false)
                             //   RotationTransition(
@@ -115,7 +117,7 @@ class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
                             //       onPressed: _syncData,
                             //     ),
                             //   ),
-                            SizedBox(width: DesktopDimens.paddingSmall),
+                            const SizedBox(width: DesktopDimens.paddingSmall),
                             DesktopIconButton(
                               iconData: Icons.more_vert,
                               iconColor: appTheme.primaryTextColor,
@@ -132,14 +134,14 @@ class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
               ],
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: DesktopDimens.paddingNormal,
           ),
           Expanded(
             child: Stack(
               children: [
                 PageView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   onPageChanged: (int page) {},
                   controller: _pageController,
                   children: [
@@ -164,10 +166,11 @@ class _DesktopProfileDataPageState extends State<DesktopProfileDataPage>
   void _showTutorialDialog() async {
     await showDialog<String>(
       context: context,
-      builder: (BuildContext context) => DesktopTutorialPage(),
+      builder: (BuildContext context) => const DesktopTutorialPage(),
     );
   }
 
+  // ignore: unused_element
   void _syncData() async {
     _controller.reset();
     _controller.forward();

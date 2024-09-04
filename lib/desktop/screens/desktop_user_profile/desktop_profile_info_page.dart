@@ -28,7 +28,7 @@ class DesktopProfileInfoPage extends StatefulWidget {
   final VoidCallback? onFollowingPressed;
   final bool isPreview;
 
-  DesktopProfileInfoPage({
+  const DesktopProfileInfoPage({
     Key? key,
     required this.atSign,
     required this.isPreview,
@@ -82,16 +82,16 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
       child: Column(
         children: [
           _buildHeader(),
-          SizedBox(height: DesktopDimens.paddingLarge),
+          const SizedBox(height: DesktopDimens.paddingLarge),
           Expanded(
             child: SingleChildScrollView(
               padding:
-                  EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
+                  const EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   (_currentUser.image.value != null)
-                      ? Container(
+                      ? SizedBox(
                           width: 120,
                           height: 120,
                           child: ClipRRect(
@@ -102,7 +102,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
                             ),
                           ),
                         )
-                      : Container(
+                      : const SizedBox(
                           width: 120,
                           height: 120,
                           child: Icon(
@@ -110,17 +110,17 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
                             size: 120,
                           ),
                         ),
-                  SizedBox(height: DesktopDimens.paddingNormal),
+                  const SizedBox(height: DesktopDimens.paddingNormal),
                   _buildNameWidget(),
-                  SizedBox(height: DesktopDimens.paddingSmall),
+                  const SizedBox(height: DesktopDimens.paddingSmall),
                   Text(
                     _currentUser.atsign,
-                    style: appTheme.textTheme.subtitle1?.copyWith(
+                    style: appTheme.textTheme.titleMedium?.copyWith(
                       color: appTheme.primaryColor,
                     ),
                   ),
-                  SizedBox(height: DesktopDimens.paddingLarge),
-                  Consumer<FollowService>(builder: (context, _provider, _) {
+                  const SizedBox(height: DesktopDimens.paddingLarge),
+                  Consumer<FollowService>(builder: (context, provider, _) {
                     return GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: widget.onFollowerPressed,
@@ -133,12 +133,12 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
                                           ?.followers_count ??
                                       '-')
                                   .toString()
-                              : '${followsCount(isFollowers: true)}',
+                              : followsCount(isFollowers: true),
                           appTheme),
                     );
                   }),
-                  SizedBox(height: DesktopDimens.paddingSmall),
-                  Consumer<FollowService>(builder: (context, _provider, _) {
+                  const SizedBox(height: DesktopDimens.paddingSmall),
+                  Consumer<FollowService>(builder: (context, provider, _) {
                     return GestureDetector(
                       behavior: HitTestBehavior.translucent,
                       onTap: widget.onFollowingPressed,
@@ -151,11 +151,11 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
                                           ?.following_count ??
                                       '-')
                                   .toString()
-                              : '${followsCount(isFollowers: false)}',
+                              : followsCount(isFollowers: false),
                           appTheme),
                     );
                   }),
-                  SizedBox(height: DesktopDimens.paddingLarge),
+                  const SizedBox(height: DesktopDimens.paddingLarge),
                   !widget.isPreview
                       ? Column(
                           children: [
@@ -168,7 +168,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
                               title: Strings.desktop_edit_profile,
                               onPressed: _openEditProfile,
                             ),
-                            SizedBox(height: DesktopDimens.paddingNormal),
+                            const SizedBox(height: DesktopDimens.paddingNormal),
                             DesktopButton(
                               width: double.infinity,
                               height: DesktopDimens.buttonHeight,
@@ -218,8 +218,8 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
       child: Stack(
         children: [
           Container(
-            padding: EdgeInsets.only(top: DesktopDimens.paddingLarge),
-            child: Center(
+            padding: const EdgeInsets.only(top: DesktopDimens.paddingLarge),
+            child: const Center(
               child: DesktopLogo(),
             ),
           ),
@@ -266,7 +266,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
     }
     return Text(
       name,
-      style: appTheme.textTheme.headline6?.copyWith(
+      style: appTheme.textTheme.titleLarge?.copyWith(
         fontWeight: FontWeight.w600,
       ),
       maxLines: 2,
@@ -278,15 +278,15 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
       children: [
         Text(
           title,
-          style: appTheme.textTheme.subtitle2?.copyWith(
+          style: appTheme.textTheme.titleSmall?.copyWith(
             color: appTheme.secondaryTextColor,
             fontWeight: FontWeight.normal,
           ),
         ),
-        Spacer(),
+        const Spacer(),
         Text(
           subTitle,
-          style: appTheme.textTheme.subtitle1?.copyWith(
+          style: appTheme.textTheme.titleMedium?.copyWith(
             color: appTheme.primaryTextColor,
             fontWeight: FontWeight.w600,
           ),
@@ -296,16 +296,16 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
   }
 
   String _displayingName({dynamic firstName, dynamic lastName}) {
-    String _name = '';
-    _name = _currentUser.firstname.value ?? '';
+    String name = '';
+    name = _currentUser.firstname.value ?? '';
     if (_currentUser.lastname.value != null) {
-      _name = '$_name ${_currentUser.lastname.value}';
+      name = '$name ${_currentUser.lastname.value}';
     }
 
-    if (_name.isEmpty) {
-      _name = _currentUser.atsign.replaceFirst('@', '');
+    if (name.isEmpty) {
+      name = _currentUser.atsign.replaceFirst('@', '');
     }
-    return _name;
+    return name;
   }
 
   void _openEditProfile() async {
@@ -319,7 +319,7 @@ class _DesktopProfileInfoPageState extends State<DesktopProfileInfoPage> {
     setState(() {});
   }
 
-  String followsCount({bool isFollowers: false}) {
+  String followsCount({bool isFollowers = false}) {
     AtFollowsData atFollowsData;
     var followsProvider = Provider.of<FollowService>(
         NavService.navKey.currentContext!,

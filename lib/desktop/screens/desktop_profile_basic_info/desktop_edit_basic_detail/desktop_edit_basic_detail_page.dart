@@ -64,31 +64,31 @@ class _DesktopEditBasicDetailState extends State<DesktopEditBasicDetailPage> {
         width: DesktopDimens.dialogWidth,
         decoration: BoxDecoration(
           color: appTheme.backgroundColor,
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: DesktopDimens.paddingNormal),
+            const SizedBox(height: DesktopDimens.paddingNormal),
             Container(
-              padding: EdgeInsets.only(left: DesktopDimens.paddingNormal),
+              padding: const EdgeInsets.only(left: DesktopDimens.paddingNormal),
               child: Text(
                 widget.atCategory.label,
-                style: appTheme.textTheme.bodyText1?.copyWith(
+                style: appTheme.textTheme.bodyLarge?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: appTheme.primaryTextColor,
                 ),
               ),
             ),
-            SizedBox(height: DesktopDimens.paddingNormal),
+            const SizedBox(height: DesktopDimens.paddingNormal),
             Form(
               key: _formKey,
               child: _buildContentWidget(),
             ),
-            SizedBox(height: DesktopDimens.paddingNormal),
+            const SizedBox(height: DesktopDimens.paddingNormal),
             Container(
-              padding: EdgeInsets.only(left: DesktopDimens.paddingNormal),
+              padding: const EdgeInsets.only(left: DesktopDimens.paddingNormal),
               child: DesktopShowHideRadioButton(
                 controller: _showHideController,
                 onChanged: (isPublic) {
@@ -100,10 +100,10 @@ class _DesktopEditBasicDetailState extends State<DesktopEditBasicDetailPage> {
                 },
               ),
             ),
-            SizedBox(height: DesktopDimens.paddingNormal),
+            const SizedBox(height: DesktopDimens.paddingNormal),
             Container(
               padding:
-                  EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
+                  const EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
               child: Row(
                 children: [
                   Expanded(
@@ -114,7 +114,7 @@ class _DesktopEditBasicDetailState extends State<DesktopEditBasicDetailPage> {
                       },
                     ),
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Expanded(
                     child: DesktopButton(
                       title: 'Done',
@@ -124,7 +124,7 @@ class _DesktopEditBasicDetailState extends State<DesktopEditBasicDetailPage> {
                 ],
               ),
             ),
-            SizedBox(height: DesktopDimens.paddingNormal),
+            const SizedBox(height: DesktopDimens.paddingNormal),
           ],
         ),
       ),
@@ -135,19 +135,19 @@ class _DesktopEditBasicDetailState extends State<DesktopEditBasicDetailPage> {
     return Consumer<DesktopEditBasicDetailModel>(
       builder: (_, model, child) {
         return ConstrainedBox(
-          constraints: new BoxConstraints(
+          constraints: const BoxConstraints(
             maxHeight: 270.0,
           ),
           child: Scrollbar(
             child: ListView.separated(
               shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
+              physics: const ClampingScrollPhysics(),
               itemBuilder: (c, index) {
                 final data = model.basicData[index];
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    SizedBox(width: DesktopDimens.paddingNormal),
+                    const SizedBox(width: DesktopDimens.paddingNormal),
                     Expanded(
                       child: DesktopTextField(
                         controller: data.controller ?? TextEditingController(),
@@ -162,18 +162,18 @@ class _DesktopEditBasicDetailState extends State<DesktopEditBasicDetailPage> {
                         },
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       height: DesktopDimens.buttonHeight,
                       child: DesktopPublicButton(
                         controller: data.publicController,
                       ),
                     ),
-                    SizedBox(width: DesktopDimens.paddingSmall),
+                    const SizedBox(width: DesktopDimens.paddingSmall),
                   ],
                 );
               },
               separatorBuilder: (context, index) {
-                return SizedBox(height: DesktopDimens.paddingNormal);
+                return const SizedBox(height: DesktopDimens.paddingNormal);
               },
               itemCount: model.basicData.length,
             ),
