@@ -32,8 +32,7 @@ class DesktopOTPTextField extends StatefulWidget {
   /// Callback function, called when pin is completed.
   final ValueChanged<String>? onCompleted;
 
-  DesktopOTPTextField({
-    Key? key,
+  const DesktopOTPTextField({Key? key, 
     this.length = 4,
     required this.backgroundColor,
     required this.borderColor,
@@ -44,7 +43,7 @@ class DesktopOTPTextField extends StatefulWidget {
     this.obscureText = false,
     this.onChanged,
     this.onCompleted,
-  }) : assert(length > 1);
+  }) : assert(length > 1), super(key: key);
 
   @override
   _DesktopOTPTextFieldState createState() => _DesktopOTPTextFieldState();
@@ -74,8 +73,9 @@ class _DesktopOTPTextFieldState extends State<DesktopOTPTextField> {
 
   @override
   void dispose() {
-    _textControllers
-        .forEach((TextEditingController? controller) => controller?.dispose());
+    for (var controller in _textControllers) {
+      controller?.dispose();
+    }
     super.dispose();
   }
 
@@ -97,18 +97,19 @@ class _DesktopOTPTextFieldState extends State<DesktopOTPTextField> {
   /// * Requires Int position of the field
   Widget buildTextField(int i) {
     if (_focusNodes[i] == null) {
-      _focusNodes[i] = new FocusNode();
+      _focusNodes[i] = FocusNode();
       if (i == 0) {
         _focusNodes[i]?.requestFocus();
       }
     }
 
-    if (_textControllers[i] == null)
-      _textControllers[i] = new TextEditingController();
+    if (_textControllers[i] == null) {
+      _textControllers[i] = TextEditingController();
+    }
 
     return Container(
       width: 68,
-      margin: EdgeInsets.symmetric(horizontal: 16),
+      margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
         color: widget.backgroundColor,
         borderRadius: BorderRadius.circular(4),
@@ -122,7 +123,7 @@ class _DesktopOTPTextFieldState extends State<DesktopOTPTextField> {
         obscureText: widget.obscureText,
         decoration: InputDecoration(
           counterText: "",
-          contentPadding: EdgeInsets.symmetric(vertical: 24),
+          contentPadding: const EdgeInsets.symmetric(vertical: 24),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: widget.borderColor),
             borderRadius: BorderRadius.circular(4),
@@ -166,8 +167,9 @@ class _DesktopOTPTextFieldState extends State<DesktopOTPTextField> {
           // Remove focus
           if (str.isNotEmpty) _focusNodes[i]?.unfocus();
           // Set focus to the next field if available
-          if (i + 1 != widget.length && str.isNotEmpty)
+          if (i + 1 != widget.length && str.isNotEmpty) {
             FocusScope.of(context).requestFocus(_focusNodes[i + 1]);
+          }
 
           String currentPin = _getCurrentPin();
 
@@ -201,9 +203,9 @@ class _DesktopOTPTextFieldState extends State<DesktopOTPTextField> {
 
   String _getCurrentPin() {
     String currentPin = "";
-    _pin.forEach((String value) {
+    for (var value in _pin) {
       currentPin += value;
-    });
+    }
     return currentPin;
   }
 

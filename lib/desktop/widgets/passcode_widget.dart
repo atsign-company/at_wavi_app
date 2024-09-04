@@ -55,9 +55,9 @@ class _PassCodeWidgetState extends State<PassCodeWidget> {
             child: TextFormField(
               focusNode: focusNode,
               controller: widget.controller,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.all(0),
+                contentPadding: EdgeInsets.all(0),
               ),
               keyboardType: TextInputType.number,
               inputFormatters: <TextInputFormatter>[
@@ -124,18 +124,15 @@ class _PassCodeWidgetState extends State<PassCodeWidget> {
 class _SingleLetterWidget
     extends StatelessWidget {
   final String letter;
-  final double width;
-  final double height;
-  final double indicatorHeight;
+  final double width = 40.0;
+  final double height = 50.0;
+  final double indicatorHeight = 2.0;
   final Color indicatorColor;
   final TextStyle textStyle;
 
   const _SingleLetterWidget({
     Key? key,
     required this.letter,
-    this.width = 67,
-    this.height = 78,
-    this.indicatorHeight = 3,
     required this.indicatorColor,
     required this.textStyle,
   }) : super(key: key);
@@ -144,18 +141,18 @@ class _SingleLetterWidget
   Widget build(BuildContext context) {
     final appTheme = AppTheme.of(context);
     return Container(
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color: appTheme.secondaryBackgroundColor,
         borderRadius: BorderRadius.circular(4)
       ),
-      width: this.width,
-      height: this.height,
+      width: width,
+      height: height,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            this.letter,
+            letter,
             style: textStyle,
           ),
           // SizedBox(

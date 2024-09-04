@@ -1,6 +1,5 @@
 import 'package:at_wavi_app/desktop/services/theme/app_theme.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DesktopCachedImage extends StatelessWidget {
@@ -26,8 +25,13 @@ class DesktopCachedImage extends StatelessWidget {
     return Container(
       width: width ?? double.infinity,
       height: height ?? double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.grey,
+        borderRadius: BorderRadius.circular(borderRadius ?? 0),
+      ),
       child: isValidUrl
           ? ClipRRect(
+              borderRadius: BorderRadius.circular(borderRadius ?? 0),
               child: CachedNetworkImage(
                 imageUrl: url,
                 progressIndicatorBuilder: (context, url, downloadProgress) {
@@ -39,7 +43,7 @@ class DesktopCachedImage extends StatelessWidget {
                         value: downloadProgress.progress,
                         backgroundColor: appTheme.primaryColor,
                         strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.transparent),
+                        valueColor: const AlwaysStoppedAnimation<Color>(Colors.transparent),
                       ),
                     ),
                   );
@@ -54,13 +58,8 @@ class DesktopCachedImage extends StatelessWidget {
                 },
                 fit: fit,
               ),
-              borderRadius: BorderRadius.circular(borderRadius ?? 0),
             )
           : _buildPlaceHolderImage(),
-      decoration: BoxDecoration(
-        color: Colors.grey,
-        borderRadius: BorderRadius.circular(borderRadius ?? 0),
-      ),
     );
   }
 
@@ -69,7 +68,7 @@ class DesktopCachedImage extends StatelessWidget {
       borderRadius: BorderRadius.circular(borderRadius ?? 0),
       child: Container(
         color: const Color(0xFFe6e6e6),
-        child: Center(
+        child: const Center(
           child: Icon(
             Icons.broken_image_rounded,
             color: Colors.grey,

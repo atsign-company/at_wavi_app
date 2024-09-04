@@ -1,14 +1,13 @@
 import 'package:at_wavi_app/desktop/services/theme/app_theme.dart';
 import 'package:at_wavi_app/desktop/utils/strings.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 import '../../../widgets/textfields/desktop_otp_textfield.dart';
 
 class DesktopLoginOTPPage extends StatefulWidget {
   final String atSign;
 
-  DesktopLoginOTPPage({
+  const DesktopLoginOTPPage({
     Key? key,
     required this.atSign,
   }) : super(key: key);
@@ -44,7 +43,7 @@ class _DesktopLoginOTPPageState extends State<DesktopLoginOTPPage> {
           Stack(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 48, bottom: 32),
+                margin: const EdgeInsets.only(top: 48, bottom: 32),
                 child: Center(
                   child: Text(
                     '${Strings.desktop_passcode_title} @${widget.atSign}',
@@ -88,7 +87,7 @@ class _DesktopLoginOTPPageState extends State<DesktopLoginOTPPage> {
               },
             ),
           ),
-          SizedBox(height: 40),
+          const SizedBox(height: 40),
           Text(
             Strings.desktop_or,
             style: TextStyle(
@@ -97,7 +96,7 @@ class _DesktopLoginOTPPageState extends State<DesktopLoginOTPPage> {
               fontWeight: FontWeight.w500,
             ),
           ),
-          SizedBox(height: 32),
+          const SizedBox(height: 32),
           Text(
             Strings.desktop_passcode_description,
             textAlign: TextAlign.center,
@@ -106,7 +105,7 @@ class _DesktopLoginOTPPageState extends State<DesktopLoginOTPPage> {
               fontSize: 24,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 56,
           ),
         ],

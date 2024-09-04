@@ -15,13 +15,13 @@ class CustomPersonHorizontalTile extends StatelessWidget {
   final Widget? trailingWidget;
 
   CustomPersonHorizontalTile(
-      {this.image,
+      {Key? key, this.image,
       this.title,
       this.subTitle,
       this.isTopRight = false,
       this.icon,
       this.textColor,
-      this.trailingWidget}) {
+      this.trailingWidget}) : super(key: key) {
     if (image != null) {
       var intList = image!.cast<int>();
       image = Uint8List.fromList(intList);
@@ -54,7 +54,7 @@ class CustomPersonHorizontalTile extends StatelessWidget {
                       right: 0,
                       bottom: !isTopRight ? 0 : null,
                       child: Icon(icon))
-                  : SizedBox(),
+                  : const SizedBox(),
             ],
           ),
           SizedBox(width: 10.toHeight),
@@ -72,7 +72,7 @@ class CustomPersonHorizontalTile extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                   SizedBox(height: 5.toHeight),
                   subTitle != null
                       ? Text(
@@ -81,12 +81,12 @@ class CustomPersonHorizontalTile extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                 ],
               ),
             ),
           ),
-          trailingWidget != null ? trailingWidget! : SizedBox()
+          trailingWidget != null ? trailingWidget! : const SizedBox()
         ],
       ),
     );

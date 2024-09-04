@@ -15,7 +15,6 @@ import 'package:at_wavi_app/view_models/theme_view_model.dart';
 import 'package:at_wavi_app/view_models/user_preview.dart';
 import 'package:at_wavi_app/view_models/user_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 import 'desktop/routes/desktop_routes.dart';
@@ -23,7 +22,7 @@ import 'desktop/services/theme/app_theme.dart';
 import 'desktop/services/theme/inherited_app_theme.dart';
 
 class MyApp extends StatefulWidget {
-  MyApp();
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -78,15 +77,14 @@ class MaterialAppClass extends StatelessWidget {
   final String? initialRoute;
   final Map<String, WidgetBuilder> routes;
 
-  MaterialAppClass({
+  const MaterialAppClass({Key? key, 
     required this.initialRoute,
     required this.routes,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var brightness = SchedulerBinding.instance.window.platformBrightness;
-
+    var brightness = MediaQuery.platformBrightnessOf(context);
     /// MaterialApp for desktop
     if (Platform.isMacOS || Platform.isWindows || Platform.isLinux) {
       /// Mock data
@@ -123,7 +121,7 @@ class MaterialAppClass extends StatelessWidget {
               builder: (BuildContext context, Widget? child) {
                 final data = MediaQuery.of(context);
                 return MediaQuery(
-                  data: data.copyWith(textScaleFactor: 1),
+                  data: data.copyWith(textScaler: const TextScaler.linear(1)),
                   child: child!,
                 );
               },
@@ -149,7 +147,7 @@ class MaterialAppClass extends StatelessWidget {
             if (Platform.isIOS) hideKeyboard(context);
           },
           child: MediaQuery(
-            data: data.copyWith(textScaleFactor: 1),
+            data: data.copyWith(textScaler: const TextScaler.linear(1)),
             child: child!,
           ),
         );

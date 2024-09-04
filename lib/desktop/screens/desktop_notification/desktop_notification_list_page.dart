@@ -1,4 +1,3 @@
-import 'package:at_wavi_app/desktop/services/theme/app_theme.dart';
 import 'package:at_wavi_app/desktop/utils/enums.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +5,7 @@ import 'item/desktop_notification_item.dart';
 
 class DesktopNotificationListPage extends StatefulWidget {
 
-  DesktopNotificationListPage({
+  const DesktopNotificationListPage({
     Key? key,
   }) : super(key: key);
 
@@ -23,7 +22,7 @@ class _DesktopNotificationListPageState
       itemCount: 5,
       shrinkWrap: true,
       separatorBuilder: (context, index) {
-        return Divider(
+        return const Divider(
           color: Colors.transparent,
           height: 0.5,
         );

@@ -12,7 +12,7 @@ class DesktopSwitchAccountPage extends StatefulWidget {
   final VoidCallback? onSuccess;
   final bool isCheckDeleteAccount;
 
-  DesktopSwitchAccountPage({
+  const DesktopSwitchAccountPage({
     Key? key,
     required this.atSignList,
     this.onSuccess,
@@ -42,7 +42,7 @@ class _DesktopSwitchAccountPageState extends State<DesktopSwitchAccountPage> {
             onClosing: () {},
             backgroundColor: Colors.transparent,
             builder: (context) => ClipRRect(
-              borderRadius: BorderRadius.only(
+              borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10), topRight: Radius.circular(10)),
               child: Container(
                 height: 100,
@@ -77,7 +77,7 @@ class _DesktopSwitchAccountPageState extends State<DesktopSwitchAccountPage> {
                                 },
                           child: Padding(
                             padding:
-                                EdgeInsets.only(left: 10, right: 10, top: 20),
+                                const EdgeInsets.only(left: 10, right: 10, top: 20),
                             child: Column(
                               children: [
                                 Container(
@@ -109,7 +109,7 @@ class _DesktopSwitchAccountPageState extends State<DesktopSwitchAccountPage> {
                         );
                       },
                     )),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Visibility(
@@ -131,7 +131,7 @@ class _DesktopSwitchAccountPageState extends State<DesktopSwitchAccountPage> {
                           });
                         },
                         child: Container(
-                          margin: EdgeInsets.only(right: 10),
+                          margin: const EdgeInsets.only(right: 10),
                           height: 40,
                           width: 40,
                           child: Icon(Icons.add_circle_outline_outlined,

@@ -30,9 +30,9 @@ class _CreateCustomAddLinkState extends State<CreateCustomAddLink> {
   String _valueDescription = '', _accountName = '';
   bool _isPrivate = false;
 
-  updateIsPrivate(bool _mode) {
+  updateIsPrivate(bool mode) {
     setState(() {
-      _isPrivate = _mode;
+      _isPrivate = mode;
     });
   }
 
@@ -112,7 +112,7 @@ class _CreateCustomAddLinkState extends State<CreateCustomAddLink> {
               }),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 1,
           ),
           Padding(
@@ -156,7 +156,7 @@ class _CreateCustomAddLinkState extends State<CreateCustomAddLink> {
               ),
             ),
           ),
-          Divider(
+          const Divider(
             thickness: 1,
           ),
           Padding(
@@ -189,14 +189,14 @@ class _CreateCustomAddLinkState extends State<CreateCustomAddLink> {
   }
 
   _updateCustomContent() async {
-    BasicData _customData = BasicData(
+    BasicData customData = BasicData(
         accountName: _accountName,
         value: widget.value,
         isPrivate: _isPrivate,
         type: CustomContentType.Link.name,
         valueDescription: _valueDescription);
 
-    print('_customData $_customData');
+    print('_customData $customData');
 
     Provider.of<UserPreview>(context, listen: false).setUser = User.fromJson(
         json.decode(json.encode(User.toJson(
@@ -204,20 +204,20 @@ class _CreateCustomAddLinkState extends State<CreateCustomAddLink> {
 
     // when new field is being added, checking if title name is already taken or not
     if (Provider.of<UserPreview>(context, listen: false)
-        .iskeyNameTaken(_customData)) {
+        .iskeyNameTaken(customData)) {
       _showToast('This title is already taken', isError: true);
       return;
     }
 
     LoadingDialog().show(text: 'Adding custom content');
 
-    var _res = await AtKeySetService()
-        .updateCustomFields(widget.category.label, [_customData]);
+    var res = await AtKeySetService()
+        .updateCustomFields(widget.category.label, [customData]);
 
     LoadingDialog().hide();
 
-    if (_res) {
-      _updateProvider(_customData);
+    if (res) {
+      _updateProvider(customData);
       _showToast('$_accountName added', bgColor: ColorConstants.DARK_GREY);
       SetupRoutes.pushAndRemoveAll(context, Routes.HOME);
     } else {
@@ -232,9 +232,7 @@ class _CreateCustomAddLinkState extends State<CreateCustomAddLink> {
             .user!
             .customFields[widget.category.name];
 
-    if (customFields == null) {
-      customFields = [];
-    }
+    customFields ??= [];
 
     customFields.add(data);
     Provider.of<UserProvider>(context, listen: false)
@@ -253,15 +251,15 @@ class _CreateCustomAddLinkState extends State<CreateCustomAddLink> {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         builder: (context) {
           return Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             height: height,
             decoration: BoxDecoration(
               color: Theme.of(context).brightness == Brightness.light
                   ? ColorConstants.white
                   : ColorConstants.black,
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(12.0),
-                topRight: const Radius.circular(12.0),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12.0),
+                topRight: Radius.circular(12.0),
               ),
             ),
             child: Column(
@@ -280,7 +278,7 @@ class _CreateCustomAddLinkState extends State<CreateCustomAddLink> {
                     child: _publicRow(),
                   ),
                 ),
-                Divider(),
+                const Divider(),
                 SizedBox(
                   height: 50,
                   child: InkWell(
@@ -300,7 +298,7 @@ class _CreateCustomAddLinkState extends State<CreateCustomAddLink> {
   Widget _privateRow() {
     return Row(
       children: [
-        Icon(Icons.lock),
+        const Icon(Icons.lock),
         SizedBox(width: 5.toWidth),
         Text(
           'Private',
@@ -313,7 +311,7 @@ class _CreateCustomAddLinkState extends State<CreateCustomAddLink> {
   Widget _publicRow() {
     return Row(
       children: [
-        Icon(Icons.public),
+        const Icon(Icons.public),
         SizedBox(width: 5.toWidth),
         Text(
           'Public',
@@ -323,15 +321,15 @@ class _CreateCustomAddLinkState extends State<CreateCustomAddLink> {
     );
   }
 
-  _showToast(String _text, {bool isError = false, Color? bgColor}) {
+  _showToast(String text, {bool isError = false, Color? bgColor}) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       backgroundColor:
           isError ? ColorConstants.RED : bgColor ?? ColorConstants.black,
       content: Text(
-        _text,
+        text,
         textAlign: TextAlign.center,
       ),
-      duration: Duration(seconds: 1),
+      duration: const Duration(seconds: 1),
     ));
   }
 }

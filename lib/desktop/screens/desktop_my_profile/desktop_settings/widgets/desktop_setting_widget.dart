@@ -21,18 +21,18 @@ class DesktopSettingWidget extends StatelessWidget {
       onTap: onTapped,
       behavior: HitTestBehavior.translucent,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: DesktopDimens.paddingSmall),
+        padding: const EdgeInsets.symmetric(vertical: DesktopDimens.paddingSmall),
         child: Row(
           children: [
-            SizedBox(width: DesktopDimens.paddingNormal),
+            const SizedBox(width: DesktopDimens.paddingNormal),
             Icon(
               prefixIcon,
               color: appTheme.primaryTextColor,
             ),
-            SizedBox(width: DesktopDimens.paddingNormal),
+            const SizedBox(width: DesktopDimens.paddingNormal),
             Text(
               title,
-              style: appTheme.textTheme.subtitle1,
+              style: appTheme.textTheme.titleMedium,
             ),
           ],
         ),

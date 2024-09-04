@@ -4,7 +4,7 @@ import 'package:at_wavi_app/services/size_config.dart';
 
 class HomePrivateAccount extends StatefulWidget {
   final ThemeData themeData;
-  HomePrivateAccount(this.themeData);
+  const HomePrivateAccount(this.themeData, {Key? key}) : super(key: key);
 
   @override
   _HomePrivateAccountState createState() => _HomePrivateAccountState();

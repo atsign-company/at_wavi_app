@@ -78,12 +78,12 @@ class VersionService {
       showDialog(
           context: NavService.navKey.currentContext!,
           barrierDismissible: isBackwardCompatible ? true : false,
-          builder: (BuildContext _context) {
+          builder: (BuildContext context) {
             return AlertDialog(
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.toWidth),
               ),
-              content: Container(
+              content: SizedBox(
                 width: 300.toWidth,
                 child: SingleChildScrollView(
                   child: Column(
@@ -97,7 +97,7 @@ class VersionService {
               actions: [
                 TextButton(
                   onPressed: desktopUpdateHandler,
-                  child: Text(Strings.update),
+                  child: const Text(Strings.update),
                 ),
                 isBackwardCompatible
                     ? TextButton(
@@ -108,9 +108,9 @@ class VersionService {
                                 .pop();
                           }
                         },
-                        child: Text(Strings.mayBeLater),
+                        child: const Text(Strings.mayBeLater),
                       )
-                    : SizedBox()
+                    : const SizedBox()
               ],
             );
           });
@@ -183,11 +183,10 @@ class VersionService {
       url = MixedConstants.LINUX_STORE_LINK;
     }
 
-    if (await canLaunch(url)) {
-      await launch(
-        url,
-        forceSafariVC: false,
-        forceWebView: false,
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(
+        Uri.parse(url),
+        mode: LaunchMode.externalApplication,
       );
     }
   }

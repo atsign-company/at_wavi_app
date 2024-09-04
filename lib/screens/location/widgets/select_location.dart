@@ -2,8 +2,6 @@ import 'package:at_common_flutter/services/size_config.dart';
 // import 'package:at_common_flutter/widgets/custom_input_field.dart';
 import 'package:at_location_flutter/at_location_flutter.dart';
 import 'package:at_location_flutter/common_components/custom_toast.dart';
-import 'package:at_location_flutter/location_modal/location_modal.dart';
-import 'package:at_location_flutter/service/my_location.dart';
 import 'package:at_wavi_app/common_components/custom_input_field.dart';
 import 'package:at_wavi_app/model/osm_location_model.dart';
 import 'package:at_wavi_app/routes/route_names.dart';
@@ -17,7 +15,7 @@ import 'package:latlong2/latlong.dart';
 
 class SelectLocation extends StatefulWidget {
   final Function(OsmLocationModel)? callbackFunction;
-  SelectLocation({this.callbackFunction});
+  const SelectLocation({Key? key, this.callbackFunction}) : super(key: key);
 
   @override
   _SelectLocationState createState() => _SelectLocationState();
@@ -77,7 +75,7 @@ class _SelectLocationState extends State<SelectLocation> {
             children: <Widget>[
               Expanded(
                 child: CustomInputField(
-                  padding: EdgeInsets.only(right: 10),
+                  padding: const EdgeInsets.only(right: 10),
                   // width: 343.toWidth,
                   // height: 60.toHeight,
                   bgColor: ColorConstants.MILD_GREY,
@@ -94,7 +92,7 @@ class _SelectLocationState extends State<SelectLocation> {
                   value: (String s) {
                     inputText = s;
                   },
-                  onSubmitted: (_str) {
+                  onSubmitted: (str) {
                     _searchLocation();
                   },
                   onIconTap: () {
@@ -166,7 +164,7 @@ class _SelectLocationState extends State<SelectLocation> {
                 value: nearMe,
                 tristate: true,
                 // checkColor: Theme.of(context).primaryColor,
-                fillColor: MaterialStateProperty.all<Color>(
+                fillColor: WidgetStateProperty.all<Color>(
                     Theme.of(context).primaryColor),
                 checkColor: Theme.of(context).scaffoldBackgroundColor,
                 onChanged: (value) async {
@@ -207,14 +205,14 @@ class _SelectLocationState extends State<SelectLocation> {
                                     ColorConstants.RED,
                                     size: 12)),
                           )
-                        : SizedBox()
+                        : const SizedBox()
                   ],
                 ),
               )
             ],
           ),
           SizedBox(height: 5.toHeight),
-          Divider(),
+          const Divider(),
           SizedBox(height: 18.toHeight),
           InkWell(
             onTap: () async {
@@ -240,28 +238,28 @@ class _SelectLocationState extends State<SelectLocation> {
             ),
           ),
           SizedBox(height: 20.toHeight),
-          Divider(),
+          const Divider(),
           SizedBox(height: 20.toHeight),
           isLoader
-              ? Center(
+              ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : SizedBox(),
+              : const SizedBox(),
           StreamBuilder(
             stream: SearchLocationService().atLocationStream,
             builder: (BuildContext context,
                 AsyncSnapshot<List<LocationModal>> snapshot) {
               return snapshot.connectionState == ConnectionState.waiting
-                  ? SizedBox()
+                  ? const SizedBox()
                   : snapshot.hasData
                       // ignore: prefer_is_empty
                       ? snapshot.data!.length == 0
-                          ? Text('Location not found')
+                          ? const Text('Location not found')
                           : Expanded(
                               child: ListView.separated(
                                 itemCount: snapshot.data!.length,
                                 separatorBuilder: (context, index) {
-                                  return Column(
+                                  return const Column(
                                     children: [
                                       SizedBox(height: 20),
                                       Divider(),
@@ -282,7 +280,7 @@ class _SelectLocationState extends State<SelectLocation> {
                                     ),
                                     child: Row(
                                       children: <Widget>[
-                                        Icon(Icons.location_on,
+                                        const Icon(Icons.location_on,
                                             color: ColorConstants.orange),
                                         SizedBox(width: 15.toWidth),
                                         Expanded(
@@ -315,8 +313,8 @@ class _SelectLocationState extends State<SelectLocation> {
                               ),
                             )
                       : snapshot.hasError
-                          ? Text('Something Went wrong')
-                          : SizedBox();
+                          ? const Text('Something Went wrong')
+                          : const SizedBox();
             },
           ),
         ],

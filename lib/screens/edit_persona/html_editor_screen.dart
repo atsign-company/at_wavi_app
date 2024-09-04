@@ -16,7 +16,7 @@ import 'dart:convert';
 
 class HtmlEditorScreen extends StatefulWidget {
   final String? initialText;
-  HtmlEditorScreen({Key? key, this.initialText}) : super(key: key);
+  const HtmlEditorScreen({Key? key, this.initialText}) : super(key: key);
 
   @override
   _HtmlEditorScreenState createState() => _HtmlEditorScreenState();
@@ -24,12 +24,14 @@ class HtmlEditorScreen extends StatefulWidget {
 
 class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
   String? _value;
-  HtmlEditorController _controller = HtmlEditorController();
+  final HtmlEditorController _controller = HtmlEditorController();
   bool _showHtmlToast = true;
-  var _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
+    super.initState();
+    _value = widget.initialText;
     if (Provider.of<UserProvider>(context, listen: false)
             .user
             ?.htmlToastView
@@ -43,15 +45,15 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
           ? false
           : true;
     }
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (didPop) async {
+        if (didPop) return;
         Navigator.pop(context, _value);
-        return true;
       },
       child: Scaffold(
         key: _scaffoldKey,
@@ -61,10 +63,10 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
               _value = widget.initialText; // don't save content
               Navigator.pop(context, _value);
             },
-            icon: Icon(Icons.keyboard_arrow_left),
+            icon: const Icon(Icons.keyboard_arrow_left),
           ),
-          backgroundColor: Theme.of(context).backgroundColor,
-          title: Text('HTML'),
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          title: const Text('HTML'),
         ),
         bottomSheet: InkWell(
           onTap: () {
@@ -107,25 +109,26 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                   autoAdjustHeight: false,
                   adjustHeightForKeyboard: false,
                 ),
-                otherOptions: OtherOptions(
+                otherOptions: const OtherOptions(
                   height: 450,
                 ),
                 callbacks: Callbacks(
                     onBeforeCommand: (String? currentHtml) {},
                     onChangeContent: (String? changed) {
-                      _value = changed;
+                      setState(() {
+                        _value = changed;
+                      });
                     },
                     onPaste: () {
                       if (_showHtmlToast) {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          duration: Duration(seconds: 3),
+                          duration: const Duration(seconds: 3),
                           backgroundColor: ColorConstants.DARK_GREY,
                           dismissDirection: DismissDirection.horizontal,
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                // "Paste not allowed here. Use the 'Paste html' button in the previous page.",
                                 "Use the 'Paste html' button in the previous page to paste html content.",
                                 style: CustomTextStyles.customTextStyle(
                                   ColorConstants.white,
@@ -160,7 +163,9 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                                       ScaffoldMessenger.of(context)
                                           .clearSnackBars();
 
-                                      _showHtmlToast = false;
+                                      setState(() {
+                                        _showHtmlToast = false;
+                                      });
                                       Provider.of<UserProvider>(context,
                                               listen: false)
                                           .user
@@ -183,7 +188,7 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                       }
                     }),
               ),
-              SizedBox(height: 100), // extra space for scrolling
+              const SizedBox(height: 100), // extra space for scrolling
             ],
           ),
         ),
@@ -192,16 +197,16 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
   }
 
   imageCompressor(String path) async {
-    double _width = 400, _height = 700, _compression = 75;
-    bool _loading = false, _fullWidth = false;
-    String? _errorMsg;
+    double width = 400, height = 700, compression = 75;
+    bool loading = false, fullWidth = false;
+    String? errorMsg;
     await showDialog<void>(
       context: NavService.navKey.currentContext!,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return StatefulBuilder(builder: (_context, _setDialogState) {
+        return StatefulBuilder(builder: (context, setDialogState) {
           return AlertDialog(
-            contentPadding: EdgeInsets.fromLTRB(10, 20, 5, 10),
+            contentPadding: const EdgeInsets.fromLTRB(10, 20, 5, 10),
             content: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -225,17 +230,17 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                     ),
                   ),
                   SizedBox(height: 10.toHeight),
-                  Divider(
+                  const Divider(
                     thickness: 1,
                     height: 1,
                   ),
                   SizedBox(height: 10.toHeight),
-                  _errorMsg != null
-                      ? Text('$_errorMsg',
+                  errorMsg != null
+                      ? Text('$errorMsg',
                           style:
                               CustomTextStyles.customTextStyle(AllColors().RED))
-                      : SizedBox(),
-                  SizedBox(height: _errorMsg != null ? 10.toHeight : 0),
+                      : const SizedBox(),
+                  SizedBox(height: errorMsg != null ? 10.toHeight : 0),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0.toWidth),
                     child: Row(
@@ -246,10 +251,10 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                                     .primaryColor
                                     .withOpacity(0.5))),
                         Checkbox(
-                            value: _fullWidth,
-                            onChanged: (_val) {
-                              _setDialogState(() {
-                                _fullWidth = _val!;
+                            value: fullWidth,
+                            onChanged: (val) {
+                              setDialogState(() {
+                                fullWidth = val!;
                               });
                             }),
                       ],
@@ -259,42 +264,42 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0.toWidth),
                     child: Text(
-                        'Width: ' + (_fullWidth ? '100%' : '$_width px'),
+                        'Width: ${fullWidth ? '100%' : '$width px'}',
                         style: CustomTextStyles.customTextStyle(
                             Theme.of(context).primaryColor.withOpacity(0.5))),
                   ),
                   Slider(
                     activeColor: Theme.of(context).primaryColor,
                     inactiveColor: ColorConstants.LIGHT_GREY,
-                    value: _width,
+                    value: width,
                     min: 50,
                     max: 700,
                     divisions: 650,
-                    onChanged: _fullWidth
+                    onChanged: fullWidth
                         ? null
-                        : (double _newWidth) {
-                            _setDialogState(() {
-                              _width = _newWidth.floorToDouble();
+                        : (double newWidth) {
+                            setDialogState(() {
+                              width = newWidth.floorToDouble();
                             });
                           },
                   ),
                   SizedBox(height: 10.toHeight),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 8.0.toWidth),
-                    child: Text('Quality: $_compression%',
+                    child: Text('Quality: $compression%',
                         style: CustomTextStyles.customTextStyle(
                             Theme.of(context).primaryColor.withOpacity(0.5))),
                   ),
                   Slider(
                     activeColor: Theme.of(context).primaryColor,
                     inactiveColor: ColorConstants.LIGHT_GREY,
-                    value: _compression,
+                    value: compression,
                     min: 1,
                     max: 99,
                     divisions: 98,
-                    onChanged: (double _newWidth) {
-                      _setDialogState(() {
-                        _compression = _newWidth.floorToDouble();
+                    onChanged: (double newWidth) {
+                      setDialogState(() {
+                        compression = newWidth.floorToDouble();
                       });
                     },
                   ),
@@ -310,17 +315,17 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                   ),
                   SizedBox(height: 10.toHeight),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(
+                            backgroundColor: WidgetStateProperty.all(
                                 Theme.of(context).scaffoldBackgroundColor),
                           ),
                           onPressed: () {
-                            _width = -1;
+                            width = -1;
                             Navigator.of(context).pop();
                           },
                           child: Text(
@@ -335,53 +340,53 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                           children: [
                             ElevatedButton(
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(
-                                    _loading
+                                backgroundColor: WidgetStateProperty.all(
+                                    loading
                                         ? Theme.of(context)
                                             .primaryColor
                                             .withOpacity(0.5)
                                         : Theme.of(context).primaryColor),
                               ),
-                              onPressed: _loading
+                              onPressed: loading
                                   ? null
                                   : () async {
-                                      _setDialogState(() {
-                                        _loading = true;
+                                      setDialogState(() {
+                                        loading = true;
                                       });
 
-                                      var _compressedFile =
+                                      var compressedFile =
                                           await FlutterImageCompress
                                               .compressWithFile(
                                         path,
-                                        minWidth: _fullWidth
+                                        minWidth: fullWidth
                                             ? 736
-                                            : _width.floor(), // 100% = 700
-                                        minHeight: _height.floor(),
-                                        quality: _compression.floor(),
+                                            : width.floor(), // 100% = 700
+                                        minHeight: height.floor(),
+                                        quality: compression.floor(),
                                       );
 
-                                      if (_compressedFile!.lengthInBytes >
+                                      if (compressedFile!.lengthInBytes >
                                           1000000) {
                                         /// 1MB
                                         if (mounted) {
-                                          _setDialogState(() {
-                                            _errorMsg =
+                                          setDialogState(() {
+                                            errorMsg =
                                                 'File greater than 512 KB';
-                                            _loading = false;
+                                            loading = false;
                                           });
                                         }
                                       } else {
-                                        _setDialogState(() {
-                                          _errorMsg = null;
-                                          _loading = false;
+                                        setDialogState(() {
+                                          errorMsg = null;
+                                          loading = false;
                                         });
 
-                                        String _finalWidth = _fullWidth
+                                        String finalWidth = fullWidth
                                             ? '100%'
-                                            : _width.floor().toString();
+                                            : width.floor().toString();
 
                                         _controller.insertHtml(
-                                            '<img src="data:image/jpeg;base64,${base64.encode(_compressedFile)}" width="$_finalWidth">');
+                                            '<img src="data:image/jpeg;base64,${base64.encode(compressedFile)}" width="$finalWidth">');
 
                                         Navigator.of(context).pop();
                                       }
@@ -393,9 +398,9 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
                                     size: 16),
                               ),
                             ),
-                            _loading
-                                ? CupertinoActivityIndicator()
-                                : SizedBox(),
+                            loading
+                                ? const CupertinoActivityIndicator()
+                                : const SizedBox(),
                           ],
                         ),
                       ],
@@ -409,7 +414,7 @@ class _HtmlEditorScreenState extends State<HtmlEditorScreen> {
       },
     );
 
-    print('_width $_width, _height $_height, _compression $_compression');
+    print('_width $width, _height $height, _compression $compression');
 
     return;
   }

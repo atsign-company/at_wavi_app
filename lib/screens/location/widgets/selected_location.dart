@@ -1,11 +1,8 @@
 import 'package:at_common_flutter/services/size_config.dart';
-import 'package:at_common_flutter/widgets/custom_button.dart';
 import 'package:at_location_flutter/at_location_flutter.dart';
 import 'package:at_location_flutter/common_components/circle_marker_painter.dart';
-import 'package:at_location_flutter/common_components/marker_custom_painter.dart';
 import 'package:at_location_flutter/map_content/flutter_map/flutter_map.dart';
 import 'package:at_wavi_app/model/osm_location_model.dart';
-import 'package:at_wavi_app/screens/location/location_widget.dart';
 import 'package:at_wavi_app/utils/colors.dart';
 import 'package:at_wavi_app/utils/constants.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
@@ -18,7 +15,7 @@ class SelectedLocation extends StatefulWidget {
   final String displayName;
   final Function(OsmLocationModel)? callbackFunction;
 
-  SelectedLocation(this.displayName, this.point, {this.callbackFunction});
+  const SelectedLocation(this.displayName, this.point, {Key? key, this.callbackFunction}) : super(key: key);
   @override
   _SelectedLocationState createState() => _SelectedLocationState();
 }
@@ -87,7 +84,7 @@ class _SelectedLocationState extends State<SelectedLocation> {
                 height: diameterOfCircle,
                 child: CustomPaint(
                   painter: CircleMarkerPainter(
-                      color: Color(0xFFF47B5D).withOpacity(0.2),
+                      color: const Color(0xFFF47B5D).withOpacity(0.2),
                       paintingStyle: PaintingStyle.fill),
                 ),
               ),
@@ -103,17 +100,17 @@ class _SelectedLocationState extends State<SelectedLocation> {
           children: <Widget>[
             FlutterMap(
               mapController: mapController,
-              returnPositionTapped: (_latLng, _zoom) {
+              returnPositionTapped: (latLng, zoom) {
                 setState(() {
                   if (_absorbDoubleTapPointer) {
-                    center = _latLng ?? LatLng(0, 0);
+                    center = latLng ?? const LatLng(0, 0);
                   }
-                  zoom = _zoom ?? 16;
+                  zoom = zoom ?? 16;
                 });
               },
               absorbDoubleTapPointer: _absorbDoubleTapPointer,
               options: MapOptions(
-                boundsOptions: FitBoundsOptions(padding: EdgeInsets.all(0)),
+                boundsOptions: const FitBoundsOptions(padding: EdgeInsets.all(0)),
                 center: center,
                 zoom: zoom,
               ),
@@ -136,7 +133,7 @@ class _SelectedLocationState extends State<SelectedLocation> {
                 decoration: BoxDecoration(
                   color: Theme.of(context).scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
+                  boxShadow: const [
                     BoxShadow(
                       color: Colors.grey,
                       offset: Offset(0.0, 1.0), //(x,y)
@@ -158,7 +155,7 @@ class _SelectedLocationState extends State<SelectedLocation> {
                           Row(
                             children: <Widget>[
                               Checkbox(
-                                fillColor: MaterialStateProperty.all<Color>(
+                                fillColor: WidgetStateProperty.all<Color>(
                                     Theme.of(context).primaryColor),
                                 checkColor:
                                     Theme.of(context).scaffoldBackgroundColor,
@@ -191,7 +188,7 @@ class _SelectedLocationState extends State<SelectedLocation> {
                                                         ColorConstants.RED,
                                                         size: 12)),
                                           )
-                                        : SizedBox()
+                                        : const SizedBox()
                                   ],
                                 ),
                               )
@@ -221,7 +218,7 @@ class _SelectedLocationState extends State<SelectedLocation> {
                                   Icons.location_on,
                                   color: Theme.of(context).primaryColor,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10,
                                 ),
                                 Flexible(
@@ -280,11 +277,11 @@ class _SelectedLocationState extends State<SelectedLocation> {
     );
   }
 
-  Widget _bottomSheetButton(String _text, {bool isDark = false}) {
+  Widget _bottomSheetButton(String text, {bool isDark = false}) {
     return Expanded(
       child: InkWell(
         onTap: () async {
-          if (_text == 'Cancel') {
+          if (text == 'Cancel') {
             // if (zoom - 1 != 0) {
             //   zoom = zoom - 1;
             // }
@@ -293,30 +290,30 @@ class _SelectedLocationState extends State<SelectedLocation> {
             Navigator.of(context).pop();
           }
 
-          if (_text == 'Confirm') {
+          if (text == 'Confirm') {
             //// Diameter will go to radius as 2, 5, 10 for 100, 200, 300
-            double _radius;
+            double radius;
             switch (diameterOfCircle.toInt()) {
               case 100:
-                _radius = 2;
+                radius = 2;
                 break;
               case 200:
-                _radius = 5;
+                radius = 5;
                 break;
               case 300:
-                _radius = 10;
+                radius = 10;
                 break;
               default:
-                _radius = 2;
+                radius = 2;
             }
-            var _finalData = OsmLocationModel(null, _radius, zoom,
+            var finalData = OsmLocationModel(null, radius, zoom,
                 //  diameterOfCircle,
                 latitude: center.latitude,
                 longitude: center.longitude,
                 diameter: 100); // default value, for backward compatibility
 
             if (widget.callbackFunction != null) {
-              widget.callbackFunction!(_finalData);
+              widget.callbackFunction!(finalData);
             }
 
             Navigator.of(context).pop();
@@ -328,7 +325,7 @@ class _SelectedLocationState extends State<SelectedLocation> {
           alignment: Alignment.center,
           decoration: BoxDecoration(
               color: isDark ? ColorConstants.black : ColorConstants.white,
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.grey,
                   offset: Offset(0.0, 1.0),
@@ -336,7 +333,7 @@ class _SelectedLocationState extends State<SelectedLocation> {
                 ),
               ]),
           child: Text(
-            _text,
+            text,
             style: isDark
                 ? CustomTextStyles.customTextStyle(ColorConstants.white,
                     size: 18)

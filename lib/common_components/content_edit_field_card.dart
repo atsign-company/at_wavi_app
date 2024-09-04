@@ -6,11 +6,11 @@ class ContentEditFieldCard extends StatefulWidget {
   final String title, subtitle;
   final bool isPrivate;
   final ThemeData theme;
-  ContentEditFieldCard(
-      {required this.theme,
+  const ContentEditFieldCard(
+      {Key? key, required this.theme,
       required this.title,
       required this.subtitle,
-      this.isPrivate = true});
+      this.isPrivate = true}) : super(key: key);
   // ContentEditFieldCard({
   //   required this.title,
   //   required this.subtitle,

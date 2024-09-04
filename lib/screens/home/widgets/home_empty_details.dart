@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:at_wavi_app/services/size_config.dart';
 
 class HomeEmptyDetails extends StatefulWidget {
+  const HomeEmptyDetails({Key? key}) : super(key: key);
+
   @override
   _HomeEmptyDetailsState createState() => _HomeEmptyDetailsState();
 }

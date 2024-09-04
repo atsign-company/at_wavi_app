@@ -26,11 +26,6 @@ class TwitetrService {
     } else if (Provider.of<UserProvider>(NavService.navKey.currentContext!,
                     listen: false)
                 .user !=
-            null &&
-        Provider.of<UserProvider>(NavService.navKey.currentContext!,
-                    listen: false)
-                .user!
-                .twitter !=
             null) {
       username = Provider.of<UserProvider>(NavService.navKey.currentContext!,
               listen: false)
@@ -46,8 +41,8 @@ class TwitetrService {
     twitterUser = await getTwitterUser(username);
     if (twitterUser!.id != null) {
       // tweetList = await getTwitterRecentPosts(twitterUser!.id!);
-      List<Tweet> _tweetList = await getTwitterRecentPosts(twitterUser!.id!);
-      searchedUserTweets[username] = _tweetList;
+      List<Tweet> tweetList = await getTwitterRecentPosts(twitterUser!.id!);
+      searchedUserTweets[username] = tweetList;
     } else {
       searchedUserTweets[username] = [];
     }
@@ -66,21 +61,21 @@ class TwitetrService {
     if (response.statusCode == 200) {
       var responseString = await response.stream.bytesToString();
       var user = jsonDecode(responseString);
-      TwitterUser _twitterUser;
+      TwitterUser twitterUser;
       if (user['data'] != null) {
-        _twitterUser = TwitterUser.fromJson(user['data']);
+        twitterUser = TwitterUser.fromJson(user['data']);
       } else {
-        _twitterUser = TwitterUser(null, null, null);
+        twitterUser = TwitterUser(null, null, null);
       }
-      return _twitterUser;
+      return twitterUser;
     } else {
-      var _twitterUser = TwitterUser(null, null, null);
-      return _twitterUser;
+      var twitterUser = TwitterUser(null, null, null);
+      return twitterUser;
     }
   }
 
   Future<List<Tweet>> getTwitterRecentPosts(String id) async {
-    var _tweetList = <Tweet>[];
+    var tweetList = <Tweet>[];
     var headers = {
       'Authorization': 'Bearer ${MixedConstants.twitterBearerToken}',
     };
@@ -95,10 +90,10 @@ class TwitetrService {
       var tweets = jsonDecode(responseString);
       if (tweets['data'] != null) {
         tweets['data'].forEach((el) {
-          _tweetList.add(Tweet.fromJson(el)!);
+          tweetList.add(Tweet.fromJson(el)!);
         });
       }
-      return _tweetList;
+      return tweetList;
     } else {
       return [];
     }

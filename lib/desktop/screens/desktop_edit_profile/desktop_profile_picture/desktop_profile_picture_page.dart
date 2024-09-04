@@ -13,7 +13,7 @@ import 'package:at_wavi_app/desktop/widgets/buttons/desktop_icon_button.dart';
 import 'package:flutter/material.dart';
 
 class DesktopProfilePicturePage extends StatefulWidget {
-  DesktopProfilePicturePage({Key? key}) : super(key: key);
+  const DesktopProfilePicturePage({Key? key}) : super(key: key);
 
   @override
   _DesktopProfilePicturePageState createState() =>
@@ -81,7 +81,7 @@ class _DesktopProfilePicturePageState extends State<DesktopProfilePicturePage> {
           ),
           Text(
             'Edit image',
-            style: appTheme.textTheme.bodyText1?.copyWith(
+            style: appTheme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -90,14 +90,14 @@ class _DesktopProfilePicturePageState extends State<DesktopProfilePicturePage> {
           ),
           Text(
             'All info is public unless set to Private',
-            style: appTheme.textTheme.bodyText2,
+            style: appTheme.textTheme.bodyMedium,
           ),
           const SizedBox(
             height: DesktopDimens.paddingNormal,
           ),
           Text(
             'Update your profile Image',
-            style: appTheme.textTheme.bodyText1?.copyWith(
+            style: appTheme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -131,7 +131,7 @@ class _DesktopProfilePicturePageState extends State<DesktopProfilePicturePage> {
             ),
             child: Row(
               children: [
-                Spacer(),
+                const Spacer(),
                 DesktopButton(
                   title: 'Save',
                   onPressed: () => _handleSaveAndNext(context),
@@ -159,7 +159,7 @@ class _DesktopProfilePicturePageState extends State<DesktopProfilePicturePage> {
                   ),
                 )
               : Container(
-                  child: FittedBox(
+                  child: const FittedBox(
                     fit: BoxFit.cover,
                     child: Icon(Icons.account_circle, color: Colors.grey),
                   ),
@@ -173,13 +173,13 @@ class _DesktopProfilePicturePageState extends State<DesktopProfilePicturePage> {
     final appTheme = AppTheme.of(context);
     return Consumer<UserPreview>(builder: (context, provider, child) {
       bool isPrivate = provider.user()?.image.isPrivate ?? false;
-      return Container(
+      return SizedBox(
         width: 300,
         child: SwitchListTile(
           activeColor: appTheme.primaryColor,
           title: Text(
             'Set image to private',
-            style: appTheme.textTheme.bodyText2,
+            style: appTheme.textTheme.bodyMedium,
           ),
           value: isPrivate,
           onChanged: (bool value) {

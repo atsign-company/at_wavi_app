@@ -27,7 +27,7 @@ class _EditPersonaState extends State<EditPersona>
     with SingleTickerProviderStateMixin {
   GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   late ThemeColor _themeColor;
-  List<Color> _colors = [
+  final List<Color> _colors = [
     ColorConstants.purple,
     ColorConstants.green,
     ColorConstants.blue,
@@ -45,7 +45,7 @@ class _EditPersonaState extends State<EditPersona>
   bool _updateTheme = false,
       _updateHighlightColor = false; // used to track if to update new values
   late TabController _controller;
-  int _tabIndex = 0;
+  final int _tabIndex = 0;
 
   @override
   void initState() {
@@ -93,32 +93,34 @@ class _EditPersonaState extends State<EditPersona>
   @override
   Widget build(BuildContext context) {
     if (_themeData == null) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     }
 
     _themeColor = Provider.of<ThemeProvider>(context, listen: false).themeColor;
 
-    return WillPopScope(
-      onWillPop: () async {
-        var _changes = _calculateChanges();
-        if (_changes) {
-          var _res = await _confirmationDialog();
-          if (_res == null) {
-            return false;
-          }
+    return PopScope(
+  canPop: false,
+  onPopInvoked: (didPop) async {
+    if (didPop) {
+      return;
+    }
+    
+    var changes = _calculateChanges();
+    if (changes) {
+      var res = await _confirmationDialog();
+      if (res == null) {
+        return;
+      }
 
-          if (_res == true) {
-            await _saveButtonCall();
-            return false;
-          } else {
-            Navigator.of(context).pop();
-            return true;
-          }
-        } else {
-          Navigator.of(context).pop();
-          return true;
-        }
-      },
+      if (res == true) {
+        await _saveButtonCall();
+      } else {
+        Navigator.of(context).pop();
+      }
+    } else {
+      Navigator.of(context).pop();
+    }
+  },
       child: Scaffold(
           key: scaffoldKey,
           bottomSheet: _bottomSheet(),
@@ -169,21 +171,21 @@ class _EditPersonaState extends State<EditPersona>
                       )
                     ],
                   ),
-                  Divider(height: 1),
+                  const Divider(height: 1),
                   Expanded(
                       child: TabBarView(
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     controller: _controller,
                     children: [
                       CotentEdit(
                         themeData: _themeData!,
                       ),
                       SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
+                        physics: const BouncingScrollPhysics(),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Text(
                               'Theme',
                               style: CustomTextStyles.customBoldTextStyle(
@@ -229,11 +231,11 @@ class _EditPersonaState extends State<EditPersona>
                               runAlignment: WrapAlignment.start,
                               runSpacing: 10.0,
                               spacing: 10.0,
-                              children: _colors.map((_color) {
+                              children: _colors.map((color) {
                                 return InkWell(
                                   onTap: () {
                                     setState(() {
-                                      _highlightColor = _color;
+                                      _highlightColor = color;
                                       _updateHighlightColor = true;
                                     });
                                   },
@@ -243,16 +245,16 @@ class _EditPersonaState extends State<EditPersona>
                                       _rectangle(
                                           width: 78.toWidth,
                                           height: 78.toWidth,
-                                          color: _color,
+                                          color: color,
                                           roundedCorner: 10),
                                       (_updateHighlightColor
-                                              ? (_color == _highlightColor)
-                                              : isColorSelected(_color))
+                                              ? (color == _highlightColor)
+                                              : isColorSelected(color))
                                           ? Positioned(
                                               child: _circularDoneIcon(
                                                   isDark: true,
                                                   size: 35.toWidth))
-                                          : SizedBox()
+                                          : const SizedBox()
                                     ],
                                   ),
                                 );
@@ -279,10 +281,10 @@ class _EditPersonaState extends State<EditPersona>
       context: context,
       barrierDismissible: true,
       builder: (BuildContext context) {
-        return Container(
+        return SizedBox(
           width: SizeConfig().screenWidth * 0.8,
           child: AlertDialog(
-            contentPadding: EdgeInsets.fromLTRB(15, 30, 15, 20),
+            contentPadding: const EdgeInsets.fromLTRB(15, 30, 15, 20),
             content: SingleChildScrollView(
               child: Container(
                 child: Column(
@@ -293,15 +295,15 @@ class _EditPersonaState extends State<EditPersona>
                           _themeData!.primaryColor),
                       textAlign: TextAlign.center,
                     ),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 30),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           ElevatedButton(
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
+                              backgroundColor: WidgetStateProperty.all(
                                   _themeData!.scaffoldBackgroundColor),
                             ),
                             onPressed: () {
@@ -317,7 +319,7 @@ class _EditPersonaState extends State<EditPersona>
                           ),
                           ElevatedButton(
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
+                              backgroundColor: WidgetStateProperty.all(
                                   _themeData!.primaryColor),
                             ),
                             onPressed: () {
@@ -345,57 +347,45 @@ class _EditPersonaState extends State<EditPersona>
     return value;
   }
 
-  bool isColorSelected(Color _color) {
+  bool isColorSelected(Color color) {
     var highlightColor =
         Provider.of<ThemeProvider>(context, listen: false).highlightColor;
 
     if ([ColorConstants.purple, ColorConstants.darkThemePurple]
-                .indexOf(_color) >
-            -1 &&
+                .contains(color) &&
         [ColorConstants.purple, ColorConstants.darkThemePurple]
-                .indexOf(highlightColor!) >
-            -1) {
+                .contains(highlightColor!)) {
       return true;
     } else if ([ColorConstants.green, ColorConstants.darkThemeGreen]
-                .indexOf(highlightColor!) !=
-            -1 &&
-        _color == highlightColor) {
+                .contains(highlightColor!) &&
+        color == highlightColor) {
       return true;
     } else if ([ColorConstants.blue, ColorConstants.darkThemeBlue]
-                .indexOf(highlightColor) !=
-            -1 &&
-        _color == highlightColor) {
+                .contains(highlightColor) &&
+        color == highlightColor) {
       return true;
     } else if ([ColorConstants.solidPink, ColorConstants.darkThemeSolidPink]
-                .indexOf(highlightColor) !=
-            -1 &&
+                .contains(highlightColor) &&
         [ColorConstants.solidPink, ColorConstants.darkThemeSolidPink]
-                .indexOf(_color) !=
-            -1) {
+                .contains(color)) {
       return true;
     } else if ([ColorConstants.fadedBrown, ColorConstants.darkThemeFadedBrown]
-                .indexOf(highlightColor) !=
-            -1 &&
-        _color == highlightColor) {
+                .contains(highlightColor) &&
+        color == highlightColor) {
       return true;
     } else if ([ColorConstants.solidRed, ColorConstants.darkThemeSolidRed]
-                .indexOf(highlightColor) !=
-            -1 &&
-        _color == highlightColor) {
+                .contains(highlightColor) &&
+        color == highlightColor) {
       return true;
     } else if ([ColorConstants.solidPeach, ColorConstants.darkThemeSolidPeach]
-                .indexOf(highlightColor) !=
-            -1 &&
+                .contains(highlightColor) &&
         [ColorConstants.solidPeach, ColorConstants.darkThemeSolidPeach]
-                .indexOf(_color) !=
-            -1) {
+                .contains(color)) {
       return true;
     } else if ([ColorConstants.solidYellow, ColorConstants.darkThemeSolidYellow]
-                .indexOf(highlightColor) !=
-            -1 &&
+                .contains(highlightColor) &&
         [ColorConstants.solidYellow, ColorConstants.darkThemeSolidYellow]
-                .indexOf(_color) !=
-            -1) {
+                .contains(color)) {
       return true;
     } else
       return false;
@@ -410,15 +400,15 @@ class _EditPersonaState extends State<EditPersona>
     );
   }
 
-  Widget _bottomSheetButton(String _text, {bool isDark = false}) {
+  Widget _bottomSheetButton(String text, {bool isDark = false}) {
     return Expanded(
       child: InkWell(
         onTap: () async {
-          if (_text == 'Preview') {
+          if (text == 'Preview') {
             await _previewButtonCall();
           }
 
-          if (_text == 'Save & Publish') {
+          if (text == 'Save & Publish') {
             await _saveButtonCall();
           }
         },
@@ -429,7 +419,7 @@ class _EditPersonaState extends State<EditPersona>
               color: isDark
                   ? _themeData!.primaryColor
                   : _themeData!.scaffoldBackgroundColor,
-              boxShadow: [
+              boxShadow: const [
                 BoxShadow(
                   color: Colors.grey,
                   offset: Offset(0.0, 1.0),
@@ -437,7 +427,7 @@ class _EditPersonaState extends State<EditPersona>
                 ),
               ]),
           child: Text(
-            _text,
+            text,
             style: isDark
                 ? CustomTextStyles.customTextStyle(
                     _themeData!.scaffoldBackgroundColor,
@@ -467,7 +457,7 @@ class _EditPersonaState extends State<EditPersona>
         decoration: BoxDecoration(
             color: isDark ? ColorConstants.black : ColorConstants.white,
             borderRadius: BorderRadius.circular(8),
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 color: Colors.grey,
                 offset: Offset(0.0, 1.0),
@@ -508,7 +498,7 @@ class _EditPersonaState extends State<EditPersona>
                     : (_themeColor ==
                         (isDark ? ThemeColor.Dark : ThemeColor.Light)))
                 ? Positioned(child: _circularDoneIcon(isDark: isDark))
-                : SizedBox()
+                : const SizedBox()
           ],
         ),
       ),
@@ -562,37 +552,37 @@ class _EditPersonaState extends State<EditPersona>
   }
 
   _previewButtonCall() async {
-    var _modifiedTheme =
+    var modifiedTheme =
         await Provider.of<ThemeProvider>(context, listen: false).getTheme();
 
-    var _modifiedHighlightColor =
+    var modifiedHighlightColor =
         Provider.of<ThemeProvider>(context, listen: false).highlightColor;
 
     if (_updateHighlightColor) {
-      _modifiedHighlightColor = _highlightColor;
+      modifiedHighlightColor = _highlightColor;
     }
 
     // converting highlight color according to light/dark theme
-    _modifiedHighlightColor = _theme == ThemeColor.Dark
+    modifiedHighlightColor = _theme == ThemeColor.Dark
         ? Provider.of<ThemeProvider>(context, listen: false)
-            .convertHighlightColorForDarktheme(_modifiedHighlightColor!)
+            .convertHighlightColorForDarktheme(modifiedHighlightColor!)
         : Provider.of<ThemeProvider>(context, listen: false)
-            .convertHighlightColorForLighttheme(_modifiedHighlightColor!);
+            .convertHighlightColorForLighttheme(modifiedHighlightColor!);
 
     if (_updateTheme) {
-      _modifiedTheme = _theme == ThemeColor.Dark
-          ? Themes.darkTheme(highlightColor: _modifiedHighlightColor)
-          : Themes.lightTheme(highlightColor: _modifiedHighlightColor);
+      modifiedTheme = _theme == ThemeColor.Dark
+          ? Themes.darkTheme(highlightColor: modifiedHighlightColor)
+          : Themes.lightTheme(highlightColor: modifiedHighlightColor);
     } else {
-      _modifiedTheme =
+      modifiedTheme =
           Provider.of<ThemeProvider>(context, listen: false).themeColor ==
                   ThemeColor.Dark
-              ? Themes.darkTheme(highlightColor: _modifiedHighlightColor)
-              : Themes.lightTheme(highlightColor: _modifiedHighlightColor);
+              ? Themes.darkTheme(highlightColor: modifiedHighlightColor)
+              : Themes.lightTheme(highlightColor: modifiedHighlightColor);
     }
 
     await SetupRoutes.push(context, Routes.HOME, arguments: {
-      'themeData': _modifiedTheme,
+      'themeData': modifiedTheme,
       'isPreview': true,
     });
   }

@@ -15,13 +15,10 @@ class DesktopColorSettingPage extends StatefulWidget {
 
 class _DesktopColorSettingPageState extends State<DesktopColorSettingPage>
     with AutomaticKeepAliveClientMixin {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     // final appTheme = AppTheme.of(context);
     final desktopAppearanceModel = Provider.of<DesktopAppearanceModel>(
       context,
@@ -30,13 +27,13 @@ class _DesktopColorSettingPageState extends State<DesktopColorSettingPage>
         ? desktopAppearanceModel.darkPaletteColors
         : desktopAppearanceModel.paletteColors;
     return Container(
-      padding: EdgeInsets.only(
+      padding: const EdgeInsets.only(
           left: DesktopDimens.marginExtraLarge, top: DesktopDimens.marginLarge),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Container(
+            child: SizedBox(
               width: 98 * 4 + 12 * 3,
               child: GridView.count(
                 crossAxisCount: 4,

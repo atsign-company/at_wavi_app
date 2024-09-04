@@ -20,27 +20,27 @@ class DesktopSideMenuWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final appTheme = AppTheme.of(context);
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
+      padding: const EdgeInsets.symmetric(horizontal: DesktopDimens.paddingNormal),
       child: ElevatedButton(
         onPressed: onPressed,
+        style: ButtonStyle(
+          backgroundColor: WidgetStateProperty.all(
+              isSelected ? appTheme.primaryColor : Colors.transparent),
+          shadowColor: WidgetStateProperty.all(
+              isSelected ? Colors.black.withOpacity(0.16) : Colors.transparent),
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+          ),
+        ),
         child: Container(
           height: DesktopDimens.buttonHeight,
           alignment: Alignment.centerLeft,
           child: Text(
             menu.title,
-            style: appTheme.textTheme.button?.copyWith(
+            style: appTheme.textTheme.labelLarge?.copyWith(
               color: isSelected ? Colors.white : appTheme.secondaryTextColor,
-            ),
-          ),
-        ),
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(
-              isSelected ? appTheme.primaryColor : Colors.transparent),
-          shadowColor: MaterialStateProperty.all(
-              isSelected ? Colors.black.withOpacity(0.16) : Colors.transparent),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
             ),
           ),
         ),

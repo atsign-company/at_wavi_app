@@ -21,11 +21,15 @@ class DesktopReorderableItemWidget extends StatelessWidget {
       child: Container(
         height: 52,
         margin: margin,
+        decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
+          border: Border.all(color: appTheme.borderColor, width: 1),
+        ),
         child: Row(
           children: [
             ReorderableDragStartListener(
               index: index,
-              child: Container(
+              child: SizedBox(
                 width: 52,
                 child: Center(
                   child: Icon(
@@ -40,7 +44,7 @@ class DesktopReorderableItemWidget extends StatelessWidget {
               width: 1,
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Text(
                 title,
                 style: TextStyle(
@@ -50,10 +54,6 @@ class DesktopReorderableItemWidget extends StatelessWidget {
               ),
             )
           ],
-        ),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(4)),
-          border: Border.all(color: appTheme.borderColor, width: 1),
         ),
       ),
     );

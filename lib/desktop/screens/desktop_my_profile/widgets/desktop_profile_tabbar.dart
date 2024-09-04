@@ -6,12 +6,12 @@ class DesktopProfileTabBar extends StatelessWidget {
   final TabController tab;
   final ValueChanged<int>? onTap;
 
-  DesktopProfileTabBar({required this.tab, this.onTap});
+  const DesktopProfileTabBar({Key? key, required this.tab, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final appTheme = AppTheme.of(context);
-    return Container(
+    return SizedBox(
       height: 48,
       width: 320,
       child: Stack(
@@ -30,14 +30,14 @@ class DesktopProfileTabBar extends StatelessWidget {
           TabBar(
             controller: tab,
             tabs: [
-              Container(child: Center(child: Text(Strings.desktop_details))),
-              Container(child: Center(child: Text(Strings.desktop_channels))),
+              Container(child: const Center(child: Text(Strings.desktop_details))),
+              Container(child: const Center(child: Text(Strings.desktop_channels))),
               // Container(child: Center(child: Text(Strings.desktop_featured))),
             ],
             labelColor: Colors.white,
             unselectedLabelColor: appTheme.primaryTextColor,
-            labelStyle: appTheme.textTheme.subtitle1,
-            unselectedLabelStyle: appTheme.textTheme.subtitle1,
+            labelStyle: appTheme.textTheme.titleMedium,
+            unselectedLabelStyle: appTheme.textTheme.titleMedium,
             padding: EdgeInsets.zero,
             indicator: BoxDecoration(
               color: appTheme.primaryColor,
@@ -45,7 +45,7 @@ class DesktopProfileTabBar extends StatelessWidget {
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.2),
-                  offset: Offset(2, 4),
+                  offset: const Offset(2, 4),
                   blurRadius: 6,
                 )
               ],

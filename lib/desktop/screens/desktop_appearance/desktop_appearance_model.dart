@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class DesktopAppearanceModel extends ChangeNotifier {
   bool _isDarkMode = false;
   Color _color = Colors.black;
-  List<Color> _colorItems = [];
+  final List<Color> _colorItems = [];
 
   bool get isDarkMode => _isDarkMode;
 

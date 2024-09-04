@@ -4,22 +4,22 @@ class BaseModel with ChangeNotifier {
   Map<String, Status> status = {'main': Status.Idle};
   Map<String, String?> error = {};
   // ignore: always_declare_return_types
-  setStatus(String function, Status _status) {
-    status[function] = _status;
-    notifyListeners();
-  }
+setStatus(String function, Status statusValue) {
+  status[function] = statusValue;
+  notifyListeners();
+}
 
-  // ignore: always_declare_return_types
-  setError(String function, String _error, [Status? _status]) {
-    if (_error != null) {
-      error[function] = _error;
-      status[function] = Status.Error;
-    } else {
-      error[function] = null;
-      status[function] = _status ?? Status.Idle;
-    }
-    notifyListeners();
+
+setError(String function, String errorValue, [Status? statusValue]) {
+  error[function] = errorValue;
+  if (statusValue != null) {
+    status[function] = statusValue;
+  } else {
+    status[function] = Status.Error;
   }
+  notifyListeners();
+}
+
 
   // ignore: always_declare_return_types
   reset(String function) {

@@ -13,7 +13,7 @@ class DialogUtils {
       SnackBar(
         content: Text(
           message,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 16,
           ),

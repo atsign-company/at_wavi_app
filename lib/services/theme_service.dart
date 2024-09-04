@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class ThemeService {
   ThemeService._();
-  static ThemeService _instance = ThemeService._();
+  static final ThemeService _instance = ThemeService._();
   factory ThemeService() => _instance;
 
   /// Updates user theme preferences.
@@ -17,9 +17,9 @@ class ThemeService {
     try {
       assert(themePreference != null || highlightColor != null);
 
-      late String _value;
+      late String value;
 
-      var _metaData = Metadata()
+      var metaData = Metadata()
         ..isPublic = true
         ..ccd = true
 
@@ -27,36 +27,36 @@ class ThemeService {
         ..namespaceAware = true
         ..isEncrypted = false;
 
-      var _atKey = AtKey()..metadata = _metaData;
+      var atKey = AtKey()..metadata = metaData;
 
       if (themePreference != null) {
-        _atKey.key = AtKeyConstants.themePreference;
+        atKey.key = AtKeyConstants.themePreference;
         if (themePreference == ThemeColor.Dark) {
-          _value = 'dark'.toString();
+          value = 'dark'.toString();
         } else {
-          _value = 'light'.toString();
+          value = 'light'.toString();
         }
       } else if (highlightColor != null) {
-        _atKey.key = AtKeyConstants.highlightColorPreference;
-        _value = highlightColor.toString().toLowerCase().substring(10, 16);
+        atKey.key = AtKeyConstants.highlightColorPreference;
+        value = highlightColor.toString().toLowerCase().substring(10, 16);
       }
 
-      print('_value $_value');
+      print('_value $value');
 
-      var _result = await BackendService().atClientInstance.put(_atKey, _value);
-      print('_result $_result');
-      return _result;
+      var result = await BackendService().atClientInstance.put(atKey, value);
+      print('_result $result');
+      return result;
     } catch (e) {
       print('updateProfile throws exception $e');
       return false;
     }
   }
 
-  Future<String?> getThemePreference(String _atsign,
+  Future<String?> getThemePreference(String atsign,
       {bool returnHighlightColorPreference = false}) async {
     try {
-      if (!_atsign.contains('@')) {
-        _atsign = '@' + _atsign;
+      if (!atsign.contains('@')) {
+        atsign = '@$atsign';
       }
 
       var metadata = Metadata();
@@ -64,7 +64,7 @@ class ThemeService {
       metadata.namespaceAware = true;
 
       var key = AtKey();
-      key.sharedBy = _atsign;
+      key.sharedBy = atsign;
       key.metadata = metadata;
 
       key.key = returnHighlightColorPreference
@@ -76,6 +76,7 @@ class ThemeService {
       var result =
           await BackendService().atClientInstance.get(key).catchError((e) {
         print('error in get ${e.errorCode} ${e.errorMessage}');
+        return AtValue();
       });
 
       // print('getThemePreference result $result');

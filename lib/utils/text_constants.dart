@@ -1,5 +1,5 @@
 class Strings {
-  static final String resetButton = 'Reset';
+  static const String resetButton = 'Reset';
   static const String resetDescription =
       'This will remove the selected atSign and its details from this app only.';
   static const String noAtsignToReset = 'No atSigns are paired to reset. ';

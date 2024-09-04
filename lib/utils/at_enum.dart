@@ -99,13 +99,13 @@ extension FieldsEnumValues on FieldsEnum {
   }
 
   String get name {
-    return this.toString().split('.').last.toLowerCase();
+    return toString().split('.').last.toLowerCase();
   }
 
   String get title {
     return this == FieldsEnum.ABOUT
         ? 'About Me'
-        : this.toString().split('.').last.toLowerCase();
+        : toString().split('.').last.toLowerCase();
   }
 
   String get hintText {
@@ -274,7 +274,7 @@ enum AtCategory {
 
 extension AtCategoryValues on AtCategory {
   String get name {
-    return this.toString().split('.').last;
+    return toString().split('.').last;
   }
 
   String get label {
@@ -355,7 +355,7 @@ enum LocationJson { RADIUS, LOCATION }
 
 extension LocationJsonValues on LocationJson {
   String get name {
-    return this.toString().split('.').last.toLowerCase();
+    return toString().split('.').last.toLowerCase();
   }
 }
 
@@ -371,7 +371,7 @@ enum OnboardStatus {
 // }
 
 extension status on OnboardStatus {
-  String get value => this.toString().split('.').last.toUpperCase();
+  String get value => toString().split('.').last.toUpperCase();
   String get name {
     switch (this) {
       case OnboardStatus.ACTIVATE:
@@ -446,8 +446,6 @@ extension value on RootEnvironment {
       case RootEnvironment.Production:
         return 'https://wavi.ng/';
 
-      case RootEnvironment.Staging:
-        return 'https://directory.atsign.wtf/';
 
       default:
         return '';
@@ -494,7 +492,7 @@ extension values on CustomContentType {
     } else if (this == CustomContentType.Html) {
       return 'HTML';
     } else {
-      return this.name;
+      return name;
     }
   }
 

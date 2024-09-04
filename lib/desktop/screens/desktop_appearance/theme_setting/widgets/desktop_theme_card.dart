@@ -23,7 +23,16 @@ class DesktopThemeCard extends StatelessWidget {
     );
     return ElevatedButton(
       onPressed: onPressed,
-      child: Container(
+      style: ButtonStyle(
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+        ),
+        backgroundColor: WidgetStateProperty.all<Color>(theme.backgroundColor),
+        padding: WidgetStateProperty.all(EdgeInsets.zero),
+      ),
+      child: SizedBox(
         width: double.infinity,
         height: 166,
         child: Stack(
@@ -31,34 +40,34 @@ class DesktopThemeCard extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Container(
                   height: 40,
                   color: primaryColor.withOpacity(0.2),
-                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Container(
                   height: 40,
                   color: primaryColor.withOpacity(0.2),
-                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: ElevatedButton(
                     onPressed: null,
-                    child: Container(),
                     style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                       ),
                       backgroundColor:
-                          MaterialStateProperty.all<Color>(primaryColor),
-                      padding: MaterialStateProperty.all(EdgeInsets.zero),
+                          WidgetStateProperty.all<Color>(primaryColor),
+                      padding: WidgetStateProperty.all(EdgeInsets.zero),
                     ),
+                    child: Container(),
                   ),
                 ),
               ],
@@ -69,25 +78,16 @@ class DesktopThemeCard extends StatelessWidget {
                 child: Container(
                   height: 30,
                   width: 30,
-                  child: Icon(Icons.check_rounded, color: primaryColor),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
+                  child: Icon(Icons.check_rounded, color: primaryColor),
                 ),
               ),
             ),
           ],
         ),
-      ),
-      style: ButtonStyle(
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-        ),
-        backgroundColor: MaterialStateProperty.all<Color>(theme.backgroundColor),
-        padding: MaterialStateProperty.all(EdgeInsets.zero),
       ),
     );
   }

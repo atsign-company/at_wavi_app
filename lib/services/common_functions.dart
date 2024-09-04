@@ -30,30 +30,30 @@ import 'package:url_launcher/url_launcher.dart';
 
 class CommonFunctions {
   CommonFunctions._internal();
-  static CommonFunctions _instance = CommonFunctions._internal();
+  static final CommonFunctions _instance = CommonFunctions._internal();
   factory CommonFunctions() => _instance;
 
-  List<Widget> getCustomCardForFields(ThemeData _themeData, AtCategory category,
+  List<Widget> getCustomCardForFields(ThemeData themeData, AtCategory category,
       {bool isPreview = false}) {
-    return [...getAllfieldsCard(_themeData, category, isPreview: isPreview)];
+    return [...getAllfieldsCard(themeData, category, isPreview: isPreview)];
   }
 
-  bool isOsmDataPresent(Map _locationData) {
-    if ((_locationData['latitude'] != null) &&
-        (_locationData['longitude'] != null)) {
+  bool isOsmDataPresent(Map locationData) {
+    if ((locationData['latitude'] != null) &&
+        (locationData['longitude'] != null)) {
       return true;
     }
 
     return false;
   }
 
-  List<Widget> getCustomLocationCards(ThemeData _themeData,
+  List<Widget> getCustomLocationCards(ThemeData themeData,
       {bool isPreview = false}) {
     List<String> fieldOrder =
         FieldNames().getFieldList(AtCategory.LOCATION, isPreview: isPreview);
     var customLocationWidgets = <Widget>[];
 
-    User _currentUser = User.fromJson(
+    User currentUser = User.fromJson(
       json.decode(
         json.encode(
           User.toJson(isPreview
@@ -67,27 +67,25 @@ class CommonFunctions {
       ),
     );
     List<BasicData>? customFields =
-        _currentUser.customFields[AtCategory.LOCATION.name];
-    if (customFields == null) {
-      customFields = [];
-    }
+        currentUser.customFields[AtCategory.LOCATION.name];
+    customFields ??= [];
 
     for (int i = 0; i < fieldOrder.length; i++) {
       var index =
           customFields.indexWhere((el) => el.accountName == fieldOrder[i]);
       if (index != -1 &&
           !customFields[index].accountName!.contains(AtText.IS_DELETED)) {
-        var _osmModel = OsmLocationModel.fromJson(
-            json.decode(_currentUser.customFields['LOCATION']?[index].value));
+        var osmModel = OsmLocationModel.fromJson(
+            json.decode(currentUser.customFields['LOCATION']?[index].value));
 
-        if (_osmModel.latLng != null) {
+        if (osmModel.latLng != null) {
           customLocationWidgets.add(
             Padding(
-              padding: EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 10),
               child: buildMap(
-                _osmModel,
-                _currentUser.customFields['LOCATION']?[index].accountName ?? '',
-                _themeData,
+                osmModel,
+                currentUser.customFields['LOCATION']?[index].accountName ?? '',
+                themeData,
               ),
             ),
           );
@@ -98,11 +96,11 @@ class CommonFunctions {
     return customLocationWidgets;
   }
 
-  List<Widget> getAllLocationCards(ThemeData _themeData,
+  List<Widget> getAllLocationCards(ThemeData themeData,
       {bool isPreview = false}) {
     var locationWidgets = <Widget>[];
 
-    User _currentUser = User.fromJson(json.decode(json.encode(User.toJson(
+    User currentUser = User.fromJson(json.decode(json.encode(User.toJson(
         isPreview
             ? Provider.of<UserPreview>(NavService.navKey.currentContext!,
                     listen: false)
@@ -111,29 +109,29 @@ class CommonFunctions {
                     listen: false)
                 .user!))));
 
-    if ((_currentUser.location.value != null) &&
-        (isOsmDataPresent(json.decode(_currentUser.location.value)))) {
-      var _osmModel =
-          OsmLocationModel.fromJson(json.decode(_currentUser.location.value));
+    if ((currentUser.location.value != null) &&
+        (isOsmDataPresent(json.decode(currentUser.location.value)))) {
+      var osmModel =
+          OsmLocationModel.fromJson(json.decode(currentUser.location.value));
 
-      if (_osmModel.latLng != null) {
+      if (osmModel.latLng != null) {
         locationWidgets.add(
           buildMap(
-            _osmModel,
-            _currentUser.locationNickName.value ?? '',
-            _themeData,
+            osmModel,
+            currentUser.locationNickName.value ?? '',
+            themeData,
           ),
         );
       }
     }
 
     locationWidgets
-        .addAll(getCustomLocationCards(_themeData, isPreview: isPreview));
+        .addAll(getCustomLocationCards(themeData, isPreview: isPreview));
 
     return locationWidgets;
   }
 
-  List<Widget> getDefinedFieldsCard(ThemeData _themeData, AtCategory category,
+  List<Widget> getDefinedFieldsCard(ThemeData themeData, AtCategory category,
       {bool isPreview = false}) {
     var definedFieldsWidgets = <Widget>[];
     var userMap = User.toJson(isPreview
@@ -157,10 +155,10 @@ class CommonFunctions {
                 child: CustomCard(
                   title: field.key,
                   subtitle: field.value.value,
-                  themeData: _themeData,
+                  themeData: themeData,
                 )),
             Divider(
-                height: 1, color: _themeData.highlightColor.withOpacity(0.5))
+                height: 1, color: themeData.highlightColor.withOpacity(0.5))
           ],
         );
 
@@ -170,7 +168,7 @@ class CommonFunctions {
     return definedFieldsWidgets;
   }
 
-  List<Widget> getCustomFieldsCard(ThemeData _themeData, AtCategory category,
+  List<Widget> getCustomFieldsCard(ThemeData themeData, AtCategory category,
       {bool isPreview = false}) {
     var customFieldsWidgets = <Widget>[];
 
@@ -196,10 +194,10 @@ class CommonFunctions {
             children: [
               SizedBox(
                 width: double.infinity,
-                child: checkForCustomContentType(basicData, _themeData),
+                child: checkForCustomContentType(basicData, themeData),
               ),
               Divider(
-                  height: 1, color: _themeData.highlightColor.withOpacity(0.5))
+                  height: 1, color: themeData.highlightColor.withOpacity(0.5))
             ],
           );
           customFieldsWidgets.add(
@@ -212,7 +210,7 @@ class CommonFunctions {
     return customFieldsWidgets;
   }
 
-  List<Widget> getAllfieldsCard(ThemeData _themeData, AtCategory category,
+  List<Widget> getAllfieldsCard(ThemeData themeData, AtCategory category,
       {bool isPreview = false}) {
     var allFieldsWidget = <Widget>[];
     var userMap = User.toJson(isPreview
@@ -237,9 +235,7 @@ class CommonFunctions {
           .customFields[category.name];
     }
 
-    if (customFields == null) {
-      customFields = [];
-    }
+    customFields ??= [];
 
     List<String> fields = [
       ...FieldNames().getFieldList(category, isPreview: isPreview)
@@ -256,7 +252,7 @@ class CommonFunctions {
 
       if (userMap.containsKey(fields[i])) {
         basicData = userMap[fields[i]];
-        if (basicData.accountName == null) basicData.accountName = fields[i];
+        basicData.accountName ??= fields[i];
       } else {
         var index =
             customFields.indexWhere((el) => el.accountName == fields[i]);
@@ -286,13 +282,13 @@ class CommonFunctions {
                 child: CustomCard(
                   title: getTitle(basicData.accountName!),
                   subtitle: basicData.value,
-                  themeData: _themeData,
+                  themeData: themeData,
                   url: url,
                   isUrl: isUrl,
                   isEmail: basicData.displayingAccountName == "Email",
                 )),
             Divider(
-                height: 1, color: _themeData.highlightColor.withOpacity(0.5))
+                height: 1, color: themeData.highlightColor.withOpacity(0.5))
           ],
         );
       } else {
@@ -300,10 +296,10 @@ class CommonFunctions {
           children: [
             SizedBox(
               width: double.infinity,
-              child: checkForCustomContentType(basicData, _themeData),
+              child: checkForCustomContentType(basicData, themeData),
             ),
             Divider(
-                height: 1, color: _themeData.highlightColor.withOpacity(0.5))
+                height: 1, color: themeData.highlightColor.withOpacity(0.5))
           ],
         );
       }
@@ -314,34 +310,34 @@ class CommonFunctions {
     return allFieldsWidget;
   }
 
-  Widget checkForCustomContentType(BasicData basicData, ThemeData _themeData) {
-    Widget fieldCard = SizedBox();
+  Widget checkForCustomContentType(BasicData basicData, ThemeData themeData) {
+    Widget fieldCard = const SizedBox();
     if (basicData.type == CustomContentType.Text.name ||
         basicData.type == CustomContentType.Number.name ||
         basicData.type == CustomContentType.Html.name) {
       fieldCard = CustomCard(
         title: basicData.accountName!,
         subtitle: basicData.value,
-        themeData: _themeData,
+        themeData: themeData,
       );
     } else if (basicData.type == CustomContentType.Image.name ||
         basicData.type == CustomContentType.Youtube.name) {
       fieldCard = CustomMediaCard(
         basicData: basicData,
-        themeData: _themeData,
+        themeData: themeData,
       );
     } else if (basicData.type == CustomContentType.Link.name) {
       fieldCard = CustomCard(
         title: basicData.accountName!,
         subtitle: basicData.value,
-        themeData: _themeData,
+        themeData: themeData,
         isUrl: true,
       );
     }
     return fieldCard;
   }
 
-  List<Widget> getFeaturedTwitterCards(String username, ThemeData _themeData) {
+  List<Widget> getFeaturedTwitterCards(String username, ThemeData themeData) {
     var twitterCards = <Widget>[];
     if (TwitetrService().searchedUserTweets[username] != null &&
         TwitetrService().searchedUserTweets[username]!.isNotEmpty) {
@@ -359,12 +355,12 @@ class CommonFunctions {
               width: double.infinity,
               child: CustomCard(
                 subtitle: tweet.text,
-                themeData: _themeData,
+                themeData: themeData,
               ),
             ),
             Divider(
               height: 1,
-              color: _themeData.highlightColor.withOpacity(0.5),
+              color: themeData.highlightColor.withOpacity(0.5),
             )
           ],
         );
@@ -373,7 +369,7 @@ class CommonFunctions {
       });
     } else {
       twitterCards.add(EmptyWidget(
-        _themeData,
+        themeData,
         limitedContent: true,
       ));
     }
@@ -537,14 +533,18 @@ class CommonFunctions {
       if (receiver == null) {
         return false;
       } else if (!receiver.contains('@')) {
-        receiver = '@' + receiver;
+        receiver = '@$receiver';
       }
       var checkPresence = await AtClientManager.getInstance()
           .secondaryAddressFinder!
           .findSecondary(receiver);
-      return checkPresence != null;
+      // ignore: unnecessary_null_comparison
+      if (checkPresence != null) {
+        return false;
+      }
+        return true;
     } catch (e) {
-      print("Error ======> ${e}");
+      print("Error ======> $e");
       return false;
     }
   }
@@ -562,21 +562,21 @@ class CommonFunctions {
     ));
   }
 
-  buildMap(OsmLocationModel _osmLocationModel, String _locationNickname,
+  buildMap(OsmLocationModel osmLocationModel, String locationNickname,
       ThemeData themeData) {
-    if (_osmLocationModel.latLng == null) {
-      return SizedBox();
+    if (osmLocationModel.latLng == null) {
+      return const SizedBox();
     }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          _locationNickname,
+          locationNickname,
           style: TextStyles.lightText(themeData.primaryColor.withOpacity(0.5),
               size: 16),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
         Container(
@@ -593,9 +593,9 @@ class CommonFunctions {
                 child: FlutterMap(
                   // key: UniqueKey(),
                   options: MapOptions(
-                    boundsOptions: FitBoundsOptions(padding: EdgeInsets.all(0)),
-                    center: _osmLocationModel.latLng!,
-                    zoom: _osmLocationModel.zoom ?? 16,
+                    boundsOptions: const FitBoundsOptions(padding: EdgeInsets.all(0)),
+                    center: osmLocationModel.latLng!,
+                    zoom: osmLocationModel.zoom ?? 16,
                   ),
                   layers: [
                     TileLayerOptions(
@@ -611,11 +611,11 @@ class CommonFunctions {
                       Marker(
                         width: 40,
                         height: 50,
-                        point: _osmLocationModel.latLng!,
+                        point: osmLocationModel.latLng!,
                         builder: (ctx) => Container(
                             child: createMarker(
                                 diameterOfCircle:
-                                    _osmLocationModel.radius ?? 100)),
+                                    osmLocationModel.radius ?? 100)),
                       )
                     ])
                   ],
@@ -638,24 +638,24 @@ class CommonFunctions {
                             SetupRoutes.push(NavService.navKey.currentContext!,
                                 Routes.PREVIEW_LOCATION,
                                 arguments: {
-                                  'title': _locationNickname,
-                                  'latLng': _osmLocationModel.latLng!,
-                                  'zoom': _osmLocationModel.zoom ?? 16,
+                                  'title': locationNickname,
+                                  'latLng': osmLocationModel.latLng!,
+                                  'zoom': osmLocationModel.zoom ?? 16,
                                   'diameterOfCircle':
-                                      _osmLocationModel.radius ?? 100,
+                                      osmLocationModel.radius ?? 100,
                                 });
                           },
-                          icon: Icon(Icons.fullscreen)),
+                          icon: const Icon(Icons.fullscreen)),
                       IconButton(
                           onPressed: () async {
                             try {
-                              await openMaps(_osmLocationModel.latLng!.latitude,
-                                  _osmLocationModel.latLng!.longitude);
+                              await openMaps(osmLocationModel.latLng!.latitude,
+                                  osmLocationModel.latLng!.longitude);
                             } catch (e) {
                               print(e);
                             }
                           },
-                          icon: Icon(Icons.location_on_sharp)),
+                          icon: const Icon(Icons.location_on_sharp)),
                     ],
                   ),
                 ),
@@ -672,14 +672,14 @@ class CommonFunctions {
     String urlAppleMaps = '';
     if (Platform.isAndroid) {
       url = 'https://www.google.com/maps/search/?api=1&query=$lat,$lang';
-      await launch(url);
+      await launchUrl(Uri.parse(url));
     } else if (Platform.isIOS) {
       urlAppleMaps = 'https://maps.apple.com/?q=$lat,$lang';
       url = 'comgooglemaps://?saddr=&daddr=$lat,$lang&directionsmode=driving';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else if (await canLaunch(urlAppleMaps)) {
-        await launch(urlAppleMaps);
+      if (await canLaunchUrl(Uri.parse(url))) {
+        await launchUrl(Uri.parse(url));
+      } else if (await canLaunchUrl(Uri.parse(urlAppleMaps))) {
+        await launchUrl(Uri.parse(urlAppleMaps));
       } else {
         throw 'Could not launch $url';
       }
@@ -690,9 +690,9 @@ class CommonFunctions {
 }
 
 getTitle(String value) {
-  var _valueOf = valueOf(value);
-  if (_valueOf is FieldsEnum) {
-    return _valueOf.hintText;
+  var fieldView = valueOf(value);
+  if (fieldView is FieldsEnum) {
+    return fieldView.hintText;
   } else {
     return value;
   }

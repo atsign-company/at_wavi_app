@@ -26,13 +26,13 @@ class _DesktopProfilePrivatePageState extends State<DesktopProfilePrivatePage> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Spacer(),
+          const Spacer(),
           Image.asset(
             'assets/images/private_profile.png',
             fit: BoxFit.fitWidth,
             width: 120,
           ),
-          SizedBox(
+          const SizedBox(
             height: 16,
           ),
           Text(
@@ -43,7 +43,7 @@ class _DesktopProfilePrivatePageState extends State<DesktopProfilePrivatePage> {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Text(
@@ -54,7 +54,7 @@ class _DesktopProfilePrivatePageState extends State<DesktopProfilePrivatePage> {
               fontWeight: FontWeight.normal,
             ),
           ),
-          Spacer(),
+          const Spacer(),
         ],
       ),
     );

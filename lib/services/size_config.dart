@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 
 class SizeConfig {
   SizeConfig._();
 
-  static SizeConfig _instance = SizeConfig._();
+  static final SizeConfig _instance = SizeConfig._();
 
   factory SizeConfig() => _instance;
   late MediaQueryData _mediaQueryData;
@@ -12,7 +11,7 @@ class SizeConfig {
   late double screenHeight;
   late double blockSizeHorizontal;
   late double blockSizeVertical;
-  late double deviceTextFactor;
+  late TextScaler deviceTextFactor;
 
   late double _safeAreaHorizontal;
   late double _safeAreaVertical;
@@ -41,7 +40,7 @@ class SizeConfig {
     refHeight = 812;
     refWidth = 375;
 
-    deviceTextFactor = _mediaQueryData.textScaleFactor;
+    deviceTextFactor = TextScaler.linear(1);
 
     if (screenHeight < 1200) {
       blockSizeHorizontal = screenWidth / 100;
@@ -96,9 +95,9 @@ class SizeConfig {
 }
 
 extension SizeUtils on num {
-  double get toWidth => SizeConfig().getWidthRatio(this.toDouble());
+  double get toWidth => SizeConfig().getWidthRatio(toDouble());
 
-  double get toHeight => SizeConfig().getHeightRatio(this.toDouble());
+  double get toHeight => SizeConfig().getHeightRatio(toDouble());
 
-  double get toFont => SizeConfig().getFontRatio(this.toDouble());
+  double get toFont => SizeConfig().getFontRatio(toDouble());
 }

@@ -20,7 +20,10 @@ class DesktopHtmlPreviewPage extends StatelessWidget {
           Container(
             width: double.infinity,
             height: double.infinity,
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+                color: appTheme.backgroundColor,
+                borderRadius: BorderRadius.circular(8)),
             child: SingleChildScrollView(
               child: Container(
                 child: HtmlWidget(
@@ -29,9 +32,6 @@ class DesktopHtmlPreviewPage extends StatelessWidget {
                 ),
               ),
             ),
-            decoration: BoxDecoration(
-                color: appTheme.backgroundColor,
-                borderRadius: BorderRadius.circular(8)),
           ),
           Positioned(
             top: 0,

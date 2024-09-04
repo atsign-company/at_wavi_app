@@ -11,7 +11,7 @@ class AppTheme {
 
   Color get primaryLighterColor => brightness == Brightness.light
       ? primaryColor.withOpacity(0.05)
-      : Color(0xFF171717);
+      : const Color(0xFF171717);
 
   /// An accent color that, when used sparingly, calls attention to parts
   /// of your app.
@@ -63,29 +63,29 @@ class AppTheme {
     required this.borderColor,
     required this.shadowColor,
   }) {
-    this.textTheme = TextTheme(
-      headline1: TextStyle(fontSize: 96.0, color: primaryTextColor),
-      headline2: TextStyle(fontSize: 60.0, color: this.primaryTextColor),
-      headline3: TextStyle(fontSize: 48.0, color: this.primaryTextColor),
-      headline4: TextStyle(fontSize: 34.0, color: this.primaryTextColor),
-      headline5: TextStyle(fontSize: 24.0, color: this.primaryTextColor),
-      headline6: TextStyle(
+    textTheme = TextTheme(
+      displayLarge: TextStyle(fontSize: 96.0, color: primaryTextColor),
+      displayMedium: TextStyle(fontSize: 60.0, color: primaryTextColor),
+      displaySmall: TextStyle(fontSize: 48.0, color: primaryTextColor),
+      headlineMedium: TextStyle(fontSize: 34.0, color: primaryTextColor),
+      headlineSmall: TextStyle(fontSize: 24.0, color: primaryTextColor),
+      titleLarge: TextStyle(
           fontSize: 20.0,
-          color: this.primaryTextColor,
+          color: primaryTextColor,
           fontWeight: FontWeight.w500),
-      subtitle1: TextStyle(fontSize: 16.0, color: this.primaryTextColor),
-      subtitle2: TextStyle(
+      titleMedium: TextStyle(fontSize: 16.0, color: primaryTextColor),
+      titleSmall: TextStyle(
           fontSize: 14.0,
-          color: this.primaryTextColor,
+          color: primaryTextColor,
           fontWeight: FontWeight.w500),
-      bodyText1: TextStyle(fontSize: 16.0, color: this.primaryTextColor),
-      bodyText2: TextStyle(fontSize: 14.0, color: this.primaryTextColor),
-      button: TextStyle(
+      bodyLarge: TextStyle(fontSize: 16.0, color: primaryTextColor),
+      bodyMedium: TextStyle(fontSize: 14.0, color: primaryTextColor),
+      labelLarge: TextStyle(
           fontSize: 14.0,
-          color: this.primaryTextColor,
+          color: primaryTextColor,
           fontWeight: FontWeight.w500),
-      caption: TextStyle(fontSize: 12.0, color: this.primaryTextColor),
-      overline: TextStyle(fontSize: 14.0, color: this.primaryTextColor),
+      bodySmall: TextStyle(fontSize: 12.0, color: primaryTextColor),
+      labelSmall: TextStyle(fontSize: 14.0, color: primaryTextColor),
     );
   }
 
@@ -146,7 +146,7 @@ class AppTheme {
       colorScheme: ThemeData.dark().colorScheme.copyWith(
             brightness: brightness,
             primary: primaryColor,
-            background: backgroundColor,
+            surface: backgroundColor,
             secondary: accentColor,
           ),
     );

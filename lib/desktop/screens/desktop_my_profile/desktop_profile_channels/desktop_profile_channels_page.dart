@@ -8,7 +8,7 @@ class DesktopProfileChannelsPage extends StatefulWidget {
   final bool isMyProfile;
   final bool isEditable;
 
-  DesktopProfileChannelsPage({
+  const DesktopProfileChannelsPage({
     Key? key,
     required this.isMyProfile,
     required this.isEditable,
@@ -41,13 +41,14 @@ class _DesktopProfileChannelsPageState extends State<DesktopProfileChannelsPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Container(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               vertical: DesktopDimens.paddingNormal,
               horizontal: DesktopDimens.paddingExtraLarge,
             ),

@@ -11,7 +11,7 @@ class MockData {
   }
 
   static Map<String, List<String>> get getMockFieldOrders {
-    Map<String, List<String>> result = Map<String, List<String>>();
+    Map<String, List<String>> result = <String, List<String>>{};
     (jsonDecode(mockFieldOrders) as Map<String, dynamic>).forEach((key, value) {
       result[key] = (value as List<dynamic>).map((e) => e.toString()).toList();
     });
@@ -19,7 +19,7 @@ class MockData {
   }
 
   static Map<String, List<String>> get getMockPreviewOrders {
-    Map<String, List<String>> result = Map<String, List<String>>();
+    Map<String, List<String>> result = <String, List<String>>{};
     (jsonDecode(mockPreviewOrders) as Map<String, dynamic>)
         .forEach((key, value) {
       result[key] = (value as List<dynamic>).map((e) => e.toString()).toList();
@@ -97,7 +97,7 @@ class MockData {
   }
 }
 
-final mockFieldOrders = """
+const mockFieldOrders = """
 {
   "DETAILS": [
     "firstname",
@@ -133,7 +133,7 @@ final mockFieldOrders = """
 }
 """;
 
-final mockPreviewOrders = """
+const mockPreviewOrders = """
 {
   "DETAILS": [
     "firstname",
@@ -169,7 +169,7 @@ final mockPreviewOrders = """
 }
 """;
 
-final mockUser = """
+const mockUser = """
 {
   "allPrivate": false,
   "atsign": "@13nearbyblue",
@@ -222,7 +222,7 @@ final mockUser = """
     "path": null
   },
   "location": {
-    "value": \"{\\\"location\\\":\\\"null\\\",\\\"radius\\\":\\\"null\\\",\\\"diameter\\\":\\\"100.0\\\",\\\"zoom\\\":\\\"16.0\\\",\\\"latitude\\\":\\\"37.33233141\\\",\\\"longitude\\\":\\\"-122.0312186\\\"}\",
+    "value": "{\\"location\\":\\"null\\",\\"radius\\":\\"null\\",\\"diameter\\":\\"100.0\\",\\"zoom\\":\\"16.0\\",\\"latitude\\":\\"37.33233141\\",\\"longitude\\":\\"-122.0312186\\"}",
     "isPrivate": false,
     "accountName": "Home",
     "valueDescription": null,
@@ -230,7 +230,7 @@ final mockUser = """
     "path": null
   },
   "locationnickname": {
-    "value": \"{\\\"location\\\":\\\"null\\\",\\\"radius\\\":\\\"null\\\",\\\"diameter\\\":\\\"100.0\\\",\\\"zoom\\\":\\\"16.0\\\",\\\"latitude\\\":\\\"37.33233141\\\",\\\"longitude\\\":\\\"-122.0312186\\\"}\",
+    "value": "{\\"location\\":\\"null\\",\\"radius\\":\\"null\\",\\"diameter\\":\\"100.0\\",\\"zoom\\":\\"16.0\\",\\"latitude\\":\\"37.33233141\\",\\"longitude\\":\\"-122.0312186\\"}",
     "isPrivate": false,
     "accountName": "Coffee",
     "valueDescription": null,
@@ -336,7 +336,7 @@ final mockUser = """
   "customFields": {
     "LOCATION": [
       {
-        "value": \"{\\\"location\\\":\\\"null\\\",\\\"radius\\\":\\\"null\\\",\\\"diameter\\\":\\\"100.0\\\",\\\"zoom\\\":\\\"16.0\\\",\\\"latitude\\\":\\\"37.33233141\\\",\\\"longitude\\\":\\\"-122.0312186\\\"}\",
+        "value": "{\\"location\\":\\"null\\",\\"radius\\":\\"null\\",\\"diameter\\":\\"100.0\\",\\"zoom\\":\\"16.0\\",\\"latitude\\":\\"37.33233141\\",\\"longitude\\":\\"-122.0312186\\"}",
         "isPrivate": false,
         "accountName": "Office",
         "valueDescription": "",

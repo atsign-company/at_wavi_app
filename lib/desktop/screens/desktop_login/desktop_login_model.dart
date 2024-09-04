@@ -18,7 +18,7 @@ class DesktopLoginModel extends ChangeNotifier {
     await BackendService()
         .getAtClientPreference()
         .then((value) => atClientPreference = value)
-        .catchError((e) => print(e));
+        .catchError((e) {print(e); return e;});
 
     if (currentAtSign != null && currentAtSign != '') {
       await BackendService().onboard(

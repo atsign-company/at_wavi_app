@@ -64,17 +64,17 @@ class DesktopBasicInfoWidget extends StatelessWidget {
     bool isEmail = data.displayingAccountName == "Email";
     final appTheme = AppTheme.of(context);
     return Container(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         minHeight: 52,
       ),
       child: Row(
         children: [
-          SizedBox(width: DesktopDimens.paddingNormal),
-          Container(
+          const SizedBox(width: DesktopDimens.paddingNormal),
+          SizedBox(
             width: 150,
             child: Text(
               getTitle(data.displayingAccountName ?? ''),
-              style: appTheme.textTheme.bodyText2?.copyWith(
+              style: appTheme.textTheme.bodyMedium?.copyWith(
                 color: appTheme.secondaryTextColor,
               ),
             ),
@@ -99,7 +99,7 @@ class DesktopBasicInfoWidget extends StatelessWidget {
                 },
                 child: Text(
                   data.value ?? '',
-                  style: appTheme.textTheme.bodyText2?.copyWith(
+                  style: appTheme.textTheme.bodyMedium?.copyWith(
                     color: isUrl || isEmail ? Colors.blue : appTheme.primaryTextColor,
                   ),
                 ),
@@ -116,17 +116,17 @@ class DesktopBasicInfoWidget extends StatelessWidget {
   Widget _youtubeContent(BuildContext context) {
     final appTheme = AppTheme.of(context);
     return Container(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         minHeight: 52,
       ),
       child: Row(
         children: [
-          SizedBox(width: DesktopDimens.paddingNormal),
-          Container(
+          const SizedBox(width: DesktopDimens.paddingNormal),
+          SizedBox(
             width: 150,
             child: Text(
               getTitle(data.displayingAccountName ?? ''),
-              style: appTheme.textTheme.bodyText2?.copyWith(
+              style: appTheme.textTheme.bodyMedium?.copyWith(
                 color: appTheme.secondaryTextColor,
               ),
             ),
@@ -135,13 +135,13 @@ class DesktopBasicInfoWidget extends StatelessWidget {
             child: GestureDetector(
               onTap: () async {
                 try {
-                  await launch(data.value ?? '');
+                  await launchUrl(data.value ?? '');
                 } catch (e) {}
               },
               child: Container(
                 child: Text(
                   data.value ?? '',
-                  style: appTheme.textTheme.bodyText2?.copyWith(
+                  style: appTheme.textTheme.bodyMedium?.copyWith(
                     color: Colors.blue,
                   ),
                 ),
@@ -158,13 +158,13 @@ class DesktopBasicInfoWidget extends StatelessWidget {
   Widget _imageContent(BuildContext context) {
     final appTheme = AppTheme.of(context);
     return Container(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         minHeight: 70,
       ),
       child: Row(
         children: [
-          SizedBox(width: DesktopDimens.paddingNormal),
-          Container(
+          const SizedBox(width: DesktopDimens.paddingNormal),
+          SizedBox(
             width: 150,
             child: Text(
               getTitle(data.displayingAccountName ?? ''),
@@ -180,7 +180,7 @@ class DesktopBasicInfoWidget extends StatelessWidget {
                     vertical: DesktopDimens.paddingSmall),
                 child: Container(
                   alignment: Alignment.centerLeft,
-                  constraints: BoxConstraints(
+                  constraints: const BoxConstraints(
                     maxWidth: 200,
                     maxHeight: 200,
                   ),
@@ -204,13 +204,13 @@ class DesktopBasicInfoWidget extends StatelessWidget {
   Widget _htmlContent(BuildContext context) {
     final appTheme = AppTheme.of(context);
     return Container(
-      constraints: BoxConstraints(
+      constraints: const BoxConstraints(
         minHeight: 70,
       ),
       child: Row(
         children: [
-          SizedBox(width: DesktopDimens.paddingNormal),
-          Container(
+          const SizedBox(width: DesktopDimens.paddingNormal),
+          SizedBox(
             width: 150,
             child: Text(
               getTitle(data.displayingAccountName ?? ''),
@@ -220,18 +220,18 @@ class DesktopBasicInfoWidget extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 top: DesktopDimens.paddingSmall,
                 bottom: DesktopDimens.paddingSmall,
                 right: DesktopDimens.paddingSmall,
               ),
+              decoration: const BoxDecoration(
+                  // border: Border.all(color: appTheme.primaryTextColor, width: 1),
+                  ),
               child: HtmlWidget(
                 data.value,
                 // hyperlinkColor: Colors.blue, //Todo
               ),
-              decoration: BoxDecoration(
-                  // border: Border.all(color: appTheme.primaryTextColor, width: 1),
-                  ),
             ),
           ),
           _buildVisibleWidget(context),
@@ -244,27 +244,27 @@ class DesktopBasicInfoWidget extends StatelessWidget {
   Widget _buildVisibleWidget(BuildContext context) {
     final appTheme = AppTheme.of(context);
     if (!showMenu) {
-      return SizedBox();
+      return const SizedBox();
     }
     return PopupMenuButton(
       itemBuilder: (context) => [
         PopupMenuItem(
+          value: 0,
           child: SizedBox(
             child: Text(
               "Public",
-              style: appTheme.textTheme.bodyText2,
+              style: appTheme.textTheme.bodyMedium,
             ),
           ),
-          value: 0,
         ),
         PopupMenuItem(
+          value: 1,
           child: SizedBox(
             child: Text(
               "Private",
-              style: appTheme.textTheme.bodyText2,
+              style: appTheme.textTheme.bodyMedium,
             ),
           ),
-          value: 1,
         ),
       ],
       tooltip: '',
@@ -295,31 +295,31 @@ class DesktopBasicInfoWidget extends StatelessWidget {
 
   Widget _buildMenuWidget(BuildContext context) {
     if (!showMenu) {
-      return SizedBox(width: 48);
+      return const SizedBox(width: 48);
     }
     if (!isCustomField) {
-      return SizedBox(width: 48);
+      return const SizedBox(width: 48);
     }
     final appTheme = AppTheme.of(context);
     return PopupMenuButton(
       itemBuilder: (context) => [
         PopupMenuItem(
+          value: 0,
           child: SizedBox(
             child: Text(
               "Edit",
-              style: appTheme.textTheme.bodyText2,
+              style: appTheme.textTheme.bodyMedium,
             ),
           ),
-          value: 0,
         ),
         PopupMenuItem(
+          value: 1,
           child: SizedBox(
             child: Text(
               "Delete",
-              style: appTheme.textTheme.bodyText2,
+              style: appTheme.textTheme.bodyMedium,
             ),
           ),
-          value: 1,
         ),
       ],
       tooltip: null,

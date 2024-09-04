@@ -61,45 +61,45 @@ class DesktopAddBasicDetailModel extends ChangeNotifier {
   }
 
   Future addCustomField(BuildContext context) async {
-    final _basicData = BasicData();
+    final basicData = BasicData();
     if (_fieldType == CustomContentType.Image && selectedMedia == null) {
       CommonFunctions().showSnackBar(Strings.desktop_please_add_image);
       return;
     }
-    _basicData.accountName = titleTextController.text.trim();
-    _basicData.isPrivate = showHideController.isShow == false;
+    basicData.accountName = titleTextController.text.trim();
+    basicData.isPrivate = showHideController.isShow == false;
     if (_fieldType != CustomContentType.Image) {
-      _basicData.value = valueContentTextController.text;
+      basicData.value = valueContentTextController.text;
     } else {
-      _basicData.value = selectedMedia;
+      basicData.value = selectedMedia;
     }
-    _basicData.type = fieldType.name;
+    basicData.type = fieldType.name;
 
     List<BasicData>? customFields =
         userPreview.user()!.customFields[atCategory.name];
-    customFields!.add(_basicData);
+    customFields!.add(basicData);
 
     userPreview.user()?.customFields[atCategory.name] = customFields;
 
-    FieldOrderService().addNewField(atCategory, _basicData.accountName!);
+    FieldOrderService().addNewField(atCategory, basicData.accountName!);
     userPreview.notifyListeners();
     Navigator.of(context).pop();
   }
 
   Future updateCustomField(BuildContext context) async {
-    final _basicData = BasicData();
+    final basicData = BasicData();
     if (_fieldType == CustomContentType.Image && _selectedMedia == null) {
       CommonFunctions().showSnackBar(Strings.desktop_please_add_image);
       return;
     }
-    _basicData.accountName = titleTextController.text.trim();
-    _basicData.isPrivate = showHideController.isShow == false;
+    basicData.accountName = titleTextController.text.trim();
+    basicData.isPrivate = showHideController.isShow == false;
     if (_fieldType != CustomContentType.Image) {
-      _basicData.value = valueContentTextController.text;
+      basicData.value = valueContentTextController.text;
     } else {
-      _basicData.value = selectedMedia;
+      basicData.value = selectedMedia;
     }
-    _basicData.type = fieldType.name;
+    basicData.type = fieldType.name;
 
     List<BasicData>? customFields =
         userPreview.user()!.customFields[atCategory.name];
@@ -108,13 +108,13 @@ class DesktopAddBasicDetailModel extends ChangeNotifier {
             (element) => element.accountName == originBasicData?.accountName) ??
         -1;
     if (index >= 0) {
-      customFields![index] = _basicData;
+      customFields![index] = basicData;
     }
 
     // if account name changes then add field to delete
     if (originBasicData?.accountName != null &&
         originBasicData?.accountName!.trim() !=
-            _basicData.accountName!.trim()) {
+            basicData.accountName!.trim()) {
       UserPreview().addFieldToDelete(atCategory, originBasicData!);
     }
 
@@ -122,7 +122,7 @@ class DesktopAddBasicDetailModel extends ChangeNotifier {
     FieldOrderService().updateSingleField(
       atCategory,
       originBasicData?.accountName ?? '',
-      _basicData.accountName ?? '',
+      basicData.accountName ?? '',
     );
     userPreview.notifyListeners();
     Navigator.of(context).pop();

@@ -1,7 +1,8 @@
 import 'package:at_wavi_app/services/common_functions.dart';
 import 'package:at_wavi_app/utils/at_enum.dart';
 import 'package:at_wavi_app/utils/text_styles.dart';
-import 'package:at_wavi_app/utils/theme.dart';
+// commenting out since its not being used
+// import 'package:at_wavi_app/utils/theme.dart';
 import 'package:at_wavi_app/view_models/theme_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:at_wavi_app/services/size_config.dart';
@@ -10,13 +11,14 @@ import 'package:provider/provider.dart';
 class HomeDetails extends StatefulWidget {
   final ThemeData? themeData;
   final bool isPreview;
-  HomeDetails({this.themeData, this.isPreview = false});
+  const HomeDetails({Key? key, this.themeData, this.isPreview = false}) : super(key: key);
   @override
   _HomeDetailsState createState() => _HomeDetailsState();
 }
 
 class _HomeDetailsState extends State<HomeDetails> {
-  late bool _isDark = false;
+  // Removed the unused field since its not being used 
+  //  late bool _isDark = false;
   ThemeData? _themeData;
 
   @override
@@ -36,10 +38,12 @@ class _HomeDetailsState extends State<HomeDetails> {
           await Provider.of<ThemeProvider>(context, listen: false).getTheme();
     }
 
-    if (_themeData!.scaffoldBackgroundColor ==
-        Themes.darkTheme().scaffoldBackgroundColor) {
-      _isDark = true;
-    }
+
+// commenting out since its not being used
+    // if (_themeData!.scaffoldBackgroundColor ==
+    //     Themes.darkTheme().scaffoldBackgroundColor) {
+    //   _isDark = true;
+    // }
 
     if (mounted) {
       setState(() {});
@@ -49,7 +53,7 @@ class _HomeDetailsState extends State<HomeDetails> {
   @override
   Widget build(BuildContext context) {
     if (_themeData == null) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     } else {
       return Container(
         child: Column(
@@ -62,7 +66,7 @@ class _HomeDetailsState extends State<HomeDetails> {
                     style:
                         TextStyles.boldText(_themeData!.primaryColor, size: 18),
                   )
-                : SizedBox(),
+                : const SizedBox(),
             SizedBox(height: 15.toHeight),
             Column(
               children: CommonFunctions().getCustomCardForFields(
@@ -81,7 +85,7 @@ class _HomeDetailsState extends State<HomeDetails> {
                 ? Text('Additional Details',
                     style:
                         TextStyles.boldText(_themeData!.primaryColor, size: 18))
-                : SizedBox(),
+                : const SizedBox(),
             SizedBox(height: 15.toHeight),
             Column(
               children: CommonFunctions().getCustomCardForFields(
@@ -99,7 +103,7 @@ class _HomeDetailsState extends State<HomeDetails> {
                 ? Text('Location',
                     style:
                         TextStyles.boldText(_themeData!.primaryColor, size: 18))
-                : SizedBox(),
+                : const SizedBox(),
             SizedBox(height: 15.toHeight),
             Column(
               children: CommonFunctions().getAllLocationCards(_themeData!,

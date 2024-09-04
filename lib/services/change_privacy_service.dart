@@ -11,7 +11,7 @@ import 'at_key_set_service.dart';
 
 class ChangePrivacyService {
   ChangePrivacyService._();
-  static ChangePrivacyService _instance = ChangePrivacyService._();
+  static final ChangePrivacyService _instance = ChangePrivacyService._();
   factory ChangePrivacyService() => _instance;
 
   late User user;
@@ -28,7 +28,7 @@ class ChangePrivacyService {
       }
 
       try {
-        var data = this.get(field.name);
+        var data = get(field.name);
         if (data.value != null) {
           // String key = atkeys.get(field.name);
           var isUpdated = await AtKeySetService()
@@ -41,18 +41,13 @@ class ChangePrivacyService {
     }
     // storing custom fields
     Map<String, List<BasicData>> customFields = user.customFields;
-    if (customFields != null) {
-      for (var field in customFields.entries) {
-        if (field.value == null) {
-          continue;
-        }
-        var isUpdated = await AtKeySetService()
-            .updateCustomFields(field.key, field.value, scanKeys: scanKeys);
-        print('For $field update $isUpdated');
-        if (!isUpdated) return isUpdated;
-      }
+    for (var field in customFields.entries) {
+      var isUpdated = await AtKeySetService()
+          .updateCustomFields(field.key, field.value, scanKeys: scanKeys);
+      print('For $field update $isUpdated');
+      if (!isUpdated) return isUpdated;
     }
-    return true;
+      return true;
   }
 
   setAllPrivate(bool private, User user) async {
@@ -106,7 +101,7 @@ class ChangePrivacyService {
 
   dynamic setPrivacy(property, bool value) async {
     try {
-      BasicData field = this.get(property);
+      BasicData field = get(property);
       // if (user.allPrivate != null && user.allPrivate == true)
       //   field.isPrivate = true;
       // else
@@ -120,7 +115,7 @@ class ChangePrivacyService {
       if (field.value == null) {
         return;
       }
-      print('vaslue ${field.value} ${property}');
+      print('vaslue ${field.value} $property');
       // await AtKeySetService().update(field, property, isCheck: true);
     } catch (e) {
       print('error in setPrivacy for $property');
@@ -128,9 +123,9 @@ class ChangePrivacyService {
   }
 
   dynamic get(String propertyName) {
-    var _mapRep = _toMap();
-    if (_mapRep.containsKey(propertyName)) {
-      return _mapRep[propertyName];
+    var mapRep = _toMap();
+    if (mapRep.containsKey(propertyName)) {
+      return mapRep[propertyName];
     }
     throw ArgumentError('$propertyName propery not found');
   }

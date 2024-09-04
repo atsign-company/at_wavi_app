@@ -57,7 +57,7 @@ class _DesktopAddLocationPageState extends State<DesktopAddLocationPage> {
             width: MediaQuery.of(context).size.width / 2,
             decoration: BoxDecoration(
               color: appTheme.backgroundColor,
-              borderRadius: BorderRadius.all(Radius.circular(8)),
+              borderRadius: const BorderRadius.all(Radius.circular(8)),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -81,7 +81,7 @@ class _DesktopAddLocationPageState extends State<DesktopAddLocationPage> {
                                     absorbing: true,
                                     child: FlutterMap(
                                       options: MapOptions(
-                                        boundsOptions: FitBoundsOptions(
+                                        boundsOptions: const FitBoundsOptions(
                                             padding: EdgeInsets.all(0)),
                                         center: model.osmLocationModel?.latLng,
                                         zoom: model.osmLocationModel?.zoom ??
@@ -134,15 +134,15 @@ class _DesktopAddLocationPageState extends State<DesktopAddLocationPage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(DesktopDimens.paddingNormal),
+                  padding: const EdgeInsets.all(DesktopDimens.paddingNormal),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         'Location',
-                        style: appTheme.textTheme.bodyText2,
+                        style: appTheme.textTheme.bodyMedium,
                       ),
-                      SizedBox(height: DesktopDimens.paddingNormal),
+                      const SizedBox(height: DesktopDimens.paddingNormal),
                       GestureDetector(
                         onTap: openSearchLocation,
                         child: Container(
@@ -159,25 +159,25 @@ class _DesktopAddLocationPageState extends State<DesktopAddLocationPage> {
                                 model.osmLocationModel != null
                                     ? 'Change'
                                     : 'Search',
-                                style: appTheme.textTheme.button
+                                style: appTheme.textTheme.labelLarge
                                     ?.copyWith(color: appTheme.primaryColor),
                               ),
-                              SizedBox(width: DesktopDimens.paddingNormal),
+                              const SizedBox(width: DesktopDimens.paddingNormal),
                             ],
                           ),
                         ),
                       ),
-                      SizedBox(height: DesktopDimens.paddingNormal),
+                      const SizedBox(height: DesktopDimens.paddingNormal),
                       Text(
                         'Tag',
-                        style: appTheme.textTheme.bodyText2,
+                        style: appTheme.textTheme.bodyMedium,
                       ),
-                      SizedBox(height: DesktopDimens.paddingSmall),
-                      Container(
+                      const SizedBox(height: DesktopDimens.paddingSmall),
+                      SizedBox(
                         height: 48,
                         child: TextFormField(
                           controller: model.tagTextController,
-                          style: appTheme.textTheme.bodyText2?.copyWith(
+                          style: appTheme.textTheme.bodyMedium?.copyWith(
                             color: appTheme.primaryTextColor,
                           ),
                           decoration: InputDecoration(
@@ -192,7 +192,7 @@ class _DesktopAddLocationPageState extends State<DesktopAddLocationPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: DesktopDimens.paddingLarge),
+                      const SizedBox(height: DesktopDimens.paddingLarge),
                       Row(
                         children: [
                           Expanded(
@@ -204,7 +204,7 @@ class _DesktopAddLocationPageState extends State<DesktopAddLocationPage> {
                               },
                             ),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: DesktopButton(
                               title: 'Save',
@@ -246,7 +246,7 @@ class _DesktopAddLocationPageState extends State<DesktopAddLocationPage> {
   void openSearchLocation() async {
     final result = await showDialog(
       context: context,
-      builder: (BuildContext context) => Dialog(
+      builder: (BuildContext context) => const Dialog(
         backgroundColor: Colors.transparent,
         child: DesktopSearchLocationPage(),
       ),

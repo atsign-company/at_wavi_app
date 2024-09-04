@@ -36,14 +36,14 @@ class LoadingDialog {
                                             fontWeight: FontWeight.w400,
                                             decoration: TextDecoration.none)),
                                   )
-                                : SizedBox(),
+                                : const SizedBox(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Flexible(
                                   child: Text(
                                     text,
-                                    textScaleFactor: 1,
+                                    textScaler: TextScaler.linear(1),
                                     style: TextStyle(
                                         color: ColorConstants.MILD_GREY,
                                         fontSize: 20.toFont,
@@ -51,7 +51,7 @@ class LoadingDialog {
                                         decoration: TextDecoration.none),
                                   ),
                                 ),
-                                TypingIndicator(
+                                const TypingIndicator(
                                   showIndicator: true,
                                   flashingCircleBrightColor:
                                       ColorConstants.LIGHT_GREY,
@@ -62,7 +62,7 @@ class LoadingDialog {
                             ),
                           ],
                         )
-                      : CircularProgressIndicator(),
+                      : const CircularProgressIndicator(),
                 );
               },
               barrierDismissible: false))
@@ -78,7 +78,7 @@ class LoadingDialog {
         Flexible(
           child: Text(
             text,
-            textScaleFactor: 1,
+          textScaler: TextScaler.linear(1),
             style: style ??
                 TextStyle(
                     color: ColorConstants.DARK_GREY,
@@ -87,7 +87,7 @@ class LoadingDialog {
                     decoration: TextDecoration.none),
           ),
         ),
-        TypingIndicator(
+        const TypingIndicator(
           showIndicator: true,
           flashingCircleBrightColor: ColorConstants.LIGHT_GREY,
           flashingCircleDarkColor: ColorConstants.DARK_GREY,

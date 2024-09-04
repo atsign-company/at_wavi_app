@@ -35,7 +35,7 @@ class PreviewLocation extends StatelessWidget {
       ),
       body: FlutterMap(
         options: MapOptions(
-          boundsOptions: FitBoundsOptions(padding: EdgeInsets.all(0)),
+          boundsOptions: const FitBoundsOptions(padding: EdgeInsets.all(0)),
           center: latLng,
           zoom: zoom,
         ),

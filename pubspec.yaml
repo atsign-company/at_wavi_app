@@ -17,7 +17,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 
 # For mobile version
-version: 1.0.7+29
+version: 1.0.8+30
 # For desktop version macos
 # version: 1.0.2+16
 # For desktop version windows
@@ -76,6 +76,15 @@ dependencies:
   new_version: ^0.3.1
   another_flushbar: ^1.12.30
 
+  geolocator: any
+  http_client_helper: any
+  at_client: any
+  cached_network_image: any
+  webview_flutter: any
+  at_backupkey_flutter: any
+  collection: any
+  qr_code_scanner: any
+  package_info_plus: any
 dependency_overrides:
   http: ^1.2.1
   package_info_plus: ^5.0.0
