@@ -646,13 +646,8 @@ class _AddCustomFieldState extends State<AddCustomField> {
                           ),
                           onPressed: () {
                             setState(() {
-<<<<<<< HEAD
                               // _htmlEditorKey =
                               //     UniqueKey(); // to re-render the html editor
-=======
-                              _htmlEditorKey =
-                                  UniqueKey(); // to re-render the html editor
->>>>>>> be86b97 (fixed issues from dart analyze)
                               basicData.valueDescription = value;
                             });
                             Navigator.of(context).pop();

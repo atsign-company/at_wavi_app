@@ -98,7 +98,6 @@ class _EditPersonaState extends State<EditPersona>
 
     _themeColor = Provider.of<ThemeProvider>(context, listen: false).themeColor;
 
-<<<<<<< HEAD
     return PopScope(
   canPop: false,
   onPopInvoked: (didPop) async {
@@ -122,29 +121,6 @@ class _EditPersonaState extends State<EditPersona>
       Navigator.of(context).pop();
     }
   },
-=======
-    return WillPopScope(
-      onWillPop: () async {
-        var changes = _calculateChanges();
-        if (changes) {
-          var res = await _confirmationDialog();
-          if (res == null) {
-            return false;
-          }
-
-          if (res == true) {
-            await _saveButtonCall();
-            return false;
-          } else {
-            Navigator.of(context).pop();
-            return true;
-          }
-        } else {
-          Navigator.of(context).pop();
-          return true;
-        }
-      },
->>>>>>> be86b97 (fixed issues from dart analyze)
       child: Scaffold(
           key: scaffoldKey,
           bottomSheet: _bottomSheet(),
